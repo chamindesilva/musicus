@@ -10,6 +10,7 @@ import jade.core.behaviours.TickerBehaviour;
  * Date: 9/2/13
  * Time: 10:33 PM
  * java -cp lib\jade.jar;classes jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent
+ * java -cp lib\jade.jar;MusicUs\MusicUsPlatform.jar jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent
  */
 public class SearchSongsAgent extends Agent
 {
