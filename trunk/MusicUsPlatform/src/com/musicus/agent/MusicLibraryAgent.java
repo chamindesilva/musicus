@@ -22,7 +22,7 @@ import java.util.Set;
  * Time: 7:57 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MusicLibraryAgent extends Agent
+public class MusicLibraryAgent extends MusicUsAgent
 {
     private Map<String, Object> musicLibrary;   // use a hash table for order preservation. Object is a Song object of features list
 
@@ -32,21 +32,8 @@ public class MusicLibraryAgent extends Agent
         musicLibrary = new HashMap<String, Object>();
 
         // Register the book-selling service in the yellow pages
-        DFAgentDescription dfd = new DFAgentDescription();
-        dfd.setName( getAID() );
-        ServiceDescription sd = new ServiceDescription();
-        sd.setType( Constants.MUSIC_LIBRARY );
-        sd.setName( Constants.MUSIC_LIBRARY + getAID().getName() );
-        dfd.addServices( sd );
-
-        try
-        {
-            DFService.register( this, dfd );
-        }
-        catch( FIPAException fe )
-        {
-            fe.printStackTrace();
-        }
+        String agentType = Constants.MUSIC_LIBRARY;
+        registerAgent( agentType );
 
         addBehaviour( new CyclicBehaviour( )
         {
@@ -73,7 +60,7 @@ public class MusicLibraryAgent extends Agent
             }
         } );
 
-        addBehaviour( new TickerBehaviour( this, 2* 60 * 1000)
+        addBehaviour( new TickerBehaviour( this, 2 * 60 * 1000 )
         {
             @Override protected void onTick()
             {
@@ -86,17 +73,13 @@ public class MusicLibraryAgent extends Agent
         } );
     }
 
-    @Override protected void takeDown()
+    @Override protected void addBehaviours()
     {
-        try
-        {
-            DFService.deregister( this );
-        }
-        catch( FIPAException fe )
-        {
-            fe.printStackTrace();
-        }
-        // Printout a dismissal message
-        System.out.println( "Seller - agent " + getAID().getName() + "terminating." );
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override protected String getAgentType()
+    {
+        return Constants.MUSIC_LIBRARY;
     }
 }
