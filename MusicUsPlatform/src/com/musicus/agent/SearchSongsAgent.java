@@ -13,13 +13,17 @@ import jade.core.behaviours.TickerBehaviour;
  * java -cp lib\jade.jar;MusicUs\MusicUsPlatform.jar jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent
  * java -cp lib\jade.jar;MusicUs\MusicUsPlatform.jar jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent;musicLib:com.musicus.agent.MusicLibraryAgent
  */
-public class SearchSongsAgent extends Agent
+public class SearchSongsAgent extends MusicUsAgent
 {
-
-    @Override protected void setup()
+    @Override protected void addBehaviours()
     {
-        System.out.println( "Hello! SearchSongsAgent " + getAID().getName() + " is ready." );
-
         addBehaviour( new SearchUpdatesInLibBehaviour( this, 60 * 1000 ) );
     }
+
+    @Override protected String getAgentType()
+    {
+        return Constants.MUSIC_SEARCH;
+    }
+
+
 }

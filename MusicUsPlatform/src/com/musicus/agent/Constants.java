@@ -10,6 +10,9 @@ package com.musicus.agent;
 public class Constants
 {
     public static final String NEW_MUSIC_INFORM = "newMusicProposal";
-    public static final String MUSIC_LIBRARY = "music-library";
+
+    public static final String MUSIC_SEARCH     = "music_search";
+    public static final String MUSIC_LIBRARY    = "music-library";
+
     public static final String MP3_EXTENTION = ".mp3";
 }
