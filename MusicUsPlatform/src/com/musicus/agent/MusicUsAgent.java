@@ -1,6 +1,6 @@
 package com.musicus.agent;
 
-import com.musicus.agent.behaviour.SearchUpdatesInLibBehaviour;
+import jade.core.AID;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -20,9 +20,12 @@ public abstract class MusicUsAgent extends Agent
     {
         log( getAID().getName(), "Hello! ", getAID().getName(), " is ready." );
 
+        init();
         registerAgent( getAgentType() );
         addBehaviours();
     }
+
+    protected abstract void init();
 
     protected abstract String getAgentType();
 
@@ -58,10 +61,39 @@ public abstract class MusicUsAgent extends Agent
         {
             fe.printStackTrace();
         }
-        log( getAID().getName(), "Agent " + getAID().getName() + "terminating." );
+        log( getAID().getName(), "Agent ", getAID().getName(), "terminating." );
     }
 
-    protected void log( String agentName, String... logParts )
+    public static AID[] getAgents( Agent callFromAgent )
+    {
+        return MusicUsAgent.getAgents( getAgentTypeCode(), callFromAgent );
+    }
+
+    public static AID[] getAgents( String agentCodeToSearch, Agent callFromAgent )
+    {
+        AID[] foundAgents = null;
+        DFAgentDescription template = new DFAgentDescription();
+        ServiceDescription sd = new ServiceDescription();
+        sd.setType( agentCodeToSearch );
+        template.addServices( sd );
+        try
+        {
+            DFAgentDescription[] result = DFService.search( callFromAgent, template );
+            foundAgents = new AID[result.length];
+            for( int i = 0; i < result.length; ++i )
+            {
+                foundAgents[i] = result[i].getName();
+            }
+        }
+        catch( FIPAException e )
+        {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+        return foundAgents;
+    }
+
+    public static void log( String agentName, String... logParts )
     {
         if( logParts != null && logParts.length != 0 )
         {

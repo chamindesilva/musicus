@@ -1,7 +1,5 @@
 package com.musicus.agent;
 
-import jade.core.Agent;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Chamin
@@ -14,11 +12,18 @@ public class FeatureExtractorAgent extends MusicUsAgent
     // Use FeatureExtractor MainFrame @ songsRebuildBtnActionPerformed()
     // change to dm.featureKey = new ByteArrayOutputStream();
 
-
-    @Override protected void setup()
+    @Override protected void addBehaviours()
     {
-        System.out.println( "Hello! FeatureExtractorAgent " + getAID().getName() + " is ready." );
+//        addBehaviour( new SearchUpdatesInLibBehaviour( this, 60 * 1000 ) );
+    }
 
+    @Override protected String getAgentType()
+    {
+        return getAgentTypeCode();
+    }
 
+    public static String getAgentTypeCode()
+    {
+        return Constants.FEATURE_EXTRACTOR;
     }
 }

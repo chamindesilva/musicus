@@ -13,6 +13,7 @@ public class Constants
 
     public static final String MUSIC_SEARCH     = "music_search";
     public static final String MUSIC_LIBRARY    = "music-library";
+    public static final String FEATURE_EXTRACTOR = "feature-extractor";
 
     public static final String MP3_EXTENTION = ".mp3";
 }

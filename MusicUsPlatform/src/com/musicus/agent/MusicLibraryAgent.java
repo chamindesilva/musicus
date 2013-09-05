@@ -1,19 +1,13 @@
 package com.musicus.agent;
 
-import com.musicus.agent.behaviour.SearchUpdatesInLibBehaviour;
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.TickerBehaviour;
-import jade.domain.DFService;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
-import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,18 +18,17 @@ import java.util.Set;
  */
 public class MusicLibraryAgent extends MusicUsAgent
 {
-    private Map<String, Object> musicLibrary;   // use a hash table for order preservation. Object is a Song object of features list
+    private Map<String, Map<String, Double>> musicLibrary;   // use a hash table for order preservation. Object is a Song object of features list
 
-    @Override protected void setup()
+    @Override protected void init()
     {
-        System.out.println( "Hello! MusicLibraryAgent " + getAID().getName() + " is ready." );
-        musicLibrary = new HashMap<String, Object>();
+        musicLibrary = new HashMap<String, Map<String, Double>>();
+    }
 
-        // Register the book-selling service in the yellow pages
-        String agentType = Constants.MUSIC_LIBRARY;
-        registerAgent( agentType );
-
-        addBehaviour( new CyclicBehaviour( )
+    @Override protected void addBehaviours()
+    {
+        // Handle information on possible new song information messages
+        addBehaviour( new CyclicBehaviour()
         {
             @Override public void action()
             {
@@ -45,12 +38,22 @@ public class MusicLibraryAgent extends MusicUsAgent
                 {
                     // Message received. Process it
                     String song = msg.getContent();
-                    System.out.println( "MusicLibraryAgent " + getAID().getName() + " received song " + song );
+                    MusicUsAgent.log( getAID().getName(), "MusicLibraryAgent ", getAID().getName(), " received song ", song );
 
                     // if message contains a song that library doesn't contain, send it to analyser
                     if( !musicLibrary.containsKey( song ) )
                     {
                         musicLibrary.put( song, null );
+
+                        ACLMessage newSongInform = new ACLMessage( ACLMessage.INFORM );
+                        for( AID musicLibrary : musicLibrary )
+                        {
+                            newSongInform.addReceiver( musicLibrary );
+                        }
+                        newSongInform.setContent( newMusicFile );   // Can also send byte arrays, serializable objects
+                        newSongInform.setConversationId( Constants.NEW_MUSIC_INFORM );
+                        newSongInform.setReplyWith( Constants.NEW_MUSIC_INFORM + System.currentTimeMillis() );
+                        myAgent.send( newSongInform );
                     }
                 }
                 else
@@ -60,25 +63,26 @@ public class MusicLibraryAgent extends MusicUsAgent
             }
         } );
 
-        addBehaviour( new TickerBehaviour( this, 2 * 60 * 1000 )
+        //
+        addBehaviour( new TickerBehaviour( this, (long) ( 1.0001 * 60 * 1000 ) )
         {
             @Override protected void onTick()
             {
-                System.out.println( "############ Music Library ############" );
+                MusicUsAgent.log( getAID().getName(), "############ Music Library ############" );
                 for( Map.Entry<String, Object> musicEntry : musicLibrary.entrySet() )
                 {
-                    System.out.println( "##" + musicEntry.getKey() );
+                    MusicUsAgent.log( getAID().getName(), "##", musicEntry.getKey() );
                 }
             }
         } );
     }
 
-    @Override protected void addBehaviours()
+    @Override protected String getAgentType()
     {
-        //To change body of implemented methods use File | Settings | File Templates.
+        return getAgentTypeCode();
     }
 
-    @Override protected String getAgentType()
+    public static String getAgentTypeCode()
     {
         return Constants.MUSIC_LIBRARY;
     }
