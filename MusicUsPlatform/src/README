@@ -1,0 +1,7 @@
+
+ * java -cp lib\jade.jar;classes jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent
+ * java -cp lib\jade.jar;MusicUs\MusicUsPlatform.jar jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent
+ * java -cp lib\jade.jar;MusicUs\MusicUsPlatform.jar jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent;musicLib:com.musicus.agent.MusicLibraryAgent
+ * java -cp lib\jade.jar;MusicUs\MusicUsPlatform.jar jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent;musicLib:com.musicus.agent.MusicLibraryAgent;featExtractor:com.musicus.agent.FeatureExtractorAgent
+
+ * C:\JADE\jade\MusicUs>java -cp .\jade.jar;.\* jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent;musicLib:com.musicus.agent.MusicLibraryAgent;featExtractor:com.musicus.agent.FeatureExtractorAgent

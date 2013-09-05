@@ -15,10 +15,6 @@ import java.util.List;
  * User: Chamin
  * Date: 9/2/13
  * Time: 10:33 PM
- * java -cp lib\jade.jar;classes jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent
- * java -cp lib\jade.jar;MusicUs\MusicUsPlatform.jar jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent
- * java -cp lib\jade.jar;MusicUs\MusicUsPlatform.jar jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent;musicLib:com.musicus.agent.MusicLibraryAgent
- * java -cp lib\jade.jar;MusicUs\MusicUsPlatform.jar jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent;musicLib:com.musicus.agent.MusicLibraryAgent;featExtractor:com.musicus.agent.FeatureExtractorAgent
  */
 public class SearchSongsAgent extends MusicUsAgent
 {
