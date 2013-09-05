@@ -19,10 +19,12 @@ import java.util.Map;
 public class MusicLibraryAgent extends MusicUsAgent
 {
     private Map<String, Map<String, Double>> musicLibrary;   // use a hash table for order preservation. Object is a Song object of features list
+    private AID[] featureExtractorAgents;
 
     @Override protected void init()
     {
         musicLibrary = new HashMap<String, Map<String, Double>>();
+        featureExtractorAgents = FeatureExtractorAgent.getAgents( this );
     }
 
     @Override protected void addBehaviours()
@@ -45,15 +47,20 @@ public class MusicLibraryAgent extends MusicUsAgent
                     {
                         musicLibrary.put( song, null );
 
-                        ACLMessage newSongInform = new ACLMessage( ACLMessage.INFORM );
-                        for( AID musicLibrary : musicLibrary )
+                        if( featureExtractorAgents.length != 0 )
                         {
-                            newSongInform.addReceiver( musicLibrary );
+                            ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
+                            newSongInform.addReceiver( featureExtractorAgents[0] );
+                            newSongInform.setContent( song );   // Can also send byte arrays, serializable objects
+                            newSongInform.setConversationId( Constants.FEATURE_EXTRACTION_PROPOSAL );
+                            newSongInform.setReplyWith( Constants.FEATURE_EXTRACTION_PROPOSAL + System.currentTimeMillis() );
+                            myAgent.send( newSongInform );
+                            log( myAgent.getName(), "Sent request to extract features from ", song );
                         }
-                        newSongInform.setContent( newMusicFile );   // Can also send byte arrays, serializable objects
-                        newSongInform.setConversationId( Constants.NEW_MUSIC_INFORM );
-                        newSongInform.setReplyWith( Constants.NEW_MUSIC_INFORM + System.currentTimeMillis() );
-                        myAgent.send( newSongInform );
+                        else
+                        {
+                            // Response back with error
+                        }
                     }
                 }
                 else
@@ -64,15 +71,25 @@ public class MusicLibraryAgent extends MusicUsAgent
         } );
 
         //
-        addBehaviour( new TickerBehaviour( this, (long) ( 1.0001 * 60 * 1000 ) )
+        addBehaviour( new TickerBehaviour( this, (long) ( Constants.LIBRARY_SCAN_INTERVAL * 60 * 1000 ) )
         {
             @Override protected void onTick()
             {
                 MusicUsAgent.log( getAID().getName(), "############ Music Library ############" );
-                for( Map.Entry<String, Object> musicEntry : musicLibrary.entrySet() )
+                for( Map.Entry<String, Map<String, Double>> musicEntry : musicLibrary.entrySet() )
                 {
                     MusicUsAgent.log( getAID().getName(), "##", musicEntry.getKey() );
                 }
+            }
+        } );
+
+        addBehaviour( new TickerBehaviour( this, (long) ( Constants.SCAN_FOR_AGENTS_INTERVAL * 60 * 1000 ) )
+        {
+            @Override protected void onTick()
+            {
+                // No need of featureExtractorAgents to be accessed with synchronized even though it is been accessed by multiple behaviours.
+                // As those behaviours are within same agent, all of those behaviours run in same thread. So no concurrency violence.
+                featureExtractorAgents = FeatureExtractorAgent.getAgents( myAgent );
             }
         } );
     }
@@ -85,5 +102,10 @@ public class MusicLibraryAgent extends MusicUsAgent
     public static String getAgentTypeCode()
     {
         return Constants.MUSIC_LIBRARY;
+    }
+
+    public static AID[] getAgents( Agent callFromAgent )
+    {
+        return MusicUsAgent.getAgents( getAgentTypeCode(), callFromAgent );
     }
 }

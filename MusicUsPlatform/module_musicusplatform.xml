@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_musicusplatform" default="compile.module.musicusplatform">
+  <dirname property="module.musicusplatform.basedir" file="${ant.file.module_musicusplatform}"/>
+  
+  <property name="module.jdk.home.musicusplatform" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.musicusplatform" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.musicusplatform" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.musicusplatform" value="${compiler.args}"/>
+  
+  <property name="musicusplatform.output.dir" value="${module.musicusplatform.basedir}/out/production/MusicUsPlatform"/>
+  <property name="musicusplatform.testoutput.dir" value="${module.musicusplatform.basedir}/out/test/MusicUsPlatform"/>
+  
+  <path id="musicusplatform.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="musicusplatform.module.production.classpath">
+    <path refid="${module.jdk.classpath.musicusplatform}"/>
+    <path refid="library.jade.classpath"/>
+  </path>
+  
+  <path id="musicusplatform.runtime.production.module.classpath">
+    <pathelement location="${musicusplatform.output.dir}"/>
+    <path refid="library.jade.classpath"/>
+  </path>
+  
+  <path id="musicusplatform.module.classpath">
+    <path refid="${module.jdk.classpath.musicusplatform}"/>
+    <pathelement location="${musicusplatform.output.dir}"/>
+    <path refid="library.jade.classpath"/>
+  </path>
+  
+  <path id="musicusplatform.runtime.module.classpath">
+    <pathelement location="${musicusplatform.testoutput.dir}"/>
+    <pathelement location="${musicusplatform.output.dir}"/>
+    <path refid="library.jade.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.musicusplatform">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.musicusplatform">
+    <patternset refid="excluded.from.module.musicusplatform"/>
+  </patternset>
+  
+  <path id="musicusplatform.module.sourcepath">
+    <dirset dir="${module.musicusplatform.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.musicusplatform" depends="compile.module.musicusplatform.production,compile.module.musicusplatform.tests" description="Compile module MusicUsPlatform"/>
+  
+  <target name="compile.module.musicusplatform.production" depends="register.custom.compilers" description="Compile module MusicUsPlatform; production classes">
+    <mkdir dir="${musicusplatform.output.dir}"/>
+    <javac2 destdir="${musicusplatform.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.musicusplatform}/javac">
+      <compilerarg line="${compiler.args.musicusplatform}"/>
+      <bootclasspath refid="musicusplatform.module.bootclasspath"/>
+      <classpath refid="musicusplatform.module.production.classpath"/>
+      <src refid="musicusplatform.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.musicusplatform"/>
+    </javac2>
+    
+    <copy todir="${musicusplatform.output.dir}">
+      <fileset dir="${module.musicusplatform.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.musicusplatform.tests" depends="register.custom.compilers,compile.module.musicusplatform.production" description="compile module MusicUsPlatform; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.musicusplatform" description="cleanup module">
+    <delete dir="${musicusplatform.output.dir}"/>
+    <delete dir="${musicusplatform.testoutput.dir}"/>
+  </target>
+</project>

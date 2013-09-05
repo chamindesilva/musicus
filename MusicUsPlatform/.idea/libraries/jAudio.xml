@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="jAudio">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jAudio/jAudio.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jAudio/jogg-0.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jAudio/jorbis-0.0.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jAudio/junit-3.8.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jAudio/xerces.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/jAudio/jAudio-src.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jAudio/jAudio.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jAudio/jAudio.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jAudio/jAudio.jar!/" />
+    </SOURCES>
+  </library>
+</component>
