@@ -11,7 +11,7 @@
       <element id="library" level="project" name="jade" />
       <element id="library" level="project" name="jAudio" />
       <element id="library" level="project" name="jmf" />
-      <element id="library" level="project" name="mp3plugin" />
+      <element id="library" level="project" name="Mp3Plugin" />
       <element id="library" level="project" name="MP3SPI" />
       <element id="library" level="project" name="Tritonus" />
     </root>
