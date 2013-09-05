@@ -18,11 +18,11 @@ public abstract class MusicUsAgent extends Agent
 {
     @Override protected void setup()
     {
-        log( getAID().getName(), "Hello! ", getAID().getName(), " is ready." );
-
-        init();
+        log( getAID().getName(), "Hello! ", getAID().getName(), " is starting." );
         registerAgent( getAgentType() );
+        init();     // init check for other agent lists by registration, so agents should be completed registration before init()
         addBehaviours();
+        log( getAID().getName(), "Hello! ", getAID().getName(), " is started." );
     }
 
     protected abstract void init();
@@ -64,13 +64,9 @@ public abstract class MusicUsAgent extends Agent
         log( getAID().getName(), "Agent ", getAID().getName(), "terminating." );
     }
 
-    public static AID[] getAgents( Agent callFromAgent )
-    {
-        return MusicUsAgent.getAgents( getAgentTypeCode(), callFromAgent );
-    }
-
     public static AID[] getAgents( String agentCodeToSearch, Agent callFromAgent )
     {
+        MusicUsAgent.log( callFromAgent.getName(), "############ Looking for ", agentCodeToSearch, " ############" );
         AID[] foundAgents = null;
         DFAgentDescription template = new DFAgentDescription();
         ServiceDescription sd = new ServiceDescription();
@@ -83,6 +79,7 @@ public abstract class MusicUsAgent extends Agent
             for( int i = 0; i < result.length; ++i )
             {
                 foundAgents[i] = result[i].getName();
+                MusicUsAgent.log( callFromAgent.getName(), "## Found ", agentCodeToSearch,  " : ", foundAgents[i].getName() );
             }
         }
         catch( FIPAException e )
