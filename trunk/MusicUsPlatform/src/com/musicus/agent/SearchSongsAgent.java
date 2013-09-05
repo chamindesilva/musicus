@@ -1,8 +1,6 @@
 package com.musicus.agent;
 
 import com.musicus.agent.behaviour.SearchUpdatesInLibBehaviour;
-import jade.core.Agent;
-import jade.core.behaviours.TickerBehaviour;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,7 +18,16 @@ public class SearchSongsAgent extends MusicUsAgent
         addBehaviour( new SearchUpdatesInLibBehaviour( this, 60 * 1000 ) );
     }
 
+    @Override protected void init()
+    {
+    }
+
     @Override protected String getAgentType()
+    {
+        return getAgentTypeCode();
+    }
+
+    public static String getAgentTypeCode()
     {
         return Constants.MUSIC_SEARCH;
     }

@@ -1,6 +1,7 @@
 package com.musicus.agent.behaviour;
 
 import com.musicus.agent.Constants;
+import com.musicus.agent.MusicUsAgent;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
@@ -29,23 +30,24 @@ public class SearchUpdatesInLibBehaviour extends TickerBehaviour
     public SearchUpdatesInLibBehaviour( Agent a, long period )
     {
         super( a, period );
-        musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\VH1s_100_Greatest_Songs_Of_The_90s_-_KoD-2008" ) );
-        musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\VH1 100 Greatest Songs of 80s" ) );
-        musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\Billboard Top 100 Songs of Decade 2000-2009" ) );
+//        musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\VH1s_100_Greatest_Songs_Of_The_90s_-_KoD-2008" ) );
+//        musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\VH1 100 Greatest Songs of 80s" ) );
+//        musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\Billboard Top 100 Songs of Decade 2000-2009" ) );
+        musicFolders.add( new File( "F:\\Ent\\ForPrabu\\ChaminClassics" ) );
     }
 
     @Override protected void onTick()
     {
-        System.out.println( "Checking for new songs" );
+        MusicUsAgent.log( myAgent.getAID().getName(), "Checking for new songs" );
         // find music library
-        AID[] musicLibraries = getMusicLibraries();
+        AID[] musicLibraries = MusicUsAgent.getAgents( MusicLibraryAgent.get );
 
         if( musicLibraries.length != 0 )
         {
             // find new songs
             for( File musicFolder : musicFolders )
             {
-                System.out.println( "Checking music in " + musicFolder.getAbsolutePath() );
+                MusicUsAgent.log( myAgent.getAID().getName(), "Checking music in ", musicFolder.getAbsolutePath() );
                 FilenameFilter mp3FileFilter = new FilenameFilter()
                 {
                     @Override public boolean accept( File dir, String name )
@@ -56,48 +58,28 @@ public class SearchUpdatesInLibBehaviour extends TickerBehaviour
                 for( File file : musicFolder.listFiles( mp3FileFilter ) )
                 {
                     String newMusicFile = file.getAbsolutePath();
-                    System.out.println( "Detected file : " + newMusicFile );
+                    MusicUsAgent.log( myAgent.getAID().getName(), "Detected file : ", newMusicFile );
 
-                    ACLMessage newSongInform = new ACLMessage( ACLMessage.INFORM );
-                    for( AID musicLibrary : musicLibraries )
-                    {
-                        newSongInform.addReceiver( musicLibrary );
-                    }
-                    newSongInform.setContent( newMusicFile );   // Can also send byte arrays, serializable objects
-                    newSongInform.setConversationId( Constants.NEW_MUSIC_INFORM );
-                    newSongInform.setReplyWith( Constants.NEW_MUSIC_INFORM + System.currentTimeMillis() );
-                    myAgent.send( newSongInform );
+                    sendMessageMusicLibrary( musicLibraries, newMusicFile );
                 }
             }
         }
         else
         {
-            System.out.println( "No music libraries found!!!" );
+            MusicUsAgent.log( myAgent.getAID().getName(), "No music libraries found!!!" );
         }
-        System.out.println( "Tick" );
     }
 
-    private AID[] getMusicLibraries()
+    private void sendMessageMusicLibrary( AID[] musicLibraries, String newMusicFile )
     {
-        AID[] musicLibraries = null;
-        DFAgentDescription template = new DFAgentDescription();
-        ServiceDescription sd = new ServiceDescription();
-        sd.setType( Constants.MUSIC_LIBRARY );
-        template.addServices( sd );
-        try
+        ACLMessage newSongInform = new ACLMessage( ACLMessage.INFORM );
+        for( AID musicLibrary : musicLibraries )
         {
-            DFAgentDescription[] result = DFService.search( myAgent, template );
-            musicLibraries = new AID[result.length];
-            for( int i = 0; i < result.length; ++i )
-            {
-                musicLibraries[i] = result[i].getName();
-            }
+            newSongInform.addReceiver( musicLibrary );
         }
-        catch( FIPAException e )
-        {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        return musicLibraries;
+        newSongInform.setContent( newMusicFile );   // Can also send byte arrays, serializable objects
+        newSongInform.setConversationId( Constants.NEW_MUSIC_INFORM );
+        newSongInform.setReplyWith( Constants.NEW_MUSIC_INFORM + System.currentTimeMillis() );
+        myAgent.send( newSongInform );
     }
 }
