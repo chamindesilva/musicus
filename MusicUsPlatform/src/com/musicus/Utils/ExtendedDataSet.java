@@ -1,8 +1,7 @@
-package com.musicus.agent.Utils;
+package com.musicus.Utils;
 
 import com.musicus.agent.Constants;
 import jAudioFeatureExtractor.ACE.DataTypes.DataSet;
-import jAudioFeatureExtractor.ACE.XMLParsers.XMLDocumentParser;
 
 import java.io.Reader;
 

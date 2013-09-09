@@ -1,9 +1,6 @@
 package com.musicus.agent;
 
-import com.musicus.agent.Utils.ExtendedDataSet;
-import com.musicus.agent.Utils.ExtendedXMLDocumentParser;
 import jAudioFeatureExtractor.ACE.DataTypes.Batch;
-import jAudioFeatureExtractor.ACE.DataTypes.DataSet;
 import jAudioFeatureExtractor.ACE.XMLParsers.XMLDocumentParser;
 import jAudioFeatureExtractor.CommandLineThread;
 import jAudioFeatureExtractor.DataModel;

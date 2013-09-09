@@ -27,4 +27,5 @@ public class Constants
     public static final String SAVE_SETTINGS = "save_settings";
     public static final String BATCH_FILE = "batchFile";
     public static final String FEATURE_LIST = "feature_list";
+    public static final int LISTNER_MODEL_UPDATE_INTERVAL = 3;
 }

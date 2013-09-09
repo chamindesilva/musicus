@@ -1,7 +1,6 @@
-package com.musicus.agent.Utils;
+package com.musicus.Utils;
 
 import com.musicus.agent.Constants;
-import com.sun.org.apache.xerces.internal.xni.parser.XMLInputSource;
 import jAudioFeatureExtractor.ACE.XMLParsers.FeatureListHandler;
 import jAudioFeatureExtractor.ACE.XMLParsers.ParseBatchJobHandler;
 import jAudioFeatureExtractor.ACE.XMLParsers.ParseClassificationsFileHandler;
@@ -18,8 +17,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.Reader;
 import java.io.StringReader;
 
