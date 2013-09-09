@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="mp3plugin">
+  <library name="weka">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/Mp3Plugin/mp3plugin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/weka/weka.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -10,9 +10,9 @@
     <orderEntry type="library" name="jade" level="project" />
     <orderEntry type="library" name="jAudio" level="project" />
     <orderEntry type="library" name="jmf" level="project" />
-    <orderEntry type="library" name="Mp3Plugin" level="project" />
     <orderEntry type="library" name="MP3SPI" level="project" />
     <orderEntry type="library" name="Tritonus" level="project" />
+    <orderEntry type="library" name="weka" level="project" />
   </component>
 </module>
 

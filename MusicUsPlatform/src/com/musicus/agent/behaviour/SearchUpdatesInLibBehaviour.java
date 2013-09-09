@@ -78,8 +78,8 @@ import java.util.List;
 //            newSongInform.addReceiver( musicLibrary );
 //        }
 //        newSongInform.setContent( newMusicFile );   // Can also send byte arrays, serializable objects
-//        newSongInform.setConversationId( Constants.NEW_MUSIC_INFORM );
-//        newSongInform.setReplyWith( Constants.NEW_MUSIC_INFORM + System.currentTimeMillis() );
+//        newSongInform.setConversationId( Constants.NEW_MUSIC_PROPOSAL );
+//        newSongInform.setReplyWith( Constants.NEW_MUSIC_PROPOSAL + System.currentTimeMillis() );
 //        myAgent.send( newSongInform );
 //    }
 //}

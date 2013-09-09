@@ -9,7 +9,7 @@ package com.musicus.agent;
  */
 public class Constants
 {
-    public static final String NEW_MUSIC_INFORM = "newMusicProposal";
+    public static final String NEW_MUSIC_PROPOSAL = "newMusicProposal";
     public static final String FEATURE_EXTRACTION_PROPOSAL = "featureExtractionProposal";
 
     public static final String MUSIC_SEARCH     = "music_search";
@@ -20,4 +20,11 @@ public class Constants
     public static final int SCAN_FOR_AGENTS_INTERVAL = 5;
     public static final double LIBRARY_SCAN_INTERVAL = 1.0001;
     public static final String JAUDIO_BATCH_FILE_XML = ".\\JAudioBatchFile.xml";
+    public static final String FEATURE_VECTOR_FILE = "feature_vector_file";
+    public static final String FEATURE_KEY_FILE = "feature_key_file";
+    public static final String TAXONOMY_FILE = "taxonomy_file";
+    public static final String CLASSIFICATIONS_FILE = "classifications_file";
+    public static final String SAVE_SETTINGS = "save_settings";
+    public static final String BATCH_FILE = "batchFile";
+    public static final String FEATURE_LIST = "feature_list";
 }
