@@ -6,22 +6,34 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" readonly="true" id="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" name="Default" comment="New agents&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/README" />
+    <list default="true" readonly="true" id="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/musicus/agent/Utils" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/weka/weka.jar.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/weka/weka.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/weka" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/musicus/agent/Utils/ExtendedDataSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/musicus/agent/Utils/ExtendedXMLDocumentParser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/weka.xml" />
+      <change type="DELETED" beforePath="E:\Studies\MSc\L2\Project\dev\trunk\MusicUsPlatform\.idea\libraries\mp3plugin.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/agent/Constants.java" afterPath="$PROJECT_DIR$/src/com/musicus/agent/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/agent/FeatureExtractorAgent.java" afterPath="$PROJECT_DIR$/src/com/musicus/agent/FeatureExtractorAgent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java" afterPath="$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MusicUsPlatform.iml" afterPath="$PROJECT_DIR$/MusicUsPlatform.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/agent/SearchSongsAgent.java" afterPath="$PROJECT_DIR$/src/com/musicus/agent/SearchSongsAgent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/agent/behaviour/SearchUpdatesInLibBehaviour.java" afterPath="$PROJECT_DIR$/src/com/musicus/agent/behaviour/SearchUpdatesInLibBehaviour.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MusicUsPlatform.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/SearchSongs.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378147117544" ignored="false" />
-    <file path="/SearchSongsAgent.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378412661835" ignored="false" />
-    <file path="/fragment.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378415618273" ignored="false" />
+    <file path="/SearchSongsAgent.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378630370508" ignored="false" />
+    <file path="/fragment.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378654412386" ignored="false" />
     <file path="$PROJECT_DIR$/src/com/musicus/agent/behaviour/SearchUpdateInLibBehaviour.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378150436258" ignored="false" />
     <file path="$PROJECT_DIR$/src/com/musicus/agent/SearchUpdateInLibBehaviour.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378150531016" ignored="false" />
     <file path="/SearchUpdatesInLibBehaviour.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378411630503" ignored="false" />
-    <file path="/Dummy.txt" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378421746290" ignored="false" />
-    <file path="/MusicLibraryAgent.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378410979100" ignored="false" />
-    <file path="/a.dummy" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378415610095" ignored="false" />
+    <file path="/Dummy.txt" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378422280285" ignored="false" />
+    <file path="/MusicLibraryAgent.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378655804418" ignored="false" />
+    <file path="/a.dummy" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378654412386" ignored="false" />
     <file path="$PROJECT_DIR$/../../prototypes/featureExtractor/src/jAudioFeatureExtractor/CommandLineThread.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378324206145" ignored="false" />
     <file path="/FeatureExtractor.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378337425314" ignored="false" />
     <file path="/MusicUsAgent.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378412444733" ignored="false" />
@@ -35,9 +47,13 @@
     <file path="/DetailProduct.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378375268447" ignored="false" />
     <file path="/AvisDecorder.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378375291937" ignored="false" />
     <file path="$path$/travelboxv3/codegen/ProjectLibs/CommonLibraries/CommonLibraries-src.jar!/it/codegen/tbx/reservationmanager/Booking.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378376847492" ignored="false" />
-    <file path="/FeatureExtractorAgent.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378419358253" ignored="false" />
+    <file path="/FeatureExtractorAgent.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378637152888" ignored="false" />
     <file path="$path$/travelboxv3/codegen/CommonCarGateway/src/it/codegen/tbx/cargateway/Avis/AvisSearchJob.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378388757514" ignored="false" />
     <file path="/AvisSearchJob.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378388741046" ignored="false" />
+    <file path="/ExtendedXMLDocumentParser.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378562812717" ignored="false" />
+    <file path="/ExtendedDataSet.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378563672970" ignored="false" />
+    <file path="$PROJECT_DIR$/../../prototypes/featureExtractor/feature_values_1.xml" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378564628111" ignored="false" />
+    <file path="$PROJECT_DIR$/../../prototypes/featureExtractor/feature_definitions_1.xml" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378564628111" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +68,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -89,6 +104,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -98,37 +114,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SearchSongsAgent.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SearchSongsAgent.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/SearchSongsAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="82" selection-start="726" selection-end="726" vertical-scroll-proportion="0.56666666">
-              <folding />
+            <state line="75" column="47" selection-start="2013" selection-end="2013" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#2013#2229#0" expanded="true" />
+                <element signature="e#2218#2219#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SearchUpdatesInLibBehaviour.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/behaviour/SearchUpdatesInLibBehaviour.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="45" selection-start="835" selection-end="835" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MusicLibraryAgent.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="MusicLibraryAgent.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="88" column="13" selection-start="3493" selection-end="3493" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="58" column="160" selection-start="2194" selection-end="2194" vertical-scroll-proportion="0.5183333">
+              <folding>
+                <element signature="e#2026#2034#0" expanded="true" />
+                <element signature="e#8461#8469#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MusicUsAgent.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/MusicUsAgent.java">
+      <file leaf-file-name="String.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/lang/String.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="95" selection-start="2614" selection-end="2614" vertical-scroll-proportion="0.0">
+            <state line="2353" column="11" selection-start="93236" selection-end="93244" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -137,18 +150,7 @@
       <file leaf-file-name="FeatureExtractorAgent.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/FeatureExtractorAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="107" column="30" selection-start="3372" selection-end="3372" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/README">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="3" selection-start="609" selection-end="609" vertical-scroll-proportion="0.0">
+            <state line="29" column="88" selection-start="1128" selection-end="1128" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -169,11 +171,13 @@
         <option value="$PROJECT_DIR$/src/com/musicus/agent/FeatureExtractor.java" />
         <option value="$PROJECT_DIR$/src/com/musicus/agent/behaviour/SearchUpdatesInLibBehaviour.java" />
         <option value="$PROJECT_DIR$/src/com/musicus/agent/MusicUsAgent.java" />
-        <option value="$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java" />
-        <option value="$PROJECT_DIR$/src/com/musicus/agent/FeatureExtractorAgent.java" />
         <option value="$PROJECT_DIR$/src/com/musicus/agent/Constants.java" />
         <option value="$PROJECT_DIR$/src/README" />
+        <option value="$PROJECT_DIR$/src/com/musicus/agent/Utils/ExtendedXMLDocumentParser.java" />
+        <option value="$PROJECT_DIR$/src/com/musicus/agent/Utils/ExtendedDataSet.java" />
+        <option value="$PROJECT_DIR$/src/com/musicus/agent/FeatureExtractorAgent.java" />
         <option value="$PROJECT_DIR$/src/com/musicus/agent/SearchSongsAgent.java" />
+        <option value="$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java" />
       </list>
     </option>
   </component>
@@ -197,7 +201,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+    <navigator proportions="" version="1" splitterProportion="0.5">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -208,72 +212,7 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes>
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicUsPlatform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicUsPlatform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicUsPlatform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicUsPlatform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicUsPlatform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicUsPlatform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicUsPlatform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicUsPlatform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicUsPlatform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value=".idea" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="GenerateAntBuildDialog.generateIdeaHomeProperty" value="false" />
@@ -286,19 +225,19 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="options.lastSelected" value="vcs.Subversion" />
     <property name="GenerateAntBuildDialog.inclineRuntiemClasspath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/Tritonus/tritonus_share-0.3.6.jar!/" />
-    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/weka/weka.jar!/" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="musicusplatform" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="musicusplatform" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
-    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
@@ -327,19 +266,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -365,6 +291,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -471,7 +410,15 @@
       <created>1378421761101</created>
       <updated>1378421761101</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added Readme file with commands to run&#10;">
+      <created>1378422110151</created>
+      <updated>1378422110151</updated>
+    </task>
+    <task id="LOCAL-00006" summary="jAudio xml files&#10;">
+      <created>1378422309100</created>
+      <updated>1378422309100</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -486,16 +433,16 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3274707" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4618442" sideWeight="0.6709265" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.46121883" sideWeight="0.6709265" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3274707" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3274707" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SVN Repositories" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3280255" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -543,7 +490,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="dependency commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="jAudio xml files&#10;" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -562,6 +509,8 @@
     <MESSAGE value="startup command update" />
     <MESSAGE value="New agents&#10;" />
     <MESSAGE value="dependency commit" />
+    <MESSAGE value="Added Readme file with commands to run&#10;" />
+    <MESSAGE value="jAudio xml files&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -571,95 +520,107 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/behaviour/SearchUpdatesInLibBehaviour.java">
+    <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/Utils/ExtendedXMLDocumentParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="45" selection-start="835" selection-end="835" vertical-scroll-proportion="0.0">
+        <state line="35" column="25" selection-start="1419" selection-end="1419" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/Utils/ExtendedDataSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="73" selection-start="1106" selection-end="1106" vertical-scroll-proportion="0.5151515" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/MusicUsAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="95" selection-start="2614" selection-end="2614" vertical-scroll-proportion="0.4848485">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/com/sun/org/apache/xerces/internal/parsers/XMLDocumentParser.java">
+    <entry file="jar://$PROJECT_DIR$/lib/jAudio/jAudio.jar!/jAudioFeatureExtractor/ACE/DataTypes/DataSet.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="13" selection-start="1419" selection-end="1419" vertical-scroll-proportion="0.23985891" />
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/jAudio/jAudio.jar!/jAudioFeatureExtractor/ACE/XMLParsers/XMLDocumentParser.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="180" selection-end="180" vertical-scroll-proportion="0.07664563" />
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/jAudio/jAudio.jar!/jAudioFeatureExtractor/DataTypes/RecordingInfo.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="15" selection-start="637" selection-end="637" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/jAudio/jAudio.jar!/jAudioFeatureExtractor/GeneralTools/StringMethods.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="35" selection-start="281" selection-end="281" vertical-scroll-proportion="0.122633" />
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/jAudio/jAudio-src.jar!/jAudioFeatureExtractor/DataTypes/RecordingInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="11" selection-start="2458" selection-end="2458" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/io/FileOutputStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="163" column="11" selection-start="6124" selection-end="6124" vertical-scroll-proportion="1.3557105" />
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/jAudio/jAudio-src.jar!/jAudioFeatureExtractor/DataModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="24" selection-start="2063" selection-end="2063" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/lang/Object.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="235" column="18" selection-start="10169" selection-end="10169" vertical-scroll-proportion="0.3330427" />
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2852" column="25" selection-start="114028" selection-end="114028" vertical-scroll-proportion="0.33333334" />
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/io/ByteArrayOutputStream.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="11" selection-start="1152" selection-end="1152" vertical-scroll-proportion="0.0" />
+        <state line="6" column="13" selection-start="179" selection-end="179" vertical-scroll-proportion="0.07522124" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="58" selection-start="808" selection-end="808" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="13" selection-start="3493" selection-end="3493" vertical-scroll-proportion="0.0">
+        <state line="11" column="41" selection-start="238" selection-end="248" vertical-scroll-proportion="-7.48">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/FeatureExtractorAgent.java">
+    <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/behaviour/SearchUpdatesInLibBehaviour.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="107" column="30" selection-start="3372" selection-end="3372" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="81" column="48" selection-start="3240" selection-end="3240" vertical-scroll-proportion="0.8500882">
+          <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/jade.jar!/jade/lang/acl/ACLMessage.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="177" column="36" selection-start="7466" selection-end="7466" vertical-scroll-proportion="0.6460177" />
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/weka/weka.jar!/weka/core/converters/ArffLoader.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="50" selection-start="791" selection-end="791" vertical-scroll-proportion="0.26153848" />
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/jade.jar!/jade/core/behaviours/Behaviour.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="16" selection-start="1779" selection-end="1779" vertical-scroll-proportion="0.5707845" />
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/jade.jar!/jade/core/behaviours/TickerBehaviour.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="25" selection-start="624" selection-end="624" vertical-scroll-proportion="0.28258967" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/README">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="3" selection-start="609" selection-end="609" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/SearchSongsAgent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="82" selection-start="726" selection-end="726" vertical-scroll-proportion="0.56666666">
+        <state line="75" column="47" selection-start="2013" selection-end="2013" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#2013#2229#0" expanded="true" />
+            <element signature="e#2218#2219#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/FeatureExtractorAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="88" selection-start="1128" selection-end="1128" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2353" column="11" selection-start="93236" selection-end="93244" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/lang/Double.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="502" column="25" selection-start="20201" selection-end="20201" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="160" selection-start="2194" selection-end="2194" vertical-scroll-proportion="0.5183333">
+          <folding>
+            <element signature="e#2026#2034#0" expanded="true" />
+            <element signature="e#8461#8469#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -722,6 +683,7 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
@@ -729,7 +691,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Tritonus</last-edited>
+          <last-edited>MP3SPI</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

@@ -1,6 +1,9 @@
 package com.musicus.agent;
 
+import com.musicus.agent.Utils.ExtendedDataSet;
+import com.musicus.agent.Utils.ExtendedXMLDocumentParser;
 import jAudioFeatureExtractor.ACE.DataTypes.Batch;
+import jAudioFeatureExtractor.ACE.DataTypes.DataSet;
 import jAudioFeatureExtractor.ACE.XMLParsers.XMLDocumentParser;
 import jAudioFeatureExtractor.CommandLineThread;
 import jAudioFeatureExtractor.DataModel;
@@ -8,13 +11,10 @@ import jAudioFeatureExtractor.DataTypes.RecordingInfo;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.SequentialBehaviour;
 import jade.lang.acl.ACLMessage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +25,11 @@ import java.util.List;
  */
 public class FeatureExtractorAgent extends MusicUsAgent
 {
+    // TODO : Music library maintains a list(queue) of songs to be feature extracted.
+    // Feature extract agents request and get a song to analyse and submit results to lib one after the other.
+    // then there can be mainy extract agents in the network processing library's queue.
+
+
     // Use FeatureExtractor MainFrame @ songsRebuildBtnActionPerformed()
     // change to dm.featureKey = new ByteArrayOutputStream();
 
@@ -41,8 +46,31 @@ public class FeatureExtractorAgent extends MusicUsAgent
                     // Message received. Process it
                     String song = msg.getContent();
                     log( myAgent.getName(), "##### Extracting features from song : ", song );
-                    String extractedFeatures = getFuturesExtracted( new String[]{song} );
+                    String extractedFeatures = getFeaturesExtracted( new String[]{song} );
+                    log( myAgent.getName(), "##### Calling GC" );
+                    System.gc();
+                    // TODO: get the stream and send to parser
                     log( myAgent.getName(), extractedFeatures );
+
+                    ACLMessage reply = msg.createReply();
+                    reply.setPerformative( ACLMessage.INFORM );
+                    reply.setContent( extractedFeatures );
+                    myAgent.send( reply );
+                    /*try
+                    {
+                        DataSet[] dataSets = ExtendedDataSet.parseDataSetXml( extractedFeatures );
+                        for( DataSet dataSet : dataSets )
+                        {
+                            System.out.println( "identifier : " + dataSet.identifier );
+                            System.out.println( "feature_names : " + dataSet.feature_names );
+                            System.out.println( "feature_values : " + dataSet.feature_values );
+                        }
+                    }
+                    catch( Exception e )
+                    {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }*/
+
                 }
                 else
                 {
@@ -73,7 +101,7 @@ public class FeatureExtractorAgent extends MusicUsAgent
         return MusicUsAgent.getAgents( getAgentTypeCode(), callFromAgent );
     }
 
-    private String getFuturesExtracted( String[] songList )
+    private String getFeaturesExtracted( String[] songList )
     {
 
         String batchFilePath = Constants.JAUDIO_BATCH_FILE_XML;
@@ -89,7 +117,7 @@ public class FeatureExtractorAgent extends MusicUsAgent
             Object[] o = new Object[]{};
             try
             {
-                o = (Object[]) XMLDocumentParser.parseXMLDocument( batchFilePath, "batchFile" );
+                o = (Object[]) XMLDocumentParser.parseXMLDocument( batchFilePath, Constants.BATCH_FILE );
             }
             catch( Exception e )
             {
@@ -107,7 +135,7 @@ public class FeatureExtractorAgent extends MusicUsAgent
                     RecordingInfo[] recordingInfos = new RecordingInfo[rowCount];
                     for( int row = 0; row < rowCount; row++ )
                     {
-                        String path = songList[ row ];
+                        String path = songList[row];
                         RecordingInfo recordingInfo = new RecordingInfo( path );
                         recordingInfos[row] = recordingInfo;
                     }
@@ -129,7 +157,7 @@ public class FeatureExtractorAgent extends MusicUsAgent
                         clt.join( 1000 );
                     }
 
-                    return new String(((ByteArrayOutputStream)dm.featureValue).toByteArray(), "UTF-8");
+                    return new String( ( (ByteArrayOutputStream) dm.featureValue ).toByteArray(), "UTF-8" );
                 }
                 catch( Exception e )
                 {

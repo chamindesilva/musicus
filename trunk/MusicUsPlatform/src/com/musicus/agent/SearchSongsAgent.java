@@ -84,10 +84,13 @@ public class SearchSongsAgent extends MusicUsAgent
         public SearchUpdatesInLibBehaviour( Agent a, long period )
         {
             super( a, period );
-            //        musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\VH1s_100_Greatest_Songs_Of_The_90s_-_KoD-2008" ) );
-            //        musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\VH1 100 Greatest Songs of 80s" ) );
-            //        musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\Billboard Top 100 Songs of Decade 2000-2009" ) );
-            musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\classics" ) );
+//            musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\VH1s_100_Greatest_Songs_Of_The_90s_-_KoD-2008" ) );
+//            musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\VH1 100 Greatest Songs of 80s" ) );
+//            musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\Billboard Top 100 Songs of Decade 2000-2009" ) );
+//            musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\classics" ) );
+            musicFolders.add( new File( "D:\\shared music\\mp3-3" ) );
+            musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\ChartHitz" ) );
+            musicFolders.add( new File( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\#English DJ Song" ) );
             //        musicFolders.add( new File( "F:\\Ent\\ForPrabu\\ChaminClassics" ) );
         }
 
@@ -126,14 +129,16 @@ public class SearchSongsAgent extends MusicUsAgent
 
         private void sendMessageMusicLibrary( AID[] musicLibraries, String newMusicFile )
         {
-            ACLMessage newSongInform = new ACLMessage( ACLMessage.INFORM );
+            // music lib/contoller should send CFP to SearchSongAgent with what to search for(eg: dir, iTunes lib, playlists)
+            // then search agent search in those and reply with proposals for new songs, playlists
+            ACLMessage newSongInform = new ACLMessage( ACLMessage.PROPOSE );
             for( AID musicLibrary : musicLibraries )
             {
                 newSongInform.addReceiver( musicLibrary );
             }
             newSongInform.setContent( newMusicFile );   // Can also send byte arrays, serializable objects
-            newSongInform.setConversationId( Constants.NEW_MUSIC_INFORM );
-            newSongInform.setReplyWith( Constants.NEW_MUSIC_INFORM + System.currentTimeMillis() );
+            newSongInform.setConversationId( Constants.NEW_MUSIC_PROPOSAL );
+            newSongInform.setReplyWith( Constants.NEW_MUSIC_PROPOSAL + System.currentTimeMillis() );
             myAgent.send( newSongInform );
         }
     }
