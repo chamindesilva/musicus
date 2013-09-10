@@ -19,10 +19,16 @@ public class Listener
     private List<String> songDirs = new ArrayList<String>();
     private Map<String, List<Double>> songLibrary = new HashMap<String, List<Double>>();
     private Double[] songPreferenceFeatureModel;
+    private double MSL = 0.5D;              // Music Satisfactory Level ( range : 0 - 1 )
 
     public Listener( String name )
     {
         this.name = name;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     public List<String> getSongDirs()
@@ -57,6 +63,16 @@ public class Listener
     public void setSongPreferenceFeatureModel( Double[] songPreferenceFeatureModel )
     {
         this.songPreferenceFeatureModel = songPreferenceFeatureModel;
+    }
+
+    public double getMSL()
+    {
+        return MSL;
+    }
+
+    public void setMSL( double MSL )
+    {
+        this.MSL = MSL;
     }
 
     public void updateListenersLibrary( Map<String, List<Double>> musicLibrary )

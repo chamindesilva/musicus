@@ -1,5 +1,6 @@
 package com.musicus.agent;
 
+import com.musicus.Utils.Calculations;
 import com.musicus.model.Listener;
 import jade.core.AID;
 import jade.core.Agent;
@@ -216,6 +217,7 @@ public class MusicLibraryAgent extends MusicUsAgent
             }
         } );
 
+        // Update listner models
         addBehaviour( new TickerBehaviour( this, (long) ( Constants.LISTNER_MODEL_UPDATE_INTERVAL * 60 * 1000 ) )
         {
             @Override protected void onTick()
@@ -225,6 +227,50 @@ public class MusicLibraryAgent extends MusicUsAgent
                     listener.updateListenersLibrary( musicLibrary );
                     listener.updateSongPreference();
                 }
+            }
+        } );
+
+        // Play songs
+        addBehaviour( new TickerBehaviour( this, (long) ( 0.5 * 60 * 1000 ) )
+        {
+            @Override protected void onTick()
+            {
+                double selectedDistance = Long.MAX_VALUE;
+                Map.Entry<String, List<Double>> selectedSong = null;
+                for( Map.Entry<String, List<Double>> libraryEntry : musicLibrary.entrySet() )
+                {
+                    double totDistances = 0.0D;
+                    for( Listener listener : listeners )
+                    {
+                        double distanceFromSongToListener = Calculations.calculateEuclideanDistance( listener.getSongPreferenceFeatureModel(), libraryEntry.getValue() );
+                        totDistances += ( distanceFromSongToListener * listener.getMSL());
+                        log( getName(), "For ", listener.getName(), " totDistance : ", String.valueOf( totDistances ) );
+                    }
+
+                    if( selectedDistance > totDistances)
+                    {
+                        selectedDistance = totDistances;
+                        selectedSong = libraryEntry;
+                    }
+                }
+
+                if( selectedSong != null )
+                {
+                    // Play song
+                    log( getName(), "Playing selected song ", selectedSong.getKey() );
+
+
+                    // Update satisfaction levels of listeners
+                    for( Listener listener : listeners )
+                    {
+                        double listenerMSL = listener.getMSL();
+                        double distanceFromSongToListener = Calculations.calculateEuclideanDistance( listener.getSongPreferenceFeatureModel(), selectedSong.getValue() );
+                        listener.setMSL( listenerMSL / distanceFromSongToListener );
+                        log( getName(), "Updating MSL for ", listener.getName(), " MSL value: ", String.valueOf( listener.getMSL() ) );
+
+                    }
+                }
+
             }
         } );
     }
