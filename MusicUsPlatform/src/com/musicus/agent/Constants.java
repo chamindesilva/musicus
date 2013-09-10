@@ -11,14 +11,16 @@ public class Constants
 {
     public static final String NEW_MUSIC_PROPOSAL = "newMusicProposal";
     public static final String FEATURE_EXTRACTION_PROPOSAL = "featureExtractionProposal";
+    public static final String PLAY_REQUEST = "playRequest";
 
     public static final String MUSIC_SEARCH     = "music_search";
     public static final String MUSIC_LIBRARY    = "music-library";
     public static final String FEATURE_EXTRACTOR = "feature-extractor";
+    public static final String SONG_PLAYER = "song_player";
 
     public static final String MP3_EXTENTION = ".mp3";
     public static final int SCAN_FOR_AGENTS_INTERVAL = 5;
-    public static final double LIBRARY_SCAN_INTERVAL = 1.0001;
+    public static final double LIBRARY_SCAN_INTERVAL = 4;
     public static final String JAUDIO_BATCH_FILE_XML = ".\\JAudioBatchFile.xml";
     public static final String FEATURE_VECTOR_FILE = "feature_vector_file";
     public static final String FEATURE_KEY_FILE = "feature_key_file";
@@ -28,4 +30,7 @@ public class Constants
     public static final String BATCH_FILE = "batchFile";
     public static final String FEATURE_LIST = "feature_list";
     public static final int LISTNER_MODEL_UPDATE_INTERVAL = 3;
+    public static final int ANALYSED_FEATURES_COUNT = 20;
+    public static final boolean DEBUG_MODE = false;
+    public static final int DEBUG_DELAY_SEC = 10 * 1000;
 }

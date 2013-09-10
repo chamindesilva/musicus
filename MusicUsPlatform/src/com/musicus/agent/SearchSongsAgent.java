@@ -110,7 +110,7 @@ public class SearchSongsAgent extends MusicUsAgent
                         for( File file : musicFolder.listFiles( mp3FileFilter ) )
                         {
                             String newMusicFile = file.getAbsolutePath();
-                            MusicUsAgent.log( myAgent.getAID().getName(), "Detected file : ", newMusicFile );
+//                            MusicUsAgent.log( myAgent.getAID().getName(), "Detected file : ", newMusicFile );
 
                             sendMessageMusicLibrary( musicLibraries, newMusicFile );
                         }
