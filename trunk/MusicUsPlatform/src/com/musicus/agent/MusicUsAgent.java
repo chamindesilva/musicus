@@ -16,8 +16,18 @@ import jade.domain.FIPAException;
  */
 public abstract class MusicUsAgent extends Agent
 {
+
     @Override protected void setup()
     {
+        if( Constants.DEBUG_MODE )
+        try
+        {
+            Thread.sleep( Constants.DEBUG_DELAY_SEC );
+        }
+        catch( InterruptedException e )
+        {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
         log( getAID().getName(), "Hello! ", getAID().getName(), " is starting." );
         registerAgent( getAgentType() );
         init();     // init check for other agent lists by registration, so agents should be completed registration before init()
@@ -92,7 +102,7 @@ public abstract class MusicUsAgent extends Agent
 
     public static void log( String agentName, String... logParts )
     {
-        if( logParts != null && logParts.length != 0 )
+        /*if( logParts != null && logParts.length != 0 )
         {
             StringBuilder logSb = new StringBuilder();
             logSb.append( agentName );
@@ -105,6 +115,6 @@ public abstract class MusicUsAgent extends Agent
             }
 
             System.out.println( logSb.toString() );
-        }
+        }*/
     }
 }

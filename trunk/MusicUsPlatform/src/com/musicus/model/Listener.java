@@ -1,5 +1,7 @@
 package com.musicus.model;
 
+import com.musicus.agent.Constants;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +20,7 @@ public class Listener
     private String name;
     private List<String> songDirs = new ArrayList<String>();
     private Map<String, List<Double>> songLibrary = new HashMap<String, List<Double>>();
-    private Double[] songPreferenceFeatureModel;
+    private double[] songPreferenceFeatureModel;
     private double MSL = 0.5D;              // Music Satisfactory Level ( range : 0 - 1 )
 
     public Listener( String name )
@@ -55,12 +57,12 @@ public class Listener
         this.songLibrary = songLibrary;
     }
 
-    public Double[] getSongPreferenceFeatureModel()
+    public double[] getSongPreferenceFeatureModel()
     {
         return songPreferenceFeatureModel;
     }
 
-    public void setSongPreferenceFeatureModel( Double[] songPreferenceFeatureModel )
+    public void setSongPreferenceFeatureModel( double[] songPreferenceFeatureModel )
     {
         this.songPreferenceFeatureModel = songPreferenceFeatureModel;
     }
@@ -83,7 +85,7 @@ public class Listener
         {
             for( Map.Entry<String, List<Double>> libraryEntry : musicLibrary.entrySet() )
             {
-                if( libraryEntry.getKey().startsWith( songDir ) )
+                if( libraryEntry.getValue() != null && libraryEntry.getKey().startsWith( songDir ) )
                 {
                     listenersSongLibrary.put( libraryEntry.getKey(), libraryEntry.getValue() );
                 }
@@ -95,19 +97,24 @@ public class Listener
 
     public void updateSongPreference()
     {
-        Double[] featureModel = new Double[100];    //**** No of features considered
+        double[] featureModel = new double[Constants.ANALYSED_FEATURES_COUNT];    //**** No of features considered
         for( Map.Entry<String, List<Double>> libraryEntry : getSongLibrary().entrySet() )
         {
+//            System.out.println("Going through features of : " + libraryEntry.getKey());
             List<Double> featureList = libraryEntry.getValue();
-            for( int featureNo = 0; featureNo < featureList.size(); featureNo++)
+            for( int featureNo = 0; featureNo < featureList.size(); featureNo++ )
             {
+//                System.out.print( featureNo + ":::" + featureModel[featureNo] + " += " + featureList.get( featureNo ) );
                 featureModel[featureNo] += featureList.get( featureNo );
+//                System.out.println( " = " + featureModel[featureNo]);
             }
         }
 
-        for( int featureNo = 0; featureNo < featureModel.length; featureNo++)
+        for( int featureNo = 0; featureNo < featureModel.length; featureNo++ )
         {
+//            System.out.print( ">>"+featureModel[featureNo] + " /= " + songLibrary.size() );
             featureModel[featureNo] /= songLibrary.size();
+//            System.out.println( " = " + featureModel[featureNo]);
         }
         setSongPreferenceFeatureModel( featureModel );
     }
