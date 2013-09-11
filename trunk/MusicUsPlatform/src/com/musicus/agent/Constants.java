@@ -33,4 +33,18 @@ public class Constants
     public static final int ANALYSED_FEATURES_COUNT = 20;
     public static final boolean DEBUG_MODE = false;
     public static final int DEBUG_DELAY_SEC = 10 * 1000;
+
+    //************ LOG LEVELS ******
+    public static final boolean LOG_WRITE_TO_FILE = true;
+    public static final String LOG_FILE = "log.txt";
+    public static final int LOG_WARNING         = 3;
+    public static final int LOG_IMPORTANT       = 4;
+    public static final int LOG_INFO            = 5;
+
+
+    public static final int LOG_FILTER_LEVEL    = 4;
+
+    // Cross-fade controls
+    public static final int CROSSFADE_BLOCKS_COUNT = 50;
+    public static final float CROSSFADE_REDUCTION_STEP_SIZE = -5.0f;
 }

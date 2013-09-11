@@ -37,6 +37,7 @@ public class SearchSongsAgent extends MusicUsAgent
 
     @Override protected void init()
     {
+        super.init();
         updateMusicLibraryAgents();
     }
 

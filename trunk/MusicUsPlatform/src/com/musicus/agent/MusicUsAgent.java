@@ -7,6 +7,11 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Chamin
@@ -16,6 +21,7 @@ import jade.domain.FIPAException;
  */
 public abstract class MusicUsAgent extends Agent
 {
+    private static PrintWriter logWriter;
 
     @Override protected void setup()
     {
@@ -35,7 +41,24 @@ public abstract class MusicUsAgent extends Agent
         log( getAID().getName(), "Hello! ", getAID().getName(), " is started." );
     }
 
-    protected abstract void init();
+    protected void init()
+    {
+        if( Constants.LOG_WRITE_TO_FILE )
+        {
+            try
+            {
+                logWriter = new PrintWriter(new BufferedWriter(new FileWriter( Constants.LOG_FILE, true)));
+            }
+            catch( IOException e )
+            {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+            finally
+            {
+                logWriter.close();
+            }
+        }
+    }
 
     protected abstract String getAgentType();
 
@@ -71,6 +94,12 @@ public abstract class MusicUsAgent extends Agent
         {
             fe.printStackTrace();
         }
+
+        if( Constants.LOG_WRITE_TO_FILE )
+        {
+            logWriter.close();
+        }
+
         log( getAID().getName(), "Agent ", getAID().getName(), "terminating." );
     }
 
@@ -100,21 +129,38 @@ public abstract class MusicUsAgent extends Agent
         return foundAgents;
     }
 
+    /**
+     * Can use LogManagerAgent ??
+     * @param agentName
+     * @param logParts
+     */
     public static void log( String agentName, String... logParts )
     {
-        /*if( logParts != null && logParts.length != 0 )
+        log( Constants.LOG_INFO, agentName, logParts );
+    }
+
+    public static void log( int logLevel, String agentName, String... logParts )
+    {
+        if( logLevel <= Constants.LOG_FILTER_LEVEL && logParts != null && logParts.length != 0 )
         {
             StringBuilder logSb = new StringBuilder();
             logSb.append( agentName );
             //            logSb.append( "\t:" );
             //            logSb.append( agentId );
-            logSb.append( "\t:::" );
+            logSb.append( "\t::: " );
             for( String logPart : logParts )
             {
                 logSb.append( logPart );
             }
 
             System.out.println( logSb.toString() );
-        }*/
+
+            if( Constants.LOG_WRITE_TO_FILE )
+            {
+                logWriter.println( logSb.toString() );
+            }
+        }
     }
+
+
 }
