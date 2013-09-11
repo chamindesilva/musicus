@@ -1,6 +1,7 @@
 package com.musicus.model;
 
 import com.musicus.agent.Constants;
+import com.musicus.agent.MusicUsAgent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -112,10 +113,11 @@ public class Listener
 
         for( int featureNo = 0; featureNo < featureModel.length; featureNo++ )
         {
-//            System.out.print( ">>"+featureModel[featureNo] + " /= " + songLibrary.size() );
+            //            System.out.print( ">>"+featureModel[featureNo] + " /= " + songLibrary.size() );
             featureModel[featureNo] /= songLibrary.size();
-//            System.out.println( " = " + featureModel[featureNo]);
+            //            System.out.println( " = " + featureModel[featureNo]);
         }
+        MusicUsAgent.log( getName(), "Feature values ", String.valueOf( featureModel ) );
         setSongPreferenceFeatureModel( featureModel );
     }
 }

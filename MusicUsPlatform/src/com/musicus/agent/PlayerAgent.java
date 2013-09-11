@@ -9,9 +9,14 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.Line;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
 import javax.sound.sampled.SourceDataLine;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,10 +35,12 @@ public class PlayerAgent extends MusicUsAgent
     // some paused variable
     volatile boolean paused = false;
     volatile boolean stopped = true;
+    private static LinkedList<Line> speakers = new LinkedList<Line>();
 
     @Override protected void init()
     {
-        //To change body of implemented methods use File | Settings | File Templates.
+        super.init();
+//        findSpeakers();
     }
 
     @Override protected String getAgentType()
@@ -106,7 +113,14 @@ public class PlayerAgent extends MusicUsAgent
             File file = new File( audioFile );
             AudioInputStream in = AudioSystem.getAudioInputStream( file );
             AudioFormat baseFormat = in.getFormat();
-            AudioFormat decodedFormat = new AudioFormat( AudioFormat.Encoding.PCM_SIGNED, baseFormat.getSampleRate(), 16, baseFormat.getChannels(), baseFormat.getChannels() * 2, baseFormat.getSampleRate(), false );
+            AudioFormat decodedFormat = new AudioFormat(
+                    AudioFormat.Encoding.PCM_SIGNED,
+                    baseFormat.getSampleRate(),
+                    16,
+                    baseFormat.getChannels(),
+                    baseFormat.getChannels() * 2,
+                    baseFormat.getSampleRate(),
+                    false );
             din = AudioSystem.getAudioInputStream( decodedFormat, in );
             DataLine.Info info = new DataLine.Info( SourceDataLine.class, decodedFormat );
             line = (SourceDataLine) AudioSystem.getLine( info );
@@ -120,8 +134,14 @@ public class PlayerAgent extends MusicUsAgent
                 int nBytesRead;
                 synchronized( lock )
                 {
-                    while( !stopped && ( nBytesRead = din.read( data, 0, data.length ) ) != -1 )
+                    int crossFadeBlocksAfterStopped = Constants.CROSSFADE_BLOCKS_COUNT;
+                    FloatControl gainControl = (FloatControl) line.getControl( FloatControl.Type.MASTER_GAIN );
+                    while( (!stopped || (crossFadeBlocksAfterStopped--) > 0 )&& ( nBytesRead = din.read( data, 0, data.length ) ) != -1 )
                     {
+                        if( crossFadeBlocksAfterStopped != Constants.CROSSFADE_BLOCKS_COUNT )
+                        {
+                            gainControl.setValue( Constants.CROSSFADE_REDUCTION_STEP_SIZE ); // Reduce volume by 10 decibels.
+                        }
                         while( paused )
                         {
                             if( line.isRunning() )
@@ -197,4 +217,69 @@ public class PlayerAgent extends MusicUsAgent
             lock.notifyAll();
         }
     }
+
+    private final static void findSpeakers()
+    {
+        Mixer.Info[] mixers = AudioSystem.getMixerInfo();
+
+        for( Mixer.Info mixerInfo : mixers )
+        {
+            System.out.println("mixerInfo.getName() " + mixerInfo.getName());
+            if( !mixerInfo.getName().equals( "Java Sound Audio Engine" ) )
+            {
+                continue;
+            }
+
+            Mixer mixer = AudioSystem.getMixer( mixerInfo );
+            Line.Info[] lines = mixer.getSourceLineInfo();
+
+            for( Line.Info info : lines )
+            {
+
+                try
+                {
+                    Line line = mixer.getLine( info );
+                    speakers.add( line );
+                }
+                catch( LineUnavailableException e )
+                {
+                    e.printStackTrace();
+                }
+                catch( IllegalArgumentException iaEx )
+                {
+                }
+            }
+        }
+    }
+
+    public static void setVolume( float level )
+    {
+        System.out.println( "setting volume to " + level );
+        for( Line line : speakers )
+        {
+            try
+            {
+                line.open();
+                FloatControl control = (FloatControl) line.getControl( FloatControl.Type.MASTER_GAIN );
+                control.setValue( limit( control, level ) );
+            }
+            catch( LineUnavailableException e )
+            {
+                continue;
+
+            }
+            catch( java.lang.IllegalArgumentException e )
+            {
+                continue;
+            }
+
+
+        }
+    }
+
+    private static float limit( FloatControl control, float level )
+    {
+        return Math.min( control.getMaximum(), Math.max( control.getMinimum(), level ) );
+    }
+
 }

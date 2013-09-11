@@ -80,7 +80,7 @@ public class FeatureExtractorAgent extends MusicUsAgent
 
     @Override protected void init()
     {
-        //To change body of implemented methods use File | Settings | File Templates.
+        super.init();
     }
 
     @Override protected String getAgentType()
