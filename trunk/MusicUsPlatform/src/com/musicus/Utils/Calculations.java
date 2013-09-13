@@ -12,19 +12,20 @@ import java.util.List;
  */
 public class Calculations
 {
-    public static double calculateEuclideanDistance( double[] featureList1, List<Double> featureList2 )
+    public static double calculateEuclideanDistance( double[] featureList1, List<Double> featureList2, double[] featureMaxValues, double[] featureMinValues )
     {
         // TODO : Normalize values + use a weight for each feature
         double tot = 0.0D;
-        for( int i = 0; i < featureList1.length; i++)
+        for( int i = 0; i < featureList1.length; i++ )
         {
-//            if( featureList1 == null || featureList2 ==null || featureList2.get( i )==null)
-//            {
-//                System.out.println("error");
-//            }
-            double diff = (featureList1[i] - featureList2.get( i ));
-//            System.out.println( ">>>> "+ featureList1[i] + " - " + featureList2.get( i ) + " = " + diff );
-            tot += (diff * diff);
+            //            if( featureList1 == null || featureList2 ==null || featureList2.get( i )==null)
+            //            {
+            //                System.out.println("error");
+            //            }
+            double maxMinusMin = featureMaxValues[i] - featureMinValues[i];
+            double diff = ( featureList1[i] - featureList2.get( i ) ) / ( maxMinusMin != 0 ? maxMinusMin : 1.0 );
+            //            System.out.println( ">>>> "+ featureList1[i] + " - " + featureList2.get( i ) + " = " + diff );
+            tot += ( diff * diff );
         }
 
         return Math.sqrt( tot );
