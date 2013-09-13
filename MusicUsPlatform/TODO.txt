@@ -1,0 +1,3 @@
+Agent network with multiple platforms
+Cluster preferences of listeners + cluster songs
+Analyse songs by parts(eg:chorus, ) + dynamically pick which part of the song to be played with matching to the last song part (like in DJ)

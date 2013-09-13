@@ -39,6 +39,8 @@ public class MusicLibraryAgent extends MusicUsAgent
     private AID[] playerAgents;
     private List<Listener> listeners = new ArrayList<Listener>();
     private LimitedQueue<String> lastPlayedQueue = new LimitedQueue<String>( 30 );
+    private double[] featureMaxValues = new double[Constants.ANALYSED_FEATURES_COUNT];      // used to normalize data
+    private double[] featureMinValues = new double[Constants.ANALYSED_FEATURES_COUNT];      // used to normalize data
 
     @Override protected void init()
     {
@@ -66,6 +68,11 @@ public class MusicLibraryAgent extends MusicUsAgent
         addListener( "ListenerDJCollection", 5, musicFolders );
 
 
+        for(int i = 0; i < Constants.ANALYSED_FEATURES_COUNT; i++)
+        {
+            featureMaxValues[i]=Double.MIN_VALUE;
+            featureMinValues[i]=Double.MAX_VALUE;
+        }
         // Load existing data to library
         try
         {
@@ -76,9 +83,19 @@ public class MusicLibraryAgent extends MusicUsAgent
                 String featureLineStr = extractedFeatureList.get( songNo );
                 String[] featureStrArr = featureLineStr.split( "," );
                 List<Double> features = new ArrayList<Double>();
+                int featureNo = 0;
                 for( String featureVal : featureStrArr )
                 {
                     features.add( new Double( !"NaN".equals( featureVal ) ? featureVal : "0.0" ) );
+                    if( featureMaxValues[featureNo] < features.get( featureNo ))
+                    {
+                        featureMaxValues[featureNo] = features.get( featureNo);
+                    }
+                    if( featureMinValues[featureNo] > features.get( featureNo ))
+                    {
+                        featureMinValues[featureNo] = features.get( featureNo);
+                    }
+                    featureNo++;
                 }
                 musicLibrary.put( extractedSongsList.get( songNo ), features );
             }
@@ -258,7 +275,7 @@ public class MusicLibraryAgent extends MusicUsAgent
                     int listenerNo = 0;
                     for( Listener listener : listeners )
                     {
-                        double distanceFromSongToListener = Calculations.calculateEuclideanDistance( listener.getSongPreferenceFeatureModel(), libraryEntry.getValue() );
+                        double distanceFromSongToListener = Calculations.calculateEuclideanDistance( listener.getSongPreferenceFeatureModel(), libraryEntry.getValue(), featureMaxValues, featureMinValues );
                         distances[listenerNo] = distanceFromSongToListener;
                         totDistances += ( distanceFromSongToListener * listener.getMSL() );
                         log( getName(), "For ", listener.getName(), " totDistance : ", String.valueOf( totDistances ) );
@@ -297,7 +314,7 @@ public class MusicLibraryAgent extends MusicUsAgent
                     for( Listener listener : listeners )
                     {
                         double listenerMSL = listener.getMSL();
-                        double distanceFromSongToListener = Calculations.calculateEuclideanDistance( listener.getSongPreferenceFeatureModel(), selectedSong.getValue() );
+                        double distanceFromSongToListener = Calculations.calculateEuclideanDistance( listener.getSongPreferenceFeatureModel(), selectedSong.getValue(), featureMaxValues, featureMinValues );
                         listener.setMSL( listenerMSL / distanceFromSongToListener );
                         if( listener.getMSL() > maxMSLVal)
                         {

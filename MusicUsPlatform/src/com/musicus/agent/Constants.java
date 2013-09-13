@@ -45,6 +45,6 @@ public class Constants
     public static final int LOG_FILTER_LEVEL    = 4;
 
     // Cross-fade controls
-    public static final int CROSSFADE_BLOCKS_COUNT = 50;
+    public static final int CROSSFADE_BLOCKS_COUNT = 70;
     public static final float CROSSFADE_REDUCTION_STEP_SIZE = -5.0f;
 }
