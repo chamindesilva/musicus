@@ -306,6 +306,21 @@ public class MusicLibraryAgent extends MusicUsAgent
                         newSongInform.setReplyWith( Constants.PLAY_REQUEST + System.currentTimeMillis() );
                         myAgent.send( newSongInform );
                         log( myAgent.getName(), "Sent request to play ", selectedSong.getKey() );
+
+                        String mslLog = "";
+                        for( Listener listener : listeners )
+                        {
+                            mslLog += listener.getMSL();
+                            mslLog += ",";
+                        }
+                        String songFullPath = selectedSong.getKey();
+                        int lastSeperator = songFullPath.lastIndexOf( "\\" );
+                        int secondLastSeperator = songFullPath.lastIndexOf( "\\" , lastSeperator-1 );
+                        System.out.println( ">>>>>>> " + lastSeperator + " ::" + secondLastSeperator );
+                        mslLog += songFullPath.substring( lastSeperator + 1 );
+                        mslLog += ",";
+                        mslLog += songFullPath.substring( secondLastSeperator + 1, lastSeperator );
+                        mstLog( mslLog );
                     }
 
 
@@ -315,7 +330,7 @@ public class MusicLibraryAgent extends MusicUsAgent
                     {
                         double listenerMSL = listener.getMSL();
                         double distanceFromSongToListener = Calculations.calculateEuclideanDistance( listener.getSongPreferenceFeatureModel(), selectedSong.getValue(), featureMaxValues, featureMinValues );
-                        listener.setMSL( listenerMSL / distanceFromSongToListener );
+                        listener.setMSL( listenerMSL / distanceFromSongToListener );        // ( Math.pow( listenerMSL, 2 ) / distanceFromSongToListener )
                         if( listener.getMSL() > maxMSLVal)
                         {
                             maxMSLVal = listener.getMSL();
