@@ -21,7 +21,7 @@ import java.io.PrintWriter;
  */
 public abstract class MusicUsAgent extends Agent
 {
-    private static PrintWriter logWriter;
+//    private static PrintWriter logWriter;
 
     @Override protected void setup()
     {
@@ -43,7 +43,7 @@ public abstract class MusicUsAgent extends Agent
 
     protected void init()
     {
-        if( Constants.LOG_WRITE_TO_FILE )
+        /*if( Constants.LOG_WRITE_TO_FILE )
         {
             try
             {
@@ -57,7 +57,7 @@ public abstract class MusicUsAgent extends Agent
             {
                 logWriter.close();
             }
-        }
+        }*/
     }
 
     protected abstract String getAgentType();
@@ -95,10 +95,10 @@ public abstract class MusicUsAgent extends Agent
             fe.printStackTrace();
         }
 
-        if( Constants.LOG_WRITE_TO_FILE )
+        /*if( Constants.LOG_WRITE_TO_FILE )
         {
             logWriter.close();
-        }
+        }*/
 
         log( getAID().getName(), "Agent ", getAID().getName(), "terminating." );
     }
@@ -157,7 +157,53 @@ public abstract class MusicUsAgent extends Agent
 
             if( Constants.LOG_WRITE_TO_FILE )
             {
-                logWriter.println( logSb.toString() );
+                PrintWriter logWriter = null;
+                try
+                {
+                    logWriter = new PrintWriter(new BufferedWriter(new FileWriter( Constants.LOG_FILE, true)));
+                    logWriter.println( logSb.toString() );
+                }
+                catch( IOException e )
+                {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+                finally
+                {
+                    if( logWriter != null )
+                    {
+                        logWriter.close();
+                    }
+                }
+
+            }
+        }
+    }
+
+    public static void mstLog( String logParts )
+    {
+        if( logParts != null )
+        {
+
+            if( Constants.LOG_WRITE_TO_FILE )
+            {
+                PrintWriter logWriter = null;
+                try
+                {
+                    logWriter = new PrintWriter(new BufferedWriter(new FileWriter( "mst.csv", true)));
+                    logWriter.println( logParts );
+                }
+                catch( IOException e )
+                {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+                finally
+                {
+                    if( logWriter != null )
+                    {
+                        logWriter.close();
+                    }
+                }
+
             }
         }
     }

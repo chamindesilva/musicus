@@ -12,7 +12,12 @@
         <entry key="$PROJECT_DIR$">
           <value>
             <SvnBranchConfiguration>
-              <option name="trunkUrl" value="" />
+              <option name="branchUrls">
+                <list>
+                  <option value="https://musicus.googlecode.com/svn/tags" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="https://musicus.googlecode.com/svn/tags" />
             </SvnBranchConfiguration>
           </value>
         </entry>
