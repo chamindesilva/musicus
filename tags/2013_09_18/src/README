@@ -1,0 +1,9 @@
+
+ * java -cp lib\jade.jar;classes jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent
+ * java -cp lib\jade.jar;MusicUs\MusicUsPlatform.jar jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent
+ * java -cp lib\jade.jar;MusicUs\MusicUsPlatform.jar jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent;musicLib:com.musicus.agent.MusicLibraryAgent
+ * java -cp lib\jade.jar;MusicUs\MusicUsPlatform.jar jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent;musicLib:com.musicus.agent.MusicLibraryAgent;featExtractor:com.musicus.agent.FeatureExtractorAgent
+ * C:\JADE\jade\MusicUs>java -cp .\jade.jar;.\* jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent;musicLib:com.musicus.agent.MusicLibraryAgent;featExtractor:com.musicus.agent.FeatureExtractorAgent
+
+ * C:\JADE\jade\MusicUs>java -d64 -Xms512m -Xmx2g -cp .\jade.jar;.\* jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent;musicLib:com.musicus.agent.MusicLibraryAgent;featExtractor:com.musicus.agent.FeatureExtractorAgent;musicPlayer:com.musicus.agent.PlayerAgent
+ * C:\JADE\jade\MusicUs>java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -d64 -Xms512m -Xmx2g -cp .\jade.jar;.\* jade.Boot -gui -agents songAnal:com.musicus.agent.SearchSongsAgent;musicLib:com.musicus.agent.MusicLibraryAgent;featExtractor:com.musicus.agent.FeatureExtractorAgent;musicPlayer:com.musicus.agent.PlayerAgent

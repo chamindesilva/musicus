@@ -1,0 +1,19 @@
+<component name="ArtifactManager">
+  <artifact name="MusicUsPlatform">
+    <output-path>C:/JADE/jade/MusicUs</output-path>
+    <root id="root">
+      <element id="archive" name="MusicUsPlatform.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="C:/JADE/jade/MusicUs/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="MusicUsPlatform" />
+      </element>
+      <element id="library" level="project" name="jade" />
+      <element id="library" level="project" name="jAudio" />
+      <element id="library" level="project" name="jmf" />
+      <element id="library" level="project" name="Mp3Plugin" />
+      <element id="library" level="project" name="MP3SPI" />
+      <element id="library" level="project" name="Tritonus" />
+    </root>
+  </artifact>
+</component>
