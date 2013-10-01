@@ -2,6 +2,10 @@ package com.musicus.agent;
 
 import com.musicus.Utils.Calculations;
 import com.musicus.Utils.LimitedQueue;
+import com.musicus.db.DbConnector;
+import com.musicus.db.FileDb;
+import com.musicus.db.SongCollection;
+import com.musicus.gui.MainFrame;
 import com.musicus.model.Listener;
 import jade.core.AID;
 import jade.core.Agent;
@@ -34,7 +38,8 @@ public class MusicLibraryAgent extends MusicUsAgent
     public static final String DATA_TAG = "@DATA";
     public static final String EXTRACTED_SONGS_FILE = "ExtractedSongsFile.txt";
     public static final String EXTRACTED_FEATURE_VALUES_FILE = "ExtractedFeatureValues.arff";
-    private Map<String, List<Double>> musicLibrary;   // use a hash table for order preservation. Object is a Song object of features list
+//    private Map<String, List<Double>> musicLibrary;   // use a hash table for order preservation. Object is a Song object of features list
+    private List<SongCollection> musicLibrary;
     private AID[] featureExtractorAgents;
     private AID[] playerAgents;
     private List<Listener> listeners = new ArrayList<Listener>();
@@ -44,9 +49,16 @@ public class MusicLibraryAgent extends MusicUsAgent
 
     @Override protected void init()
     {
+        musicLibrary = FileDb.getSongCollections();
+
+        // LOAD GUI
+        // init gui
+        // set this in  to gui
+        MainFrame.startGui( this );
+
+        DbConnector.getConnection();
         super.init();
-        //        musicLibrary = new HashMap<String, Map<String, Double>>();
-        musicLibrary = new HashMap<String, List<Double>>();
+//        musicLibrary = new HashMap<String, List<Double>>();
         featureExtractorAgents = FeatureExtractorAgent.getAgents( this );
         playerAgents = PlayerAgent.getAgents( this );
         List<String> musicFolders = new ArrayList<String>();
@@ -417,5 +429,15 @@ public class MusicLibraryAgent extends MusicUsAgent
         }
 
         return readLines;
+    }
+
+    public List<SongCollection> getMusicLibrary()
+    {
+        return musicLibrary;
+    }
+
+    public void setMusicLibrary( List<SongCollection> musicLibrary )
+    {
+        this.musicLibrary = musicLibrary;
     }
 }
