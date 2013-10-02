@@ -1,3 +1,9 @@
-Agent network with multiple platforms
-Cluster preferences of listeners + cluster songs
-Analyse songs by parts(eg:chorus, ) + dynamically pick which part of the song to be played with matching to the last song part (like in DJ)
+* Agent network with multiple platforms
+* Single/Multiple player agents across platform
+* Cluster preferences of listeners + cluster songs
+* Analyse songs by parts(eg:chorus, ) + dynamically pick which part of the song to be played with matching to the last song part (like in DJ)
+* Use playlists to learn(neural networks/genetic algorithms/SVM) associations
+    * Use explicit data(user feadback) and implicit data(playlists) to learn and adapt
+* Collect user feedbacks to learn
+* Weights for features(always use same weights? some times same features may not applicable and again applicable)(eg: different features to cluster dance tracks and another set for slow tracks)
+* Avoid same artist(same type of artists) played consecutively (two songs of BSB played back to back)
