@@ -11,6 +11,8 @@ import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -73,6 +75,7 @@ public class MainFrame extends javax.swing.JFrame
         tblCollectionLists = new javax.swing.JTable();
         tblCollectionSongs = new javax.swing.JTable();
         btnAddCollection = new javax.swing.JButton();
+        btnAddSongs = new javax.swing.JButton();
         btnRemoveCollection = new javax.swing.JButton();
         btnPlay = new javax.swing.JButton();
         btnStop = new javax.swing.JButton();
@@ -82,12 +85,88 @@ public class MainFrame extends javax.swing.JFrame
 
         jPanel1.setBorder( javax.swing.BorderFactory.createEtchedBorder() );
 
-        tblCollectionSongs.setModel( new javax.swing.table.DefaultTableModel( new Object[][]{
-
-        }, new String[]{"Song name", "Location"} )
+        tblCollectionSongs.setModel( new javax.swing.table.AbstractTableModel()
         {
-            Class[] types = new Class[]{java.lang.String.class, java.lang.String.class};
+            String[] columnNames = {"Name", "Path"};
+            Class[] types = new Class[]{java.lang.String.class, String.class};
             boolean[] canEdit = new boolean[]{false, false};
+
+
+            @Override public int getRowCount()
+            {
+                int selectedViewRow = tblCollectionLists.getSelectedRow();
+                if( selectedViewRow != -1 && musicLibraryAgent != null && musicLibraryAgent.getMusicLibrary() != null )
+                {
+                    int selectedModelRow = tblCollectionLists.convertRowIndexToModel( selectedViewRow );
+                    SongCollection selectedCollection = musicLibraryAgent.getMusicLibrary().get( selectedModelRow );
+                    System.out.println( ">>>>>> seleted collection's songs cont " + selectedCollection.getSongsList().size() );
+                    return ( selectedCollection != null && selectedCollection.getSongsList() != null ) ? selectedCollection.getSongsList().size() : 0;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+
+            @Override public int getColumnCount()
+            {
+                return columnNames.length;
+            }
+
+            @Override public String getColumnName( int column )
+            {
+                return columnNames[column];
+            }
+
+            @Override public Object getValueAt( int rowIndex, int columnIndex )
+            {
+                if( musicLibraryAgent != null )
+                {
+                    int selectedViewRow = tblCollectionLists.getSelectedRow();
+                    if( selectedViewRow != -1 && musicLibraryAgent != null && musicLibraryAgent.getMusicLibrary() != null )
+                    {
+                        int selectedModelRow = tblCollectionLists.convertRowIndexToModel( selectedViewRow );
+                        SongCollection selectedCollection = musicLibraryAgent.getMusicLibrary().get( selectedModelRow );
+
+                        if( selectedCollection != null && selectedCollection.getSongsList() != null )
+                        {
+                            Song songRow = selectedCollection.getSongsList().get( rowIndex );
+                            if( columnIndex == 0 )
+                            {
+                                return songRow.getName();
+                            }
+                            else if( columnIndex == 1 )
+                            {
+                                return songRow.getPath();
+                            }
+                            else
+                            {
+                                return "";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return "";
+                    }
+                }
+
+                return "";
+            }
+
+            /*public void setValueAt( Object aValue, int rowIndex, int columnIndex )
+            {
+                if( musicLibraryAgent != null )
+                {
+                    List<SongCollection> musicLibrary = musicLibraryAgent.getMusicLibrary();
+                    SongCollection collection = musicLibrary.get( rowIndex );
+                    if( columnIndex == 1 )
+                    {
+                        collection.setEnabled( (Boolean) aValue );
+                    }
+                }
+
+            }*/
 
             public Class getColumnClass( int columnIndex )
             {
@@ -101,13 +180,21 @@ public class MainFrame extends javax.swing.JFrame
         } );
         tblCollectionSongs.getTableHeader().setReorderingAllowed( false );
         jScrollPane3.setViewportView( tblCollectionSongs );
-
-        btnAddCollection.setText( "Add" );
+        btnAddCollection.setText( "Add New Collection" );
         btnAddCollection.addActionListener( new java.awt.event.ActionListener()
         {
             public void actionPerformed( java.awt.event.ActionEvent evt )
             {
                 btnAddCollectionActionPerformed( evt );
+            }
+        } );
+
+        btnAddSongs.setText( "Add New Songs" );
+        btnAddSongs.addActionListener( new java.awt.event.ActionListener()
+        {
+            public void actionPerformed( java.awt.event.ActionEvent evt )
+            {
+                btnAddSongsActionPerformed( evt );
             }
         } );
 
@@ -129,27 +216,11 @@ public class MainFrame extends javax.swing.JFrame
             }
         } );
 
-        //        tblCollectionLists.setModel( new javax.swing.table.DefaultTableModel( new Object[][]{}, new String[]{"Collection name", "Active"} )
-        //        {
-        //
-        //            Class[] types = new Class[]{java.lang.String.class, boolean.class};
-        //            boolean[] canEdit = new boolean[]{false, true};
-        //
-        //            public Class getColumnClass( int columnIndex )
-        //            {
-        //                return types[columnIndex];
-        //            }
-        //
-        //            public boolean isCellEditable( int rowIndex, int columnIndex )
-        //            {
-        //                return canEdit[columnIndex];
-        //            }
-        //        } );
         tblCollectionLists.setModel( new javax.swing.table.AbstractTableModel()
         {
             String[] columnNames = {"Collection name", "Active", "Sequenced"};
             Class[] types = new Class[]{java.lang.String.class, Boolean.class, Boolean.class};
-            boolean[] canEdit = new boolean[]{false, true, false};
+            boolean[] canEdit = new boolean[]{true, true, false};
 
 
             @Override public int getRowCount()
@@ -162,7 +233,7 @@ public class MainFrame extends javax.swing.JFrame
                 return columnNames.length;
             }
 
-            @Override public String getColumnName(int column)
+            @Override public String getColumnName( int column )
             {
                 return columnNames[column];
             }
@@ -215,11 +286,36 @@ public class MainFrame extends javax.swing.JFrame
             }
         } );
         jScrollPane4.setViewportView( tblCollectionLists );
+        tblCollectionLists.getSelectionModel().addListSelectionListener( new ListSelectionListener()
+        {
+            public void valueChanged( ListSelectionEvent event )
+            {
+                int viewRow = tblCollectionLists.getSelectedRow();
+                if( viewRow != -1 )
+                {
+                    /*
+                    int modelRow = tblCollectionSongs.convertRowIndexToModel( viewRow );
+
+                    int selectedCollectionNo = tblCollectionSongs.getSelectedRow();
+                    if( selectedCollectionNo != -1 && musicLibraryAgent != null && musicLibraryAgent.getMusicLibrary() != null )
+                    {
+                        SongCollection selectedCollection = musicLibraryAgent.getMusicLibrary().get( modelRow );
+                        if( selectedCollection != null && selectedCollection.getSongsList() != null )
+                        {
+                            selectedCollection.getSongsList().size():0;
+                        }
+                    }*/
+                    ((AbstractTableModel)tblCollectionSongs.getModel()).fireTableDataChanged();
+                    System.out.println( "selected row " + viewRow );
+                }
+            }
+        } );
+
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout( jPanel2 );
         jPanel2.setLayout( jPanel2Layout );
-        jPanel2Layout.setHorizontalGroup( jPanel2Layout.createParallelGroup( javax.swing.GroupLayout.Alignment.LEADING ).addGroup( jPanel2Layout.createSequentialGroup().addContainerGap().addComponent( jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE ).addGap( 18, 18, 18 ).addComponent( jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE ).addGap( 26, 26, 26 ).addGroup( jPanel2Layout.createParallelGroup( javax.swing.GroupLayout.Alignment.LEADING, false ).addComponent( btnAddCollection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE ).addComponent( btnRemoveCollection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE ).addComponent( jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE ) ).addGap( 20, 20, 20 ) ) );
-        jPanel2Layout.setVerticalGroup( jPanel2Layout.createParallelGroup( javax.swing.GroupLayout.Alignment.LEADING ).addGroup( jPanel2Layout.createSequentialGroup().addContainerGap().addGroup( jPanel2Layout.createParallelGroup( javax.swing.GroupLayout.Alignment.LEADING, false ).addComponent( jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE ).addGroup( jPanel2Layout.createSequentialGroup().addComponent( btnAddCollection ).addPreferredGap( javax.swing.LayoutStyle.ComponentPlacement.UNRELATED ).addComponent( btnRemoveCollection ).addPreferredGap( javax.swing.LayoutStyle.ComponentPlacement.UNRELATED ).addComponent( jButton3 ) ).addComponent( jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE ) ).addContainerGap( javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE ) ) );
+        jPanel2Layout.setHorizontalGroup( jPanel2Layout.createParallelGroup( javax.swing.GroupLayout.Alignment.LEADING ).addGroup( jPanel2Layout.createSequentialGroup().addContainerGap().addComponent( jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE ).addGap( 18, 18, 18 ).addComponent( jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE ).addGap( 26, 26, 26 ).addGroup( jPanel2Layout.createParallelGroup( javax.swing.GroupLayout.Alignment.LEADING, false ).addComponent( btnAddCollection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE ).addComponent( btnAddSongs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE ).addComponent( btnRemoveCollection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE ).addComponent( jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE ) ).addGap( 20, 20, 20 ) ) );
+        jPanel2Layout.setVerticalGroup( jPanel2Layout.createParallelGroup( javax.swing.GroupLayout.Alignment.LEADING ).addGroup( jPanel2Layout.createSequentialGroup().addContainerGap().addGroup( jPanel2Layout.createParallelGroup( javax.swing.GroupLayout.Alignment.LEADING, false ).addComponent( jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE ).addGroup( jPanel2Layout.createSequentialGroup().addComponent( btnAddCollection ).addComponent( btnAddSongs ).addPreferredGap( javax.swing.LayoutStyle.ComponentPlacement.UNRELATED ).addComponent( btnRemoveCollection ).addPreferredGap( javax.swing.LayoutStyle.ComponentPlacement.UNRELATED ).addComponent( jButton3 ) ).addComponent( jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE ) ).addContainerGap( javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE ) ) );
 
         jTabbedPane1.addTab( "Song List", jPanel2 );
 
@@ -561,6 +657,38 @@ public class MainFrame extends javax.swing.JFrame
 
     private void btnAddCollectionActionPerformed( java.awt.event.ActionEvent evt )
     {//GEN-FIRST:event_jButton1ActionPerformed
+        String res = JOptionPane.showInputDialog( "Enter Collection Name:" );
+        if( res == null || res.isEmpty() )
+        {
+            res = "New Collection";
+        }
+        SongCollection collection = new SongCollection();
+        collection.setName( res );
+        collection.setEnabled( true );
+        collection.setSequenced( false );
+        if( !musicLibraryAgent.getMusicLibrary().contains( collection ) )
+        {
+            musicLibraryAgent.getMusicLibrary().add( collection );
+
+        }
+        else
+        {
+            String originalName = collection.getName();
+            for( int suffix = 0; suffix < 100; suffix++ )
+            {
+                collection.setName( originalName + suffix );
+                if( !musicLibraryAgent.getMusicLibrary().contains( collection ) )
+                {
+                    musicLibraryAgent.getMusicLibrary().add( collection );
+                    break;
+                }
+            }
+        }
+        ( (AbstractTableModel) tblCollectionLists.getModel() ).fireTableDataChanged();
+    }
+
+    private void btnAddSongsActionPerformed( java.awt.event.ActionEvent evt )
+    {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         int returnVal = fc.showOpenDialog( this );
 
@@ -591,11 +719,12 @@ public class MainFrame extends javax.swing.JFrame
                 collection.setName( songList.get( 0 ).getPath().replace( songList.get( 0 ).getName(), "" ) );// remove name from path to get dir absolute path
                 collection.setEnabled( true );
                 collection.setSequenced( false );
+                collection.setSongsList( songList );
                 List<SongCollection> musicLibrary = musicLibraryAgent.getMusicLibrary();
                 musicLibrary.add( collection );
             }
 
-            ((AbstractTableModel)tblCollectionLists.getModel()).fireTableDataChanged();
+            ( (AbstractTableModel) tblCollectionLists.getModel() ).fireTableDataChanged();
 
         }
         else
@@ -790,6 +919,7 @@ public class MainFrame extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCollection;
+    private javax.swing.JButton btnAddSongs;
     private javax.swing.JButton btnRemoveCollection;
     private javax.swing.JButton btnPlay;
     private javax.swing.JButton btnStop;
