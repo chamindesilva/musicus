@@ -99,7 +99,7 @@ public class SearchSongsAgent extends MusicUsAgent
         {
             MusicUsAgent.log( myAgent.getAID().getName(), "Checking for new songs" );
 
-            if( musicLibraries.length != 0 )
+            /*if( musicLibraries.length != 0 )
             {
                 // find new songs
                 if( !musicFolders.isEmpty() )
@@ -125,7 +125,7 @@ public class SearchSongsAgent extends MusicUsAgent
             else
             {
                 MusicUsAgent.log( myAgent.getAID().getName(), "No music libraries found!!!" );
-            }
+            }  */
         }
 
         private void sendMessageMusicLibrary( AID[] musicLibraries, String newMusicFile )

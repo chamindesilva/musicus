@@ -1,6 +1,5 @@
 package com.musicus.agent;
 
-import com.musicus.Utils.Calculations;
 import com.musicus.Utils.LimitedQueue;
 import com.musicus.db.DbConnector;
 import com.musicus.db.FileDb;
@@ -21,10 +20,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,7 +35,7 @@ public class MusicLibraryAgent extends MusicUsAgent
     public static final String EXTRACTED_SONGS_FILE = "ExtractedSongsFile.txt";
     public static final String EXTRACTED_FEATURE_VALUES_FILE = "ExtractedFeatureValues.arff";
 //    private Map<String, List<Double>> musicLibrary;   // use a hash table for order preservation. Object is a Song object of features list
-    private List<SongCollection> musicLibrary;
+    private List<SongCollection> musicLibrary = new ArrayList<SongCollection>(  );
     private AID[] featureExtractorAgents;
     private AID[] playerAgents;
     private List<Listener> listeners = new ArrayList<Listener>();
@@ -51,10 +47,18 @@ public class MusicLibraryAgent extends MusicUsAgent
     {
         musicLibrary = FileDb.getSongCollections();
 
+        // test data
+        SongCollection collection = new SongCollection();
+        collection.setName( "test" );
+        collection.setEnabled( true );
+        collection.setSequenced( false );
+        musicLibrary.add( collection );
+
         // LOAD GUI
         // init gui
         // set this in  to gui
         MainFrame.startGui( this );
+        System.out.println( ">>>>>>>>>> GUI started");
 
         DbConnector.getConnection();
         super.init();
@@ -86,7 +90,7 @@ public class MusicLibraryAgent extends MusicUsAgent
             featureMinValues[i]=Double.MAX_VALUE;
         }
         // Load existing data to library
-        try
+        /*try
         {
             List<String> extractedSongsList = readFileToList( EXTRACTED_SONGS_FILE );
             List<String> extractedFeatureList = readFileToList( EXTRACTED_FEATURE_VALUES_FILE );
@@ -118,7 +122,7 @@ public class MusicLibraryAgent extends MusicUsAgent
         catch( IOException e )
         {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        }*/
 
         updateListenerModels();
 
@@ -148,25 +152,25 @@ public class MusicLibraryAgent extends MusicUsAgent
                     MusicUsAgent.log( getAID().getName(), "MusicLibraryAgent ", getAID().getName(), " received song ", song );
 
                     // if message contains a song that library doesn't contain, send it to analyser
-                    if( !musicLibrary.containsKey( song ) )
-                    {
-                        musicLibrary.put( song, null );
-
-                        if( featureExtractorAgents.length != 0 )
-                        {
-                            ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
-                            newSongInform.addReceiver( featureExtractorAgents[0] );
-                            newSongInform.setContent( song );   // Can also send byte arrays, serializable objects
-                            newSongInform.setConversationId( Constants.FEATURE_EXTRACTION_PROPOSAL );
-                            newSongInform.setReplyWith( song );
-                            myAgent.send( newSongInform );
-                            log( myAgent.getName(), "Sent request to extract features from ", song );
-                        }
-                        else
-                        {
-                            // Response back with error
-                        }
-                    }
+//                    if( !musicLibrary.containsKey( song ) )
+//                    {
+//                        musicLibrary.put( song, null );
+//
+//                        if( featureExtractorAgents.length != 0 )
+//                        {
+//                            ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
+//                            newSongInform.addReceiver( featureExtractorAgents[0] );
+//                            newSongInform.setContent( song );   // Can also send byte arrays, serializable objects
+//                            newSongInform.setConversationId( Constants.FEATURE_EXTRACTION_PROPOSAL );
+//                            newSongInform.setReplyWith( song );
+//                            myAgent.send( newSongInform );
+//                            log( myAgent.getName(), "Sent request to extract features from ", song );
+//                        }
+//                        else
+//                        {
+//                            // Response back with error
+//                        }
+//                    }
                 }
                 else
                 {
@@ -268,7 +272,7 @@ public class MusicLibraryAgent extends MusicUsAgent
         {
             @Override protected void onTick()
             {
-                double selectedDistance = Long.MAX_VALUE;
+                /*double selectedDistance = Long.MAX_VALUE;
                 Map.Entry<String, List<Double>> selectedSong = null;
                 for( Listener listener : listeners )
                 {
@@ -357,7 +361,7 @@ public class MusicLibraryAgent extends MusicUsAgent
                         listener.setMSL( listenerMSL / maxMSLVal );
                         log( Constants.LOG_IMPORTANT, getName(), "Normalized MSL for ", listener.getName(), " MSL value: ", String.valueOf( listener.getMSL() ) );
                     }
-                }
+                }   */
 
             }
         } );
@@ -365,11 +369,11 @@ public class MusicLibraryAgent extends MusicUsAgent
 
     private void updateListenerModels()
     {
-        for( Listener listener : listeners )
+        /*for( Listener listener : listeners )
         {
             listener.updateListenersLibrary( musicLibrary );
             listener.updateSongPreference();
-        }
+        } */
     }
 
     @Override protected String getAgentType()
