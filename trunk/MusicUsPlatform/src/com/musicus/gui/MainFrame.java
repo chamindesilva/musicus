@@ -4,23 +4,21 @@
 */
 package com.musicus.gui;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.musicus.agent.MusicLibraryAgent;
 import com.musicus.db.SongCollection;
 import com.musicus.model.Song;
-import jAudioFeatureExtractor.ACE.DataTypes.Batch;
-import jAudioFeatureExtractor.ACE.XMLParsers.XMLDocumentParser;
-import jAudioFeatureExtractor.CommandLineThread;
-import jAudioFeatureExtractor.DataModel;
-import jAudioFeatureExtractor.DataTypes.RecordingInfo;
-import sun.audio.*;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
-import java.io.*;
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -36,10 +34,11 @@ public class MainFrame extends javax.swing.JFrame
     /**
      * Creates new form MainFrame
      */
-    public MainFrame()
+    public MainFrame( MusicLibraryAgent musicLibraryAgent )
     {
         initComponents();
         //        loadInitData();
+        this.musicLibraryAgent = musicLibraryAgent;
     }
 
     /**
@@ -149,14 +148,13 @@ public class MainFrame extends javax.swing.JFrame
         tblCollectionLists.setModel( new javax.swing.table.AbstractTableModel()
         {
             String[] columnNames = {"Collection name", "Active", "Sequenced"};
-            Class[] types = new Class[]{java.lang.String.class, boolean.class};
-            boolean[] canEdit = new boolean[]{false, true};
+            Class[] types = new Class[]{java.lang.String.class, Boolean.class, Boolean.class};
+            boolean[] canEdit = new boolean[]{false, true, false};
 
 
             @Override public int getRowCount()
             {
-                List<SongCollection> musicLibrary = musicLibraryAgent.getMusicLibrary();
-                return musicLibrary != null ? musicLibrary.size() : 0;
+                return musicLibraryAgent != null && musicLibraryAgent.getMusicLibrary() != null ? musicLibraryAgent.getMusicLibrary().size() : 0;
             }
 
             @Override public int getColumnCount()
@@ -164,21 +162,29 @@ public class MainFrame extends javax.swing.JFrame
                 return columnNames.length;
             }
 
+            @Override public String getColumnName(int column)
+            {
+                return columnNames[column];
+            }
+
             @Override public Object getValueAt( int rowIndex, int columnIndex )
             {
-                List<SongCollection> musicLibrary = musicLibraryAgent.getMusicLibrary();
-                SongCollection collection = musicLibrary.get( rowIndex );
-                if( columnIndex == 0 )
+                if( musicLibraryAgent != null )
                 {
-                    return collection.getName();
-                }
-                else if( columnIndex == 1 )
-                {
-                    return collection.isEnabled();
-                }
-                else if( columnIndex == 2 )
-                {
-                    return collection.isSequenced();
+                    List<SongCollection> musicLibrary = musicLibraryAgent.getMusicLibrary();
+                    SongCollection collection = musicLibrary.get( rowIndex );
+                    if( columnIndex == 0 )
+                    {
+                        return collection.getName();
+                    }
+                    else if( columnIndex == 1 )
+                    {
+                        return collection.isEnabled();
+                    }
+                    else if( columnIndex == 2 )
+                    {
+                        return collection.isSequenced();
+                    }
                 }
 
                 return "";
@@ -186,11 +192,14 @@ public class MainFrame extends javax.swing.JFrame
 
             public void setValueAt( Object aValue, int rowIndex, int columnIndex )
             {
-                List<SongCollection> musicLibrary = musicLibraryAgent.getMusicLibrary();
-                SongCollection collection = musicLibrary.get( rowIndex );
-                if( columnIndex == 1 )
+                if( musicLibraryAgent != null )
                 {
-                    collection.setEnabled( (Boolean) aValue );
+                    List<SongCollection> musicLibrary = musicLibraryAgent.getMusicLibrary();
+                    SongCollection collection = musicLibrary.get( rowIndex );
+                    if( columnIndex == 1 )
+                    {
+                        collection.setEnabled( (Boolean) aValue );
+                    }
                 }
 
             }
@@ -586,6 +595,8 @@ public class MainFrame extends javax.swing.JFrame
                 musicLibrary.add( collection );
             }
 
+            ((AbstractTableModel)tblCollectionLists.getModel()).fireTableDataChanged();
+
         }
         else
         {
@@ -761,8 +772,7 @@ public class MainFrame extends javax.swing.JFrame
 
         fc.setMultiSelectionEnabled( true );
         fc.setCurrentDirectory( new File( "D:" ) );
-        final MainFrame mainFrame = new MainFrame();
-        mainFrame.setMusicLibraryAgent( musicLibraryAgent );
+        final MainFrame mainFrame = new MainFrame( musicLibraryAgent );
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater( new Runnable()
@@ -772,16 +782,6 @@ public class MainFrame extends javax.swing.JFrame
                 mainFrame.setVisible( true );
             }
         } );
-    }
-
-    public MusicLibraryAgent getMusicLibraryAgent()
-    {
-        return musicLibraryAgent;
-    }
-
-    public void setMusicLibraryAgent( MusicLibraryAgent musicLibraryAgent )
-    {
-        this.musicLibraryAgent = musicLibraryAgent;
     }
 
     private AudioStream as;

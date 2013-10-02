@@ -1,6 +1,5 @@
 package com.musicus.db;
 
-import com.musicus.model.Feature;
 import com.musicus.model.Song;
 
 import java.io.BufferedReader;
@@ -64,20 +63,25 @@ public abstract class FileSavable
         BufferedReader br = null;
         try
         {
-            FileInputStream fstream = new FileInputStream( loadType.getDbFileName() );
-            DataInputStream in = new DataInputStream( fstream );
-            br = new BufferedReader( new InputStreamReader( in ) );
-            String dbValsStr;
-            //Read File Line By Line
-            while( ( dbValsStr = br.readLine() ) != null )
+            String dbFileName = loadType.getDbFileName();
+            java.io.File f = new java.io.File( dbFileName );
+            if( f.exists() )
             {
-                if( dbValsStr.length() > 0 )
+                FileInputStream fstream = new FileInputStream( dbFileName );
+                DataInputStream in = new DataInputStream( fstream );
+                br = new BufferedReader( new InputStreamReader( in ) );
+                String dbValsStr;
+                //Read File Line By Line
+                while( ( dbValsStr = br.readLine() ) != null )
                 {
-                    String[] dbValsArr = dbValsStr.split( "," );
-                    FileSavable fileSavable = loadType.getInstance();
-                    if( fileSavable.load( dbValsArr ) )
+                    if( dbValsStr.length() > 0 )
                     {
-                        fileSavableList.add( fileSavable );
+                        String[] dbValsArr = dbValsStr.split( "," );
+                        FileSavable fileSavable = loadType.getInstance();
+                        if( fileSavable.load( dbValsArr ) )
+                        {
+                            fileSavableList.add( fileSavable );
+                        }
                     }
                 }
             }
@@ -125,7 +129,7 @@ public abstract class FileSavable
                         String fileName = fileSavable.getDbFileName();
                         writer = new BufferedWriter( new FileWriter( fileName ) );
                         writer.write( "" );         // empty the file
-                        openedFile= true;
+                        openedFile = true;
                     }
                     writer.append( fileSavable.getDbString() );
                     writer.append( "\n" );
