@@ -47,13 +47,6 @@ public class MusicLibraryAgent extends MusicUsAgent
     {
         musicLibrary = FileDb.getSongCollections();
 
-        // test data
-        SongCollection collection = new SongCollection();
-        collection.setName( "test" );
-        collection.setEnabled( true );
-        collection.setSequenced( false );
-        musicLibrary.add( collection );
-
         // LOAD GUI
         // init gui
         // set this in  to gui
@@ -126,6 +119,11 @@ public class MusicLibraryAgent extends MusicUsAgent
 
         updateListenerModels();
 
+    }
+
+    public void saveMusicLibrary()
+    {
+        FileDb.saveSongCollection( musicLibrary );
     }
 
     private void addListener( String listnerName, int musicFolderIndex, List<String> musicFolders )

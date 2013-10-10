@@ -101,6 +101,10 @@ public class SongCollection extends FileSavable
 
     public List<Song> getSongsList()
     {
+        if( songsList == null )
+        {
+            songsList = new ArrayList<Song>();
+        }
         return songsList;
     }
 
