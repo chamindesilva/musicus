@@ -207,7 +207,7 @@ public class MainFrame extends javax.swing.JFrame
             }
         } );
 
-        jButton3.setText( "Rebuild" );
+        jButton3.setText( "Save Library" );
         jButton3.addActionListener( new java.awt.event.ActionListener()
         {
             public void actionPerformed( java.awt.event.ActionEvent evt )
@@ -305,7 +305,7 @@ public class MainFrame extends javax.swing.JFrame
                             selectedCollection.getSongsList().size():0;
                         }
                     }*/
-                    ((AbstractTableModel)tblCollectionSongs.getModel()).fireTableDataChanged();
+                    ( (AbstractTableModel) tblCollectionSongs.getModel() ).fireTableDataChanged();
                     System.out.println( "selected row " + viewRow );
                 }
             }
@@ -689,48 +689,65 @@ public class MainFrame extends javax.swing.JFrame
 
     private void btnAddSongsActionPerformed( java.awt.event.ActionEvent evt )
     {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        int returnVal = fc.showOpenDialog( this );
-
-        if( returnVal == JFileChooser.APPROVE_OPTION )
+        if( musicLibraryAgent != null )
         {
-            File[] files = fc.getSelectedFiles();
-            List<File> fileList = new ArrayList<File>();
-
-            List<Song> songList = new ArrayList<Song>();
-            for( File file : files )
+            int selectedViewRow = tblCollectionLists.getSelectedRow();
+            if( selectedViewRow != -1 && musicLibraryAgent != null && musicLibraryAgent.getMusicLibrary() != null )
             {
+                int selectedModelRow = tblCollectionLists.convertRowIndexToModel( selectedViewRow );
+                SongCollection selectedCollection = musicLibraryAgent.getMusicLibrary().get( selectedModelRow );
 
-                //This is where a real application would open the file.
-                System.out.println( "Addint: " + file.getName() + " : " + file.getAbsolutePath() + "\n" );
-                Song song = new Song();
-                song.setPath( file.getAbsolutePath() );
-                song.setName( file.getName() );
-                songList.add( song );  //TODO: send  to feature extraction
-                //                String[] row = {file.getName(), file.getAbsolutePath()};
-                //                ( (DefaultTableModel) tblCollectionLists.getModel() ).addRow( row );
-                //                ( (DefaultTableModel) jTableListners.getModel() ).addRow( row );
-                //                ( (DefaultTableModel) tblSongClasses.getModel() ).addRow( row );
+                if( selectedCollection != null && selectedCollection.getSongsList() != null )
+                {
+                    //****
+
+                    int returnVal = fc.showOpenDialog( this );
+
+                    if( returnVal == JFileChooser.APPROVE_OPTION )
+                    {
+                        File[] files = fc.getSelectedFiles();
+                        List<File> fileList = new ArrayList<File>();
+
+                        List<Song> songList = new ArrayList<Song>();
+                        for( File file : files )
+                        {
+
+                            //This is where a real application would open the file.
+                            System.out.println( "Addint: " + file.getName() + " : " + file.getAbsolutePath() + "\n" );
+                            Song song = new Song();
+                            song.setPath( file.getAbsolutePath() );
+                            song.setName( file.getName() );
+                            songList.add( song );  //TODO: send  to feature extraction
+                            //                String[] row = {file.getName(), file.getAbsolutePath()};
+                            //                ( (DefaultTableModel) tblCollectionLists.getModel() ).addRow( row );
+                            //                ( (DefaultTableModel) jTableListners.getModel() ).addRow( row );
+                            //                ( (DefaultTableModel) tblSongClasses.getModel() ).addRow( row );
+                        }
+
+                        if( !songList.isEmpty() )
+                        {
+                            selectedCollection.getSongsList().addAll( songList );
+                        }
+
+                        ( (AbstractTableModel) tblCollectionSongs.getModel() ).fireTableDataChanged();
+                    }
+                    else
+                    {
+                        System.out.println( "Open command cancelled by user." );
+                    }
+                }
             }
-
-            if( !songList.isEmpty() )
+            else
             {
-                SongCollection collection = new SongCollection();
-                collection.setName( songList.get( 0 ).getPath().replace( songList.get( 0 ).getName(), "" ) );// remove name from path to get dir absolute path
-                collection.setEnabled( true );
-                collection.setSequenced( false );
-                collection.setSongsList( songList );
-                List<SongCollection> musicLibrary = musicLibraryAgent.getMusicLibrary();
-                musicLibrary.add( collection );
+                JOptionPane.showMessageDialog( this, "Please select collection to add songs" );
             }
-
-            ( (AbstractTableModel) tblCollectionLists.getModel() ).fireTableDataChanged();
-
         }
         else
         {
-            System.out.println( "Open command cancelled by user." );
+            System.out.println( "Music library is not available for the GUI" );
         }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -745,6 +762,12 @@ public class MainFrame extends javax.swing.JFrame
     {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         // Song Class rebuild
+        if( musicLibraryAgent != null )
+        {
+            musicLibraryAgent.saveMusicLibrary();
+            System.out.println("Successfully saved library");
+        }
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
 
