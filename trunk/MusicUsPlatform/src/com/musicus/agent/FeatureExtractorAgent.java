@@ -43,7 +43,15 @@ public class FeatureExtractorAgent extends MusicUsAgent
                     // Message received. Process it
                     String song = msg.getContent();
                     log( myAgent.getName(), "##### Extracting features from song : ", song );
-                    String extractedFeatures = getFeaturesExtracted( new String[]{song} );
+                    String extractedFeatures = "";
+                    try
+                    {
+                        extractedFeatures = getFeaturesExtracted( new String[]{song} );
+                    }
+                    catch( Exception e )
+                    {
+                        e.printStackTrace();
+                    }
                     log( myAgent.getName(), "##### Calling GC" );
                     System.gc();
                     // TODO: get the stream and send to parser
@@ -98,6 +106,11 @@ public class FeatureExtractorAgent extends MusicUsAgent
         return MusicUsAgent.getAgents( getAgentTypeCode(), callFromAgent );
     }
 
+    /**
+     * Only extracts features of one song at a time
+     * @param songList
+     * @return
+     */
     private String getFeaturesExtracted( String[] songList )
     {
 

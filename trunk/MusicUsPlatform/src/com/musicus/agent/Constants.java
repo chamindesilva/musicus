@@ -17,6 +17,7 @@ public class Constants
     public static final String MUSIC_LIBRARY    = "music-library";
     public static final String FEATURE_EXTRACTOR = "feature-extractor";
     public static final String SONG_PLAYER = "song_player";
+    public static final String DJ = "disc_jockey";
 
     public static final String MP3_EXTENTION = ".mp3";
     public static final int SCAN_FOR_AGENTS_INTERVAL = 5;
@@ -42,7 +43,7 @@ public class Constants
     public static final int LOG_INFO            = 5;
 
 
-    public static final int LOG_FILTER_LEVEL    = 4;
+    public static final int LOG_FILTER_LEVEL    = 5;
 
     // Cross-fade controls
     public static final int CROSSFADE_BLOCKS_COUNT = 80;

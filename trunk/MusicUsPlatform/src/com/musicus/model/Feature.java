@@ -25,27 +25,30 @@ public class Feature extends FileSavable
     {
     }
 
-    @Override public FileSavable getInstance()
+    public Feature( String owner, String name, double val )
     {
-        return new Feature();
+        this.owner = owner;
+        this.name = name;
+        this.val = val;
     }
 
-    @Override public boolean load( String[] dbValues )
+    //    @Override public FileSavable getInstance()
+//    {
+//        return new Feature();
+//    }
+
+    @Override public FileSavable load( String[] dbValues, String fileDirPath )
     {
-        boolean loadSuccess = false;
+        FileSavable loadedObj = null;
         if( dbValues.length == 3 )
         {
-            owner = dbValues[0];
-            name = dbValues[1];
-            val = Double.parseDouble( dbValues[2] );
-            loadSuccess = true;
-        }
-        else
-        {
-            loadSuccess = false;
+            String owner = dbValues[0];
+            String name = dbValues[1];
+            double val = Double.parseDouble( dbValues[2] );
+            loadedObj =  new Feature(owner, name, val);
         }
 
-        return loadSuccess;
+        return loadedObj;
     }
 
     @Override public String getDbString()

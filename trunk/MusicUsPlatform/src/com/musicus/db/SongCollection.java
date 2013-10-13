@@ -20,46 +20,60 @@ public class SongCollection extends FileSavable
     private List<Song> songsList;
 
 
-    @Override public FileSavable getInstance()
+//    @Override public FileSavable getInstance()
+//    {
+//        return new SongCollection();
+//    }
+
+
+    public SongCollection()
     {
-        return new SongCollection();
     }
 
-    @Override public boolean load( String[] dbValues )
+    public SongCollection( String name, boolean sequenced, boolean enabled, List<Song> songsList )
     {
-        boolean loadSuccess = false;
+        this.name = name;
+        this.sequenced = sequenced;
+        this.enabled = enabled;
+        this.songsList = songsList;
+    }
+
+    @Override public FileSavable load( String[] dbValues, String fileDirPath )
+    {
+        FileSavable loadedObj = null;
         if( dbValues.length == 3 )
         {
-            name = dbValues[0];
-            sequenced = Boolean.parseBoolean( dbValues[1] );
-            enabled = Boolean.parseBoolean( dbValues[2] );
-            List<Song> songsList = FileSavable.getFullSongsList();
+            String name = dbValues[0];
+            boolean sequenced = Boolean.parseBoolean( dbValues[1] );
+            boolean enabled = Boolean.parseBoolean( dbValues[2] );
+            List<Song> filteredSongList = getfilteredSongs( name,fileDirPath );
+            loadedObj = new SongCollection( name, sequenced, enabled, filteredSongList );
+        }
 
-            List<FileSavable> fileSavables = FileSavable.loadData( new SongCollectionEntry() );
-            List<Song> filteredSongList = new ArrayList<Song>();
-            for( FileSavable fileSavable : fileSavables )
+        return loadedObj;
+    }
+
+    private List<Song> getfilteredSongs( String name, String fileDirPath )
+    {
+        List<Song> filteredSongList = new ArrayList<Song>();
+        List<Song> fullSongsList = FileSavable.getFullSongsList( fileDirPath );
+        List<FileSavable> fileSavables = FileSavable.loadData( new SongCollectionEntry(null, null), fileDirPath );
+        for( FileSavable fileSavable : fileSavables )
+        {
+            SongCollectionEntry collectionEntry = (SongCollectionEntry) fileSavable;
+            if( name.equals( collectionEntry.getSongCollectionName() ) )
             {
-                SongCollectionEntry collectionEntry = (SongCollectionEntry) fileSavable;
-                if( name.equals( collectionEntry.getSongCollectionName() ) )
+                for( Song song : fullSongsList )
                 {
-                    for( Song song : songsList )
+                    if( collectionEntry.getSong().equals( song.getPath() ) )
                     {
-                        if( collectionEntry.getSong().equals( song.getPath() ) )
-                        {
-                            filteredSongList.add( song );
-                        }
+                        filteredSongList.add( song );
                     }
                 }
             }
-            songsList = filteredSongList;
-            loadSuccess = true;
-        }
-        else
-        {
-            loadSuccess = false;
         }
 
-        return loadSuccess;
+        return filteredSongList;
     }
 
     @Override public String getDbString()
