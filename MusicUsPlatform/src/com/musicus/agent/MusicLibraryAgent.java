@@ -5,7 +5,9 @@ import com.musicus.db.DbConnector;
 import com.musicus.db.FileDb;
 import com.musicus.db.SongCollection;
 import com.musicus.gui.MainFrame;
+import com.musicus.model.Feature;
 import com.musicus.model.Listener;
+import com.musicus.model.Song;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -14,13 +16,14 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,14 +37,16 @@ public class MusicLibraryAgent extends MusicUsAgent
     public static final String DATA_TAG = "@DATA";
     public static final String EXTRACTED_SONGS_FILE = "ExtractedSongsFile.txt";
     public static final String EXTRACTED_FEATURE_VALUES_FILE = "ExtractedFeatureValues.arff";
-//    private Map<String, List<Double>> musicLibrary;   // use a hash table for order preservation. Object is a Song object of features list
-    private List<SongCollection> musicLibrary = new ArrayList<SongCollection>(  );
+    //    private Map<String, List<Double>> musicLibrary;   // use a hash table for order preservation. Object is a Song object of features list
+    private List<SongCollection> musicLibrary = new ArrayList<SongCollection>();
     private AID[] featureExtractorAgents;
-    private AID[] playerAgents;
+    private AID[] playerAgent;
+    private AID djAgent;
     private List<Listener> listeners = new ArrayList<Listener>();
     private LimitedQueue<String> lastPlayedQueue = new LimitedQueue<String>( 30 );
     private double[] featureMaxValues = new double[Constants.ANALYSED_FEATURES_COUNT];      // used to normalize data
     private double[] featureMinValues = new double[Constants.ANALYSED_FEATURES_COUNT];      // used to normalize data
+    private boolean libraryUpdatesToBeSentToDj = true;
 
     @Override protected void init()
     {
@@ -51,36 +56,37 @@ public class MusicLibraryAgent extends MusicUsAgent
         // init gui
         // set this in  to gui
         MainFrame.startGui( this );
-        System.out.println( ">>>>>>>>>> GUI started");
+        System.out.println( ">>>>>>>>>> GUI started" );
 
         DbConnector.getConnection();
         super.init();
-//        musicLibrary = new HashMap<String, List<Double>>();
+        //        musicLibrary = new HashMap<String, List<Double>>();
         featureExtractorAgents = FeatureExtractorAgent.getAgents( this );
-        playerAgents = PlayerAgent.getAgents( this );
-        List<String> musicFolders = new ArrayList<String>();
-        musicFolders.add( new String( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\VH1 100 Greatest Songs of 80s" ) );
-        musicFolders.add( new String( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\VH1s_100_Greatest_Songs_Of_The_90s_-_KoD-2008" ) );
-        musicFolders.add( new String( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\Billboard Top 100 Songs of Decade 2000-2009" ) );
-        //            musicFolders.add( new String( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\classics" ) );
-        musicFolders.add( new String( "D:\\shared music\\mp3-3" ) );
-        musicFolders.add( new String( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\ChartHitz" ) );
-        musicFolders.add( new String( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\#English DJ Song" ) );
-        //        musicFolders.add( new File( "F:\\Ent\\ForPrabu\\ChaminClassics" ) );
+        playerAgent = PlayerAgent.getAgents( this );
+        djAgent = DjAgent.getAgents( this );
+        //        List<String> musicFolders = new ArrayList<String>();
+        //        musicFolders.add( new String( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\VH1 100 Greatest Songs of 80s" ) );
+        //        musicFolders.add( new String( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\VH1s_100_Greatest_Songs_Of_The_90s_-_KoD-2008" ) );
+        //        musicFolders.add( new String( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\Billboard Top 100 Songs of Decade 2000-2009" ) );
+        //        //            musicFolders.add( new String( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\classics" ) );
+        //        musicFolders.add( new String( "D:\\shared music\\mp3-3" ) );
+        //        musicFolders.add( new String( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\ChartHitz" ) );
+        //        musicFolders.add( new String( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\#English DJ Song" ) );
+        //        //        musicFolders.add( new File( "F:\\Ent\\ForPrabu\\ChaminClassics" ) );
+        //
+        //        // setup listners in the environment
+        //        addListener( "Listener80", 0, musicFolders );
+        //        addListener( "Listener90", 1, musicFolders );
+        //        addListener( "Listener00", 2, musicFolders );
+        //        addListener( "ListenerCollection", 3, musicFolders );
+        //        addListener( "ListenerChartHitz", 4, musicFolders );
+        //        addListener( "ListenerDJCollection", 5, musicFolders );
 
-        // setup listners in the environment
-        addListener( "Listener80", 0, musicFolders );
-        addListener( "Listener90", 1, musicFolders );
-        addListener( "Listener00", 2, musicFolders );
-        addListener( "ListenerCollection", 3, musicFolders );
-        addListener( "ListenerChartHitz", 4, musicFolders );
-        addListener( "ListenerDJCollection", 5, musicFolders );
 
-
-        for(int i = 0; i < Constants.ANALYSED_FEATURES_COUNT; i++)
+        for( int i = 0; i < Constants.ANALYSED_FEATURES_COUNT; i++ )
         {
-            featureMaxValues[i]=Double.MIN_VALUE;
-            featureMinValues[i]=Double.MAX_VALUE;
+            featureMaxValues[i] = Double.MIN_VALUE;
+            featureMinValues[i] = Double.MAX_VALUE;
         }
         // Load existing data to library
         /*try
@@ -121,27 +127,52 @@ public class MusicLibraryAgent extends MusicUsAgent
 
     }
 
-    public void saveMusicLibrary()
+    public String[] saveMusicLibrary()
     {
-        FileDb.saveSongCollection( musicLibrary );
+        return FileDb.saveSongCollection( musicLibrary );
     }
 
-    private void addListener( String listnerName, int musicFolderIndex, List<String> musicFolders )
-    {
-        Listener listner = new Listener( listnerName );
-        listner.getSongDirs().add( musicFolders.get( musicFolderIndex ) );
-        listeners.add( listner );
-    }
-
+    /**
+     * Check messages for new song messages
+     */
     @Override protected void addBehaviours()
     {
+
+        final Set<String> songsSentToExtraction = new HashSet<String>();
         // Handle proposals on possible new song information messages
+        // TODO: Receive new songs and collection messages from GUI instead of GUI directly adding songs to library by sharing lib obj
         addBehaviour( new CyclicBehaviour()
         {
             @Override public void action()
             {
+
+
+                for( SongCollection songCollection : musicLibrary )
+                {
+                    if( songCollection.getSongsList() != null )
+                    {
+                        for( Song song : songCollection.getSongsList() )
+                        {
+                            if( ( song.getFeatures() == null || song.getFeatures().isEmpty() ) && !songsSentToExtraction.contains( song.getPath() ) )
+                            {
+                                // send to feature extractor
+                                System.out.println( "Sending to feature extractor : " + song.getName() + ", " + song.getPath() );
+                                songsSentToExtraction.add( song.getPath() );
+
+                                ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
+                                newSongInform.addReceiver( featureExtractorAgents[0] );
+                                newSongInform.setContent( song.getPath() );   // Can also send byte arrays, serializable objects
+                                newSongInform.setConversationId( Constants.FEATURE_EXTRACTION_PROPOSAL );
+                                newSongInform.setReplyWith( song.getPath() );
+                                myAgent.send( newSongInform );
+                                log( myAgent.getName(), "Sent request to extract features from ", song.getPath() );
+                            }
+                        }
+
+                    }
+                }
                 // Check messages for new songs
-                MessageTemplate newSongProposalMt = MessageTemplate.MatchPerformative( ACLMessage.PROPOSE );
+                /*MessageTemplate newSongProposalMt = MessageTemplate.MatchPerformative( ACLMessage.PROPOSE );
                 ACLMessage msg = myAgent.receive( newSongProposalMt );
                 if( msg != null )
                 {
@@ -150,30 +181,30 @@ public class MusicLibraryAgent extends MusicUsAgent
                     MusicUsAgent.log( getAID().getName(), "MusicLibraryAgent ", getAID().getName(), " received song ", song );
 
                     // if message contains a song that library doesn't contain, send it to analyser
-//                    if( !musicLibrary.containsKey( song ) )
-//                    {
-//                        musicLibrary.put( song, null );
-//
-//                        if( featureExtractorAgents.length != 0 )
-//                        {
-//                            ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
-//                            newSongInform.addReceiver( featureExtractorAgents[0] );
-//                            newSongInform.setContent( song );   // Can also send byte arrays, serializable objects
-//                            newSongInform.setConversationId( Constants.FEATURE_EXTRACTION_PROPOSAL );
-//                            newSongInform.setReplyWith( song );
-//                            myAgent.send( newSongInform );
-//                            log( myAgent.getName(), "Sent request to extract features from ", song );
-//                        }
-//                        else
-//                        {
-//                            // Response back with error
-//                        }
-//                    }
+                    if( !musicLibrary.containsKey( song ) )
+                    {
+                        musicLibrary.put( song, null );
+
+                        if( featureExtractorAgents.length != 0 )
+                        {
+                            ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
+                            newSongInform.addReceiver( featureExtractorAgents[0] );
+                            newSongInform.setContent( song );   // Can also send byte arrays, serializable objects
+                            newSongInform.setConversationId( Constants.FEATURE_EXTRACTION_PROPOSAL );
+                            newSongInform.setReplyWith( song );
+                            myAgent.send( newSongInform );
+                            log( myAgent.getName(), "Sent request to extract features from ", song );
+                        }
+                        else
+                        {
+                            // Response back with error
+                        }
+                    }
                 }
                 else
                 {
                     block();
-                }
+                }*/
             }
         } );
 
@@ -186,57 +217,135 @@ public class MusicLibraryAgent extends MusicUsAgent
                 ACLMessage msg = myAgent.receive( songFeatureMt );
                 if( msg != null )
                 {
-                    String song = msg.getInReplyTo();
+                    String songPath = msg.getInReplyTo();
                     String featureArff = msg.getContent();
-                    log( getName(), "Received features for ", song );
+                    log( getName(), "Received features for ", songPath );
 
-                    // get data
-                    int dataStart = featureArff.indexOf( DATA_TAG );
-                    System.out.println( "dataStart >" + dataStart );
-                    if( dataStart > -1 )
+                    List<String> attributesList = new ArrayList<String>();
+                    if( featureArff != null && !featureArff.isEmpty() )
                     {
-                        String data = featureArff.substring( dataStart + DATA_TAG.length() ).trim().replaceAll( "\n", "" );
-                        System.out.println( ">>>>>Data list>>" + data );
+                        boolean dataTagFound = false;
 
-                        // append to song file
-                        try
+                        String[] featureArffRows = featureArff.split( "\n" );
+                        for( String featureArffRow : featureArffRows )
                         {
-                            PrintWriter out = new PrintWriter( new BufferedWriter( new FileWriter( EXTRACTED_SONGS_FILE, true ) ) );
-                            out.println( song );
-                            out.close();
-                        }
-                        catch( IOException e )
-                        {
-                            e.printStackTrace();
-                        }
+                            if( featureArffRow.startsWith( "@ATTRIBUTE" ) )
+                            {
+                                int featureNameStart = featureArffRow.indexOf( "\"" );
+                                String featureName = featureArffRow.substring( featureNameStart + 1, featureArffRow.indexOf( "\"", featureNameStart + 1 ) );
+                                // get attributes
+                                attributesList.add( featureName );
+                            }
 
-                        // append to feature file
-                        try
-                        {
-                            PrintWriter out = new PrintWriter( new BufferedWriter( new FileWriter( EXTRACTED_FEATURE_VALUES_FILE, true ) ) );
-                            out.println( data );
-                            out.close();
-                        }
-                        catch( IOException e )
-                        {
-                            e.printStackTrace();
+                            if( dataTagFound )
+                            {
+                                if( !featureArffRow.isEmpty() )
+                                {
+                                    Song song = Song.getSongInstance( songPath );
+                                    String[] featureVals = featureArffRow.trim().split( "," );
+                                    for( int featureValNo = 0; featureValNo < featureVals.length; featureValNo++ )
+                                    {
+                                        String featureVal = featureVals[featureValNo];
+                                        Feature feature = new Feature( songPath, attributesList.get( featureValNo ), Double.parseDouble( !"NaN".equals( featureVal ) ? featureVal : "0.0" ) );
+                                        song.getFeatures().add( feature );
+                                    }
+                                }
+                            }
+
+                            if( featureArffRow.startsWith( "@DATA" ) )
+                            {
+                                dataTagFound = true;
+                            }
                         }
                     }
+
+
+                    // get data
+                    //                    int dataStart = featureArff.indexOf( DATA_TAG );
+                    //                    System.out.println( "dataStart >" + dataStart );
+                    //                    if( dataStart > -1 )
+                    //                    {
+                    //                        String data = featureArff.substring( dataStart + DATA_TAG.length() ).trim().replaceAll( "\n", "" );
+                    //                        System.out.println( ">>>>>Data list>>" + data );
+                    //
+                    //                        // append to song file
+                    //                        try
+                    //                        {
+                    //                            PrintWriter out = new PrintWriter( new BufferedWriter( new FileWriter( EXTRACTED_SONGS_FILE, true ) ) );
+                    //                            out.println( songPath );
+                    //                            out.close();
+                    //                        }
+                    //                        catch( IOException e )
+                    //                        {
+                    //                            e.printStackTrace();
+                    //                        }
+                    //
+                    //                        // append to feature file
+                    //                        try
+                    //                        {
+                    //                            PrintWriter out = new PrintWriter( new BufferedWriter( new FileWriter( EXTRACTED_FEATURE_VALUES_FILE, true ) ) );
+                    //                            out.println( data );
+                    //                            out.close();
+                    //                        }
+                    //                        catch( IOException e )
+                    //                        {
+                    //                            e.printStackTrace();
+                    //                        }
+                    //                    }
                 }
 
             }
         } );
 
         // Print Library
-        addBehaviour( new TickerBehaviour( this, (long) ( Constants.LIBRARY_SCAN_INTERVAL * 60 * 1000 ) )
+        //        addBehaviour( new TickerBehaviour( this, (long) ( Constants.LIBRARY_SCAN_INTERVAL * 60 * 1000 ) )
+        //        {
+        //            @Override protected void onTick()
+        //            {
+        //                printLibrary();
+        //            }
+        //        } );
+
+        // scan for feature extract agents
+        addBehaviour( new TickerBehaviour( this, (long) ( 1 * 60 * 1000 ) )
         {
             @Override protected void onTick()
             {
-                printLibrary();
+                if( libraryUpdatesToBeSentToDj && djAgent != null )
+                {
+                    // locally save music library by serializing to files
+                    String[] fileNames = saveMusicLibrary();
+
+                    for( String savedFileName : fileNames )
+                    {
+                        if( savedFileName != null && !savedFileName.isEmpty() )
+                        {
+                            String fileText = "";
+                            try
+                            {
+                                fileText = new String( Files.readAllBytes( Paths.get( savedFileName ) ) );
+                            }
+                            catch( IOException e )
+                            {
+                                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                            }
+
+
+                            // send lib file to DJ
+                            ACLMessage updatedLibraryDataFileMsg = new ACLMessage( ACLMessage.INFORM );
+                            updatedLibraryDataFileMsg.addReceiver( djAgent );
+                            updatedLibraryDataFileMsg.setConversationId( savedFileName );
+                            updatedLibraryDataFileMsg.setContent( fileText );   // Can also send byte arrays, serializable objects
+                            updatedLibraryDataFileMsg.setReplyWith( savedFileName + System.currentTimeMillis() );
+                            myAgent.send( updatedLibraryDataFileMsg );
+                        }
+                    }
+
+
+                }
             }
         } );
 
-        // scan for feature extract agents
         addBehaviour( new TickerBehaviour( this, (long) ( Constants.SCAN_FOR_AGENTS_INTERVAL * 60 * 1000 ) )
         {
             @Override protected void onTick()
@@ -252,7 +361,16 @@ public class MusicLibraryAgent extends MusicUsAgent
         {
             @Override protected void onTick()
             {
-                playerAgents = PlayerAgent.getAgents( myAgent );
+                playerAgent = PlayerAgent.getAgents( myAgent );
+            }
+        } );
+
+        // scan for dj agent
+        addBehaviour( new TickerBehaviour( this, (long) ( Constants.SCAN_FOR_AGENTS_INTERVAL * 60 * 1000 ) )
+        {
+            @Override protected void onTick()
+            {
+                djAgent = DjAgent.getAgents( myAgent );
             }
         } );
 

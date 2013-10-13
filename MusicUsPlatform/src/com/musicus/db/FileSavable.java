@@ -5,6 +5,7 @@ import com.musicus.model.Song;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -23,9 +24,9 @@ import java.util.List;
  */
 public abstract class FileSavable
 {
-    public abstract FileSavable getInstance();
+    //    public abstract FileSavable getInstance();
 
-    public abstract boolean load( String[] dbValues );
+    public abstract FileSavable load( String[] dbValues, String fileDirPath );
 
     public abstract String getDbString();
 
@@ -57,17 +58,26 @@ public abstract class FileSavable
         }
     }
 
-    public static List<FileSavable> loadData( FileSavable loadType )
+    public static List<FileSavable> loadData( FileSavable loadType, String dirPath )
     {
         List<FileSavable> fileSavableList = new ArrayList<FileSavable>();
         BufferedReader br = null;
         try
         {
             String dbFileName = loadType.getDbFileName();
-            java.io.File f = new java.io.File( dbFileName );
+            String filePath;
+            if( dirPath != null && !dirPath.isEmpty() )
+            {
+                filePath = dirPath + File.separator + dbFileName;
+            }
+            else
+            {
+                filePath = dbFileName;
+            }
+            java.io.File f = new java.io.File( filePath );
             if( f.exists() )
             {
-                FileInputStream fstream = new FileInputStream( dbFileName );
+                FileInputStream fstream = new FileInputStream( filePath );
                 DataInputStream in = new DataInputStream( fstream );
                 br = new BufferedReader( new InputStreamReader( in ) );
                 String dbValsStr;
@@ -77,13 +87,17 @@ public abstract class FileSavable
                     if( dbValsStr.length() > 0 )
                     {
                         String[] dbValsArr = dbValsStr.split( "," );
-                        FileSavable fileSavable = loadType.getInstance();
-                        if( fileSavable.load( dbValsArr ) )
+                        FileSavable fileSavable = loadType.load( dbValsArr, dirPath );
+                        if( fileSavable != null )
                         {
                             fileSavableList.add( fileSavable );
                         }
                     }
                 }
+            }
+            else
+            {
+                System.out.println( " >>>>>>>>>>>>>> ERROR LOADING DATA PERSISTANCE FILE, COULD  NOT FIND : " + filePath );
             }
         }
         catch( FileNotFoundException e )
@@ -113,8 +127,9 @@ public abstract class FileSavable
         return fileSavableList;
     }
 
-    public static void persistData( Collection<? extends FileSavable> dataList )
+    public static String persistData( Collection<? extends FileSavable> dataList, String dirPath )
     {
+        String fileNameSaved  = null;
         if( dataList != null && !dataList.isEmpty() )
         {
             BufferedWriter writer = null;
@@ -124,13 +139,42 @@ public abstract class FileSavable
                 boolean openedFile = false;
                 for( FileSavable fileSavable : dataList )
                 {
+                    // open file at first row read only
                     if( !openedFile )
                     {
                         String fileName = fileSavable.getDbFileName();
-                        writer = new BufferedWriter( new FileWriter( fileName ) );
+                        String filePath;
+                        if( dirPath != null && !dirPath.isEmpty() )
+                        {
+                            File dir = new File( dirPath );
+                            if( !dir.exists() )
+                            {
+                                if( !dir.mkdirs() )
+                                {
+                                    System.out.println( " >>>>>>>>>>>>>> ERROR IN CREATING DATA PERSISTANCE DIRS : " + dir.getAbsolutePath() );
+                                    return null;
+                                }
+                                else
+                                {
+                                    filePath = dirPath + File.separator + fileName;
+                                }
+                            }
+                            else
+                            {
+                                filePath = dirPath + File.separator + fileName;
+                            }
+                        }
+                        else
+                        {
+                            filePath = fileName;
+                        }
+                        writer = new BufferedWriter( new FileWriter( filePath ) );
                         writer.write( "" );         // empty the file
                         openedFile = true;
+                        fileNameSaved = filePath;
                     }
+
+
                     writer.append( fileSavable.getDbString() );
                     writer.append( "\n" );
                 }
@@ -154,12 +198,14 @@ public abstract class FileSavable
                 }
             }
         }
+
+        return fileNameSaved;
     }
 
-    public static List<Song> getFullSongsList()
+    public static List<Song> getFullSongsList( String fileDirPath )
     {
         List<Song> songList = new ArrayList<Song>();
-        List<FileSavable> fileSavables = FileSavable.loadData( new Song() );
+        List<FileSavable> fileSavables = FileSavable.loadData( new Song( null, null ), fileDirPath );
         for( FileSavable fileSavable : fileSavables )
         {
             Song song = (Song) fileSavable;

@@ -13,6 +13,7 @@ import sun.audio.AudioStream;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import java.io.File;
@@ -32,6 +33,30 @@ public class MainFrame extends javax.swing.JFrame
     static final JFileChooser fc = new JFileChooser();
     public static final String FILE_TAG = "<file>";
     public static final String FILE_END = "</file>";
+
+    {
+        fc.addChoosableFileFilter( new FileFilter()
+        {
+
+            public String getDescription()
+            {
+                return "MP3 music files (*.mp3)";
+            }
+
+            public boolean accept( File f )
+            {
+                if( f.isDirectory() )
+                {
+                    return true;
+                }
+                else
+                {
+                    return f.getName().toLowerCase().endsWith( ".mp3" );
+                }
+            }
+        } );
+        fc.setAcceptAllFileFilterUsed( false );
+    }
 
     /**
      * Creates new form MainFrame
@@ -714,9 +739,9 @@ public class MainFrame extends javax.swing.JFrame
 
                             //This is where a real application would open the file.
                             System.out.println( "Addint: " + file.getName() + " : " + file.getAbsolutePath() + "\n" );
-                            Song song = new Song();
-                            song.setPath( file.getAbsolutePath() );
-                            song.setName( file.getName() );
+                            Song song = (Song) Song.getInstance( file.getAbsolutePath(), file.getName(), null );
+                            //                            song.setPath( file.getAbsolutePath() );
+                            //                            song.setName( file.getName() );
                             songList.add( song );  //TODO: send  to feature extraction
                             //                String[] row = {file.getName(), file.getAbsolutePath()};
                             //                ( (DefaultTableModel) tblCollectionLists.getModel() ).addRow( row );
@@ -765,7 +790,7 @@ public class MainFrame extends javax.swing.JFrame
         if( musicLibraryAgent != null )
         {
             musicLibraryAgent.saveMusicLibrary();
-            System.out.println("Successfully saved library");
+            System.out.println( "Successfully saved library" );
         }
 
     }//GEN-LAST:event_jButton6ActionPerformed

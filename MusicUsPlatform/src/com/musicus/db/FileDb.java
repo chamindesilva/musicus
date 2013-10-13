@@ -28,8 +28,13 @@ public class FileDb
 
     public static List<SongCollection> getSongCollections()
     {
+        return getSongCollections( null );
+    }
+
+    public static List<SongCollection> getSongCollections( String dir )
+    {
         List<SongCollection> songCollections = new ArrayList<SongCollection>();
-        List<FileSavable> fileSavables = FileSavable.loadData( new SongCollection() );
+        List<FileSavable> fileSavables = FileSavable.loadData( new SongCollection(), dir );
         for( FileSavable fileSavable : fileSavables )
         {
             SongCollection collection = (SongCollection) fileSavable;
@@ -39,7 +44,15 @@ public class FileDb
         return songCollections;
     }
 
-    public static void saveSongCollection( List<SongCollection> collection )
+    public static String[] saveSongCollection( List<SongCollection> collection )
+    {
+        return saveSongCollection( collection, null );
+    }
+
+    // INCREASE THIS IF LIBRARY IS ADDED WITH MORE LEVELS(MORE FILES TO SAVE)
+    public static final int TOTAL_FILE_COUNT_FOR_DB = 4;
+
+    public static String[] saveSongCollection( List<SongCollection> collection, String dir )
     {
         Collection<SongCollectionEntry> collectionEntrySet = new ArrayList<SongCollectionEntry>();      // Order matters
         Collection<Song> songSet = new HashSet<Song>();
@@ -67,9 +80,11 @@ public class FileDb
             }
         }
 
-        FileSavable.persistData( featureSet );
-        FileSavable.persistData( songSet );
-        FileSavable.persistData( collectionEntrySet );
-        FileSavable.persistData( collection );
+        String featureFileName         = FileSavable.persistData( featureSet, dir );
+        String songFileName            = FileSavable.persistData( songSet, dir );
+        String collectionEntryFileName = FileSavable.persistData( collectionEntrySet, dir );
+        String collectionFileName      = FileSavable.persistData( collection, dir );
+
+        return new String[]{featureFileName, songFileName, collectionEntryFileName, collectionFileName};
     }
 }

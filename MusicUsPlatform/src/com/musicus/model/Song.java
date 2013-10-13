@@ -6,7 +6,10 @@ import com.musicus.db.Savable;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -23,40 +26,58 @@ public class Song extends FileSavable
     private Set<Feature> features;
     private int status;
 
-    public Song()
+    // hold the list of all song objs. So before creating a new song obj, check whether a song obj is already created
+    private static Map<String, Song> createdSongs = new HashMap<String, Song>();
+
+    public Song( String path, String name )
     {
+        this.path = path;
+        this.name = name;
     }
 
-    @Override public FileSavable getInstance()
+    public static FileSavable getInstance( String path, String name, String fileDirPath )
     {
-        return new Song();
+        if( !createdSongs.containsKey( path ) )
+        {
+            Song song = new Song( path, name );
+            song.setFeatures( getLoadingFeatures( path, fileDirPath ) );
+            createdSongs.put( song.getPath(), song );
+        }
+        return createdSongs.get( path );
     }
 
-    @Override public boolean load( String... dbValues )
+    public static Song getSongInstance( String path )
     {
-        boolean loadSuccess = false;
+        return createdSongs.get( path );
+    }
+
+    @Override public FileSavable load( String[] dbValues, String fileDirPath )
+    {
+        FileSavable loadedObj = null;
         if( dbValues.length == 2 )
         {
             path = dbValues[0];
             name = dbValues[1];
-            List<FileSavable> fileSavables = FileSavable.loadData( new Feature() );
-            List<Feature> featureList = new ArrayList<Feature>(  );
-            for( FileSavable fileSavable : fileSavables )
-            {
-                Feature feature = (Feature) fileSavable;
-                if( path.equals( feature.getOwner() ))
-                {
-                    featureList.add( feature );
-                }
-            }
-            loadSuccess = true;
-        }
-        else
-        {
-            loadSuccess = false;
+            loadedObj = getInstance( path, name, fileDirPath );
         }
 
-        return loadSuccess;
+        return loadedObj;
+    }
+
+    private static Set<Feature> getLoadingFeatures( String path, String fileDirPath )
+    {
+        Set<Feature> featureSet = new HashSet<Feature>();
+        List<FileSavable> fileSavables = FileSavable.loadData( new Feature(), fileDirPath );
+        for( FileSavable fileSavable : fileSavables )
+        {
+            Feature feature = (Feature) fileSavable;
+            if( path.equals( feature.getOwner() ) )
+            {
+                featureSet.add( feature );
+            }
+        }
+
+        return featureSet;
     }
 
     @Override public String getDbString()
@@ -91,6 +112,10 @@ public class Song extends FileSavable
 
     public Set<Feature> getFeatures()
     {
+        if( features == null )
+        {
+            features = new HashSet<Feature>(  );
+        }
         return features;
     }
 

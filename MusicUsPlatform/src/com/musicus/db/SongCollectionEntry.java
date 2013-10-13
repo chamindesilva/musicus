@@ -16,26 +16,33 @@ public class SongCollectionEntry extends FileSavable
     private String song;
     private String compositeKey;
 
-    @Override public FileSavable getInstance()
+//    @Override public FileSavable getInstance()
+//    {
+//        return new SongCollectionEntry();
+//    }
+
+
+    public SongCollectionEntry()
     {
-        return new SongCollectionEntry();
     }
 
-    @Override public boolean load( String[] dbValues )
+    public SongCollectionEntry( String songCollectionName, String song )
     {
-        boolean loadSuccess = false;
+        this.songCollectionName = songCollectionName;
+        this.song = song;
+    }
+
+    @Override public FileSavable load( String[] dbValues, String fileDirPath )
+    {
+        FileSavable loadedObj = null;
         if( dbValues.length == 2 )
         {
-            songCollectionName = dbValues[0];
-            song = dbValues[1];
-            loadSuccess = true;
-        }
-        else
-        {
-            loadSuccess = false;
+            String songCollectionName = dbValues[0];
+            String song = dbValues[1];
+            loadedObj =  new SongCollectionEntry(songCollectionName, song);
         }
 
-        return loadSuccess;
+        return loadedObj;
     }
 
     @Override public String getDbString()
