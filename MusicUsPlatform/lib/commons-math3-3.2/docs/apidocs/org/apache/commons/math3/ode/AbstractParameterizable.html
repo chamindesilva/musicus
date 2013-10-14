@@ -154,7 +154,7 @@ This abstract class provides boilerplate parameters list.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/AbstractParameterizable.html#complainIfNotSupported(java.lang.String)">complainIfNotSupported</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name)</CODE>
+<TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/AbstractParameterizable.html#complainIfNotSupported(java.lang.String)">complainIfNotSupported</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check if a parameter is supported and throw an IllegalArgumentException if not.</TD>
@@ -170,7 +170,7 @@ This abstract class provides boilerplate parameters list.
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;boolean</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/AbstractParameterizable.html#isSupported(java.lang.String)">isSupported</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name)</CODE>
+<TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/AbstractParameterizable.html#isSupported(java.lang.String)">isSupported</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Check if a parameter is supported.</TD>
@@ -251,7 +251,7 @@ public <A HREF="http://download.oracle.com/javase/6/docs/api/java/util/Collectio
 <A NAME="isSupported(java.lang.String)"><!-- --></A><H3>
 isSupported</H3>
 <PRE>
-public boolean <B>isSupported</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name)</PRE>
+public boolean <B>isSupported</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName)</PRE>
 <DL>
 <DD>Check if a parameter is supported.
  <p>Supported parameters are those listed by <A HREF="../../../../../org/apache/commons/math3/ode/Parameterizable.html#getParametersNames()"><CODE>Parameterizable.getParametersNames()</CODE></A>.</p>
@@ -260,7 +260,7 @@ public boolean <B>isSupported</B>(<A HREF="http://download.oracle.com/javase/6/d
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../org/apache/commons/math3/ode/Parameterizable.html#isSupported(java.lang.String)">isSupported</A></CODE> in interface <CODE><A HREF="../../../../../org/apache/commons/math3/ode/Parameterizable.html" title="interface in org.apache.commons.math3.ode">Parameterizable</A></CODE></DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - parameter name to check
+<DT><B>Parameters:</B><DD><CODE>libraryName</CODE> - parameter libraryName to check
 <DT><B>Returns:</B><DD>true if the parameter is supported<DT><B>See Also:</B><DD><A HREF="../../../../../org/apache/commons/math3/ode/Parameterizable.html#getParametersNames()"><CODE>Parameterizable.getParametersNames()</CODE></A></DL>
 </DD>
 </DL>
@@ -269,7 +269,7 @@ public boolean <B>isSupported</B>(<A HREF="http://download.oracle.com/javase/6/d
 <A NAME="complainIfNotSupported(java.lang.String)"><!-- --></A><H3>
 complainIfNotSupported</H3>
 <PRE>
-public void <B>complainIfNotSupported</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name)
+public void <B>complainIfNotSupported</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName)
                             throws <A HREF="../../../../../org/apache/commons/math3/ode/UnknownParameterException.html" title="class in org.apache.commons.math3.ode">UnknownParameterException</A></PRE>
 <DL>
 <DD>Check if a parameter is supported and throw an IllegalArgumentException if not.
@@ -278,7 +278,7 @@ public void <B>complainIfNotSupported</B>(<A HREF="http://download.oracle.com/ja
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - name of the parameter to check
+<DT><B>Parameters:</B><DD><CODE>libraryName</CODE> - libraryName of the parameter to check
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../org/apache/commons/math3/ode/UnknownParameterException.html" title="class in org.apache.commons.math3.ode">UnknownParameterException</A></CODE> - if the parameter is not supported<DT><B>See Also:</B><DD><A HREF="../../../../../org/apache/commons/math3/ode/AbstractParameterizable.html#isSupported(java.lang.String)"><CODE>isSupported(String)</CODE></A></DL>
 </DD>

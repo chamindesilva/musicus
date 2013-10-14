@@ -224,7 +224,7 @@ public class PlayerAgent extends MusicUsAgent
 
         for( Mixer.Info mixerInfo : mixers )
         {
-            System.out.println("mixerInfo.getName() " + mixerInfo.getName());
+            System.out.println("mixerInfo.getLibraryName() " + mixerInfo.getName());
             if( !mixerInfo.getName().equals( "Java Sound Audio Engine" ) )
             {
                 continue;

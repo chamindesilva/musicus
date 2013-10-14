@@ -190,7 +190,7 @@ This class implements the common part of all embedded Runge-Kutta
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../org/apache/commons/math3/ode/nonstiff/EmbeddedRungeKuttaIntegrator.html#EmbeddedRungeKuttaIntegrator(java.lang.String, boolean, double[], double[][], double[], org.apache.commons.math3.ode.nonstiff.RungeKuttaStepInterpolator, double, double, double[], double[])">EmbeddedRungeKuttaIntegrator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name,
+<TD><CODE><B><A HREF="../../../../../../org/apache/commons/math3/ode/nonstiff/EmbeddedRungeKuttaIntegrator.html#EmbeddedRungeKuttaIntegrator(java.lang.String, boolean, double[], double[][], double[], org.apache.commons.math3.ode.nonstiff.RungeKuttaStepInterpolator, double, double, double[], double[])">EmbeddedRungeKuttaIntegrator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName,
                              boolean&nbsp;fsal,
                              double[]&nbsp;c,
                              double[][]&nbsp;a,
@@ -207,7 +207,7 @@ This class implements the common part of all embedded Runge-Kutta
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../../org/apache/commons/math3/ode/nonstiff/EmbeddedRungeKuttaIntegrator.html#EmbeddedRungeKuttaIntegrator(java.lang.String, boolean, double[], double[][], double[], org.apache.commons.math3.ode.nonstiff.RungeKuttaStepInterpolator, double, double, double, double)">EmbeddedRungeKuttaIntegrator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name,
+<TD><CODE><B><A HREF="../../../../../../org/apache/commons/math3/ode/nonstiff/EmbeddedRungeKuttaIntegrator.html#EmbeddedRungeKuttaIntegrator(java.lang.String, boolean, double[], double[][], double[], org.apache.commons.math3.ode.nonstiff.RungeKuttaStepInterpolator, double, double, double, double)">EmbeddedRungeKuttaIntegrator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName,
                              boolean&nbsp;fsal,
                              double[]&nbsp;c,
                              double[][]&nbsp;a,
@@ -351,7 +351,7 @@ This class implements the common part of all embedded Runge-Kutta
 <A NAME="EmbeddedRungeKuttaIntegrator(java.lang.String, boolean, double[], double[][], double[], org.apache.commons.math3.ode.nonstiff.RungeKuttaStepInterpolator, double, double, double, double)"><!-- --></A><H3>
 EmbeddedRungeKuttaIntegrator</H3>
 <PRE>
-protected <B>EmbeddedRungeKuttaIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name,
+protected <B>EmbeddedRungeKuttaIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName,
                                        boolean&nbsp;fsal,
                                        double[]&nbsp;c,
                                        double[][]&nbsp;a,
@@ -365,7 +365,7 @@ protected <B>EmbeddedRungeKuttaIntegrator</B>(<A HREF="http://download.oracle.co
 <DD>Build a Runge-Kutta integrator with the given Butcher array.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - name of the method<DD><CODE>fsal</CODE> - indicate that the method is an <i>fsal</i><DD><CODE>c</CODE> - time steps from Butcher array (without the first zero)<DD><CODE>a</CODE> - internal weights from Butcher array (without the first empty row)<DD><CODE>b</CODE> - propagation weights for the high order method from Butcher array<DD><CODE>prototype</CODE> - prototype of the step interpolator to use<DD><CODE>minStep</CODE> - minimal step (sign is irrelevant, regardless of
+<DT><B>Parameters:</B><DD><CODE>libraryName</CODE> - libraryName of the method<DD><CODE>fsal</CODE> - indicate that the method is an <i>fsal</i><DD><CODE>c</CODE> - time steps from Butcher array (without the first zero)<DD><CODE>a</CODE> - internal weights from Butcher array (without the first empty row)<DD><CODE>b</CODE> - propagation weights for the high order method from Butcher array<DD><CODE>prototype</CODE> - prototype of the step interpolator to use<DD><CODE>minStep</CODE> - minimal step (sign is irrelevant, regardless of
  integration direction, forward or backward), the last step can
  be smaller than this<DD><CODE>maxStep</CODE> - maximal step (sign is irrelevant, regardless of
  integration direction, forward or backward), the last step can
@@ -376,7 +376,7 @@ protected <B>EmbeddedRungeKuttaIntegrator</B>(<A HREF="http://download.oracle.co
 <A NAME="EmbeddedRungeKuttaIntegrator(java.lang.String, boolean, double[], double[][], double[], org.apache.commons.math3.ode.nonstiff.RungeKuttaStepInterpolator, double, double, double[], double[])"><!-- --></A><H3>
 EmbeddedRungeKuttaIntegrator</H3>
 <PRE>
-protected <B>EmbeddedRungeKuttaIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name,
+protected <B>EmbeddedRungeKuttaIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName,
                                        boolean&nbsp;fsal,
                                        double[]&nbsp;c,
                                        double[][]&nbsp;a,
@@ -390,7 +390,7 @@ protected <B>EmbeddedRungeKuttaIntegrator</B>(<A HREF="http://download.oracle.co
 <DD>Build a Runge-Kutta integrator with the given Butcher array.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - name of the method<DD><CODE>fsal</CODE> - indicate that the method is an <i>fsal</i><DD><CODE>c</CODE> - time steps from Butcher array (without the first zero)<DD><CODE>a</CODE> - internal weights from Butcher array (without the first empty row)<DD><CODE>b</CODE> - propagation weights for the high order method from Butcher array<DD><CODE>prototype</CODE> - prototype of the step interpolator to use<DD><CODE>minStep</CODE> - minimal step (must be positive even for backward
+<DT><B>Parameters:</B><DD><CODE>libraryName</CODE> - libraryName of the method<DD><CODE>fsal</CODE> - indicate that the method is an <i>fsal</i><DD><CODE>c</CODE> - time steps from Butcher array (without the first zero)<DD><CODE>a</CODE> - internal weights from Butcher array (without the first empty row)<DD><CODE>b</CODE> - propagation weights for the high order method from Butcher array<DD><CODE>prototype</CODE> - prototype of the step interpolator to use<DD><CODE>minStep</CODE> - minimal step (must be positive even for backward
  integration), the last step can be smaller than this<DD><CODE>maxStep</CODE> - maximal step (must be positive even for backward
  integration)<DD><CODE>vecAbsoluteTolerance</CODE> - allowed absolute error<DD><CODE>vecRelativeTolerance</CODE> - allowed relative error</DL>
 </DL>

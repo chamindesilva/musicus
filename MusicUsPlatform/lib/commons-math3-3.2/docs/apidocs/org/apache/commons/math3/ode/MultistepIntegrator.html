@@ -217,7 +217,7 @@ This class is the base class for multistep integrators for Ordinary
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/MultistepIntegrator.html#MultistepIntegrator(java.lang.String, int, int, double, double, double[], double[])">MultistepIntegrator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name,
+<TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/MultistepIntegrator.html#MultistepIntegrator(java.lang.String, int, int, double, double, double[], double[])">MultistepIntegrator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName,
                     int&nbsp;nSteps,
                     int&nbsp;order,
                     double&nbsp;minStep,
@@ -231,7 +231,7 @@ This class is the base class for multistep integrators for Ordinary
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>protected </CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/MultistepIntegrator.html#MultistepIntegrator(java.lang.String, int, int, double, double, double, double)">MultistepIntegrator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name,
+<TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/MultistepIntegrator.html#MultistepIntegrator(java.lang.String, int, int, double, double, double, double)">MultistepIntegrator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName,
                     int&nbsp;nSteps,
                     int&nbsp;order,
                     double&nbsp;minStep,
@@ -423,7 +423,7 @@ protected <A HREF="../../../../../org/apache/commons/math3/linear/Array2DRowReal
 <A NAME="MultistepIntegrator(java.lang.String, int, int, double, double, double, double)"><!-- --></A><H3>
 MultistepIntegrator</H3>
 <PRE>
-protected <B>MultistepIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name,
+protected <B>MultistepIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName,
                               int&nbsp;nSteps,
                               int&nbsp;order,
                               double&nbsp;minStep,
@@ -440,7 +440,7 @@ protected <B>MultistepIntegrator</B>(<A HREF="http://download.oracle.com/javase/
  </p>
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - name of the method<DD><CODE>nSteps</CODE> - number of steps of the multistep method
+<DT><B>Parameters:</B><DD><CODE>libraryName</CODE> - libraryName of the method<DD><CODE>nSteps</CODE> - number of steps of the multistep method
  (excluding the one being computed)<DD><CODE>order</CODE> - order of the method<DD><CODE>minStep</CODE> - minimal step (must be positive even for backward
  integration), the last step can be smaller than this<DD><CODE>maxStep</CODE> - maximal step (must be positive even for backward
  integration)<DD><CODE>scalAbsoluteTolerance</CODE> - allowed absolute error<DD><CODE>scalRelativeTolerance</CODE> - allowed relative error
@@ -452,7 +452,7 @@ protected <B>MultistepIntegrator</B>(<A HREF="http://download.oracle.com/javase/
 <A NAME="MultistepIntegrator(java.lang.String, int, int, double, double, double[], double[])"><!-- --></A><H3>
 MultistepIntegrator</H3>
 <PRE>
-protected <B>MultistepIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name,
+protected <B>MultistepIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName,
                               int&nbsp;nSteps,
                               int&nbsp;order,
                               double&nbsp;minStep,
@@ -468,7 +468,7 @@ protected <B>MultistepIntegrator</B>(<A HREF="http://download.oracle.com/javase/
  </p>
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - name of the method<DD><CODE>nSteps</CODE> - number of steps of the multistep method
+<DT><B>Parameters:</B><DD><CODE>libraryName</CODE> - libraryName of the method<DD><CODE>nSteps</CODE> - number of steps of the multistep method
  (excluding the one being computed)<DD><CODE>order</CODE> - order of the method<DD><CODE>minStep</CODE> - minimal step (must be positive even for backward
  integration), the last step can be smaller than this<DD><CODE>maxStep</CODE> - maximal step (must be positive even for backward
  integration)<DD><CODE>vecAbsoluteTolerance</CODE> - allowed absolute error<DD><CODE>vecRelativeTolerance</CODE> - allowed relative error</DL>

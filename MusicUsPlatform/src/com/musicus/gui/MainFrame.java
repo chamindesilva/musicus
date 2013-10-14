@@ -658,7 +658,7 @@ public class MainFrame extends javax.swing.JFrame
                 }
                 catch( Exception e )
                 {
-                    System.out.println( "Error in execution - skipping this batch (" + b.getName() + ")" );
+                    System.out.println( "Error in execution - skipping this batch (" + b.getLibraryName() + ")" );
                     e.printStackTrace();
                 }
             }
@@ -741,9 +741,9 @@ public class MainFrame extends javax.swing.JFrame
                             System.out.println( "Addint: " + file.getName() + " : " + file.getAbsolutePath() + "\n" );
                             Song song = (Song) Song.getInstance( file.getAbsolutePath(), file.getName(), null );
                             //                            song.setPath( file.getAbsolutePath() );
-                            //                            song.setName( file.getName() );
+                            //                            song.setName( file.getLibraryName() );
                             songList.add( song );  //TODO: send  to feature extraction
-                            //                String[] row = {file.getName(), file.getAbsolutePath()};
+                            //                String[] row = {file.getLibraryName(), file.getAbsolutePath()};
                             //                ( (DefaultTableModel) tblCollectionLists.getModel() ).addRow( row );
                             //                ( (DefaultTableModel) jTableListners.getModel() ).addRow( row );
                             //                ( (DefaultTableModel) tblSongClasses.getModel() ).addRow( row );

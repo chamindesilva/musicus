@@ -71,7 +71,7 @@ public class FileDb
 
                     songSet.add( song );
 
-                    Set<Feature> features = song.getFeatures();
+                    Collection<Feature> features = song.getFeatures().values();
                     if( features != null )
                     {
                         featureSet.addAll( features );

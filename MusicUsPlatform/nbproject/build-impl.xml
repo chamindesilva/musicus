@@ -19,7 +19,7 @@ is divided into following sections:
   - cleanup
 
         -->
-<project xmlns:j2seproject1="http://www.netbeans.org/ns/j2se-project/1" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxrpc="http://www.netbeans.org/ns/j2se-project/jax-rpc" basedir=".." default="default" name="MusicUsPlatform-impl">
+<project xmlns:j2seproject1="http://www.netbeans.org/ns/j2se-project/1" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxrpc="http://www.netbeans.org/ns/j2se-project/jax-rpc" basedir=".." default="default" libraryName="MusicUsPlatform-impl">
     <fail message="Please build using Ant 1.8.0 or higher.">
         <condition>
             <not>
@@ -27,23 +27,23 @@ is divided into following sections:
             </not>
         </condition>
     </fail>
-    <target depends="test,jar,javadoc" description="Build and test whole project." name="default"/>
+    <target depends="test,jar,javadoc" description="Build and test whole project." libraryName="default"/>
     <!-- 
                 ======================
                 INITIALIZATION SECTION 
                 ======================
             -->
-    <target name="-pre-init">
+    <target libraryName="-pre-init">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="-pre-init" name="-init-private">
+    <target depends="-pre-init" libraryName="-init-private">
         <property file="nbproject/private/config.properties"/>
         <property file="nbproject/private/configs/${config}.properties"/>
         <property file="nbproject/private/private.properties"/>
     </target>
-    <target name="-pre-init-libraries">
-        <property location=".\lib\nblibraries.properties" name="libraries.path"/>
+    <target libraryName="-pre-init-libraries">
+        <property location=".\lib\nblibraries.properties" libraryName="libraries.path"/>
         <dirname file="${libraries.path}" property="libraries.dir.nativedirsep"/>
         <pathconvert dirsep="/" property="libraries.dir">
             <path path="${libraries.dir.nativedirsep}"/>
@@ -51,7 +51,7 @@ is divided into following sections:
         <basename file="${libraries.path}" property="libraries.basename" suffix=".properties"/>
         <available file="${libraries.dir}/${libraries.basename}-private.properties" property="private.properties.available"/>
     </target>
-    <target depends="-pre-init-libraries" if="private.properties.available" name="-init-private-libraries">
+    <target depends="-pre-init-libraries" if="private.properties.available" libraryName="-init-private-libraries">
         <loadproperties encoding="ISO-8859-1" srcfile="${libraries.dir}/${libraries.basename}-private.properties">
             <filterchain>
                 <replacestring from="$${base}" to="${libraries.dir}"/>
@@ -59,7 +59,7 @@ is divided into following sections:
             </filterchain>
         </loadproperties>
     </target>
-    <target depends="-pre-init,-init-private,-init-private-libraries" name="-init-libraries">
+    <target depends="-pre-init,-init-private,-init-private-libraries" libraryName="-init-libraries">
         <loadproperties encoding="ISO-8859-1" srcfile="${libraries.path}">
             <filterchain>
                 <replacestring from="$${base}" to="${libraries.dir}"/>
@@ -67,18 +67,18 @@ is divided into following sections:
             </filterchain>
         </loadproperties>
     </target>
-    <target depends="-pre-init,-init-private,-init-libraries" name="-init-user">
+    <target depends="-pre-init,-init-private,-init-libraries" libraryName="-init-user">
         <property file="${user.properties.file}"/>
         <!-- The two properties below are usually overridden -->
         <!-- by the active platform. Just a fallback. -->
-        <property name="default.javac.source" value="1.4"/>
-        <property name="default.javac.target" value="1.4"/>
+        <property libraryName="default.javac.source" value="1.4"/>
+        <property libraryName="default.javac.target" value="1.4"/>
     </target>
-    <target depends="-pre-init,-init-private,-init-libraries,-init-user" name="-init-project">
+    <target depends="-pre-init,-init-private,-init-libraries,-init-user" libraryName="-init-project">
         <property file="nbproject/configs/${config}.properties"/>
         <property file="nbproject/project.properties"/>
     </target>
-    <target depends="-pre-init,-init-private,-init-libraries,-init-user,-init-project,-init-macrodef-property" name="-do-init">
+    <target depends="-pre-init,-init-private,-init-libraries,-init-user,-init-project,-init-macrodef-property" libraryName="-do-init">
         <available file="${manifest.file}" property="manifest.available"/>
         <condition property="splashscreen.available">
             <and>
@@ -180,20 +180,20 @@ is divided into following sections:
                 <isfalse value="${javadoc.preview}"/>
             </and>
         </condition>
-        <property name="run.jvmargs" value=""/>
-        <property name="run.jvmargs.ide" value=""/>
-        <property name="javac.compilerargs" value=""/>
-        <property name="work.dir" value="${basedir}"/>
+        <property libraryName="run.jvmargs" value=""/>
+        <property libraryName="run.jvmargs.ide" value=""/>
+        <property libraryName="javac.compilerargs" value=""/>
+        <property libraryName="work.dir" value="${basedir}"/>
         <condition property="no.deps">
             <and>
                 <istrue value="${no.dependencies}"/>
             </and>
         </condition>
-        <property name="javac.debug" value="true"/>
-        <property name="javadoc.preview" value="true"/>
-        <property name="application.args" value=""/>
-        <property name="source.encoding" value="${file.encoding}"/>
-        <property name="runtime.encoding" value="${source.encoding}"/>
+        <property libraryName="javac.debug" value="true"/>
+        <property libraryName="javadoc.preview" value="true"/>
+        <property libraryName="application.args" value=""/>
+        <property libraryName="source.encoding" value="${file.encoding}"/>
+        <property libraryName="runtime.encoding" value="${source.encoding}"/>
         <condition property="javadoc.encoding.used" value="${javadoc.encoding}">
             <and>
                 <isset property="javadoc.encoding"/>
@@ -202,10 +202,10 @@ is divided into following sections:
                 </not>
             </and>
         </condition>
-        <property name="javadoc.encoding.used" value="${source.encoding}"/>
-        <property name="includes" value="**"/>
-        <property name="excludes" value=""/>
-        <property name="do.depend" value="false"/>
+        <property libraryName="javadoc.encoding.used" value="${source.encoding}"/>
+        <property libraryName="includes" value="**"/>
+        <property libraryName="excludes" value=""/>
+        <property libraryName="do.depend" value="false"/>
         <condition property="do.depend.true">
             <istrue value="${do.depend}"/>
         </condition>
@@ -221,10 +221,10 @@ is divided into following sections:
                 </not>
             </and>
         </condition>
-        <property name="javac.fork" value="${jdkBug6558476}"/>
-        <property name="jar.index" value="false"/>
-        <property name="jar.index.metainf" value="${jar.index}"/>
-        <property name="copylibs.rebase" value="true"/>
+        <property libraryName="javac.fork" value="${jdkBug6558476}"/>
+        <property libraryName="jar.index" value="false"/>
+        <property libraryName="jar.index.metainf" value="${jar.index}"/>
+        <property libraryName="copylibs.rebase" value="true"/>
         <available file="${meta.inf.dir}/persistence.xml" property="has.persistence.xml"/>
         <condition property="junit.available">
             <or>
@@ -248,11 +248,11 @@ is divided into following sections:
             <istrue value="${junit+testng.available}"/>
         </condition>
     </target>
-    <target name="-post-init">
+    <target libraryName="-post-init">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="-pre-init,-init-private,-init-libraries,-init-user,-init-project,-do-init" name="-init-check">
+    <target depends="-pre-init,-init-private,-init-libraries,-init-user,-init-project,-do-init" libraryName="-init-check">
         <fail unless="src.dir">Must set src.dir</fail>
         <fail unless="test.src.dir">Must set test.src.dir</fail>
         <fail unless="build.dir">Must set build.dir</fail>
@@ -264,36 +264,36 @@ is divided into following sections:
         <fail unless="build.classes.excludes">Must set build.classes.excludes</fail>
         <fail unless="dist.jar">Must set dist.jar</fail>
     </target>
-    <target name="-init-macrodef-property">
-        <macrodef name="property" uri="http://www.netbeans.org/ns/j2se-project/1">
-            <attribute name="name"/>
-            <attribute name="value"/>
+    <target libraryName="-init-macrodef-property">
+        <macrodef libraryName="property" uri="http://www.netbeans.org/ns/j2se-project/1">
+            <attribute libraryName="libraryName"/>
+            <attribute libraryName="value"/>
             <sequential>
-                <property name="@{name}" value="${@{value}}"/>
+                <property libraryName="@{libraryName}" value="${@{value}}"/>
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-ap-cmdline-properties" if="ap.supported.internal" name="-init-macrodef-javac-with-processors">
-        <macrodef name="javac" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${src.dir}" name="srcdir"/>
-            <attribute default="${build.classes.dir}" name="destdir"/>
-            <attribute default="${javac.classpath}" name="classpath"/>
-            <attribute default="${javac.processorpath}" name="processorpath"/>
-            <attribute default="${build.generated.sources.dir}/ap-source-output" name="apgeneratedsrcdir"/>
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="${javac.debug}" name="debug"/>
-            <attribute default="${empty.dir}" name="sourcepath"/>
-            <attribute default="${empty.dir}" name="gensrcdir"/>
-            <element name="customize" optional="true"/>
+    <target depends="-init-ap-cmdline-properties" if="ap.supported.internal" libraryName="-init-macrodef-javac-with-processors">
+        <macrodef libraryName="javac" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${src.dir}" libraryName="srcdir"/>
+            <attribute default="${build.classes.dir}" libraryName="destdir"/>
+            <attribute default="${javac.classpath}" libraryName="classpath"/>
+            <attribute default="${javac.processorpath}" libraryName="processorpath"/>
+            <attribute default="${build.generated.sources.dir}/ap-source-output" libraryName="apgeneratedsrcdir"/>
+            <attribute default="${includes}" libraryName="includes"/>
+            <attribute default="${excludes}" libraryName="excludes"/>
+            <attribute default="${javac.debug}" libraryName="debug"/>
+            <attribute default="${empty.dir}" libraryName="sourcepath"/>
+            <attribute default="${empty.dir}" libraryName="gensrcdir"/>
+            <element libraryName="customize" optional="true"/>
             <sequential>
-                <property location="${build.dir}/empty" name="empty.dir"/>
+                <property location="${build.dir}/empty" libraryName="empty.dir"/>
                 <mkdir dir="${empty.dir}"/>
                 <mkdir dir="@{apgeneratedsrcdir}"/>
                 <javac debug="@{debug}" deprecation="${javac.deprecation}" destdir="@{destdir}" encoding="${source.encoding}" excludes="@{excludes}" fork="${javac.fork}" includeantruntime="false" includes="@{includes}" source="${javac.source}" sourcepath="@{sourcepath}" srcdir="@{srcdir}" target="${javac.target}" tempdir="${java.io.tmpdir}">
                     <src>
                         <dirset dir="@{gensrcdir}" erroronmissingdir="false">
-                            <include name="*"/>
+                            <include libraryName="*"/>
                         </dirset>
                     </src>
                     <classpath>
@@ -313,26 +313,26 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-ap-cmdline-properties" name="-init-macrodef-javac-without-processors" unless="ap.supported.internal">
-        <macrodef name="javac" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${src.dir}" name="srcdir"/>
-            <attribute default="${build.classes.dir}" name="destdir"/>
-            <attribute default="${javac.classpath}" name="classpath"/>
-            <attribute default="${javac.processorpath}" name="processorpath"/>
-            <attribute default="${build.generated.sources.dir}/ap-source-output" name="apgeneratedsrcdir"/>
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="${javac.debug}" name="debug"/>
-            <attribute default="${empty.dir}" name="sourcepath"/>
-            <attribute default="${empty.dir}" name="gensrcdir"/>
-            <element name="customize" optional="true"/>
+    <target depends="-init-ap-cmdline-properties" libraryName="-init-macrodef-javac-without-processors" unless="ap.supported.internal">
+        <macrodef libraryName="javac" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${src.dir}" libraryName="srcdir"/>
+            <attribute default="${build.classes.dir}" libraryName="destdir"/>
+            <attribute default="${javac.classpath}" libraryName="classpath"/>
+            <attribute default="${javac.processorpath}" libraryName="processorpath"/>
+            <attribute default="${build.generated.sources.dir}/ap-source-output" libraryName="apgeneratedsrcdir"/>
+            <attribute default="${includes}" libraryName="includes"/>
+            <attribute default="${excludes}" libraryName="excludes"/>
+            <attribute default="${javac.debug}" libraryName="debug"/>
+            <attribute default="${empty.dir}" libraryName="sourcepath"/>
+            <attribute default="${empty.dir}" libraryName="gensrcdir"/>
+            <element libraryName="customize" optional="true"/>
             <sequential>
-                <property location="${build.dir}/empty" name="empty.dir"/>
+                <property location="${build.dir}/empty" libraryName="empty.dir"/>
                 <mkdir dir="${empty.dir}"/>
                 <javac debug="@{debug}" deprecation="${javac.deprecation}" destdir="@{destdir}" encoding="${source.encoding}" excludes="@{excludes}" fork="${javac.fork}" includeantruntime="false" includes="@{includes}" source="${javac.source}" sourcepath="@{sourcepath}" srcdir="@{srcdir}" target="${javac.target}" tempdir="${java.io.tmpdir}">
                     <src>
                         <dirset dir="@{gensrcdir}" erroronmissingdir="false">
-                            <include name="*"/>
+                            <include libraryName="*"/>
                         </dirset>
                     </src>
                     <classpath>
@@ -345,11 +345,11 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-macrodef-javac-with-processors,-init-macrodef-javac-without-processors" name="-init-macrodef-javac">
-        <macrodef name="depend" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${src.dir}" name="srcdir"/>
-            <attribute default="${build.classes.dir}" name="destdir"/>
-            <attribute default="${javac.classpath}" name="classpath"/>
+    <target depends="-init-macrodef-javac-with-processors,-init-macrodef-javac-without-processors" libraryName="-init-macrodef-javac">
+        <macrodef libraryName="depend" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${src.dir}" libraryName="srcdir"/>
+            <attribute default="${build.classes.dir}" libraryName="destdir"/>
+            <attribute default="${javac.classpath}" libraryName="classpath"/>
             <sequential>
                 <depend cache="${build.dir}/depcache" destdir="@{destdir}" excludes="${excludes}" includes="${includes}" srcdir="@{srcdir}">
                     <classpath>
@@ -358,8 +358,8 @@ is divided into following sections:
                 </depend>
             </sequential>
         </macrodef>
-        <macrodef name="force-recompile" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${build.classes.dir}" name="destdir"/>
+        <macrodef libraryName="force-recompile" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${build.classes.dir}" libraryName="destdir"/>
             <sequential>
                 <fail unless="javac.includes">Must set javac.includes</fail>
                 <pathconvert pathsep="${line.separator}" property="javac.includes.binary">
@@ -379,7 +379,7 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target if="${junit.available}" name="-init-macrodef-junit-init">
+    <target if="${junit.available}" libraryName="-init-macrodef-junit-init">
         <condition else="false" property="nb.junit.batch" value="true">
             <and>
                 <istrue value="${junit.available}"/>
@@ -395,22 +395,22 @@ is divided into following sections:
             </and>
         </condition>
     </target>
-    <target name="-init-test-properties">
-        <property name="test.binaryincludes" value="&lt;nothing&gt;"/>
-        <property name="test.binarytestincludes" value=""/>
-        <property name="test.binaryexcludes" value=""/>
+    <target libraryName="-init-test-properties">
+        <property libraryName="test.binaryincludes" value="&lt;nothing&gt;"/>
+        <property libraryName="test.binarytestincludes" value=""/>
+        <property libraryName="test.binaryexcludes" value=""/>
     </target>
-    <target if="${nb.junit.single}" name="-init-macrodef-junit-single" unless="${nb.junit.batch}">
-        <macrodef name="junit" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="**" name="testincludes"/>
-            <attribute default="" name="testmethods"/>
-            <element name="customize" optional="true"/>
+    <target if="${nb.junit.single}" libraryName="-init-macrodef-junit-single" unless="${nb.junit.batch}">
+        <macrodef libraryName="junit" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${includes}" libraryName="includes"/>
+            <attribute default="${excludes}" libraryName="excludes"/>
+            <attribute default="**" libraryName="testincludes"/>
+            <attribute default="" libraryName="testmethods"/>
+            <element libraryName="customize" optional="true"/>
             <sequential>
-                <property name="junit.forkmode" value="perTest"/>
+                <property libraryName="junit.forkmode" value="perTest"/>
                 <junit dir="${work.dir}" errorproperty="tests.failed" failureproperty="tests.failed" fork="true" forkmode="${junit.forkmode}" showoutput="true" tempdir="${build.dir}">
-                    <test methods="@{testmethods}" name="@{testincludes}" todir="${build.test.results.dir}"/>
+                    <test methods="@{testmethods}" libraryName="@{testincludes}" todir="${build.test.results.dir}"/>
                     <syspropertyset>
                         <propertyref prefix="test-sys-prop."/>
                         <mapper from="test-sys-prop.*" to="*" type="glob"/>
@@ -423,22 +423,22 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-test-properties" if="${nb.junit.batch}" name="-init-macrodef-junit-batch" unless="${nb.junit.single}">
-        <macrodef name="junit" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="**" name="testincludes"/>
-            <attribute default="" name="testmethods"/>
-            <element name="customize" optional="true"/>
+    <target depends="-init-test-properties" if="${nb.junit.batch}" libraryName="-init-macrodef-junit-batch" unless="${nb.junit.single}">
+        <macrodef libraryName="junit" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${includes}" libraryName="includes"/>
+            <attribute default="${excludes}" libraryName="excludes"/>
+            <attribute default="**" libraryName="testincludes"/>
+            <attribute default="" libraryName="testmethods"/>
+            <element libraryName="customize" optional="true"/>
             <sequential>
-                <property name="junit.forkmode" value="perTest"/>
+                <property libraryName="junit.forkmode" value="perTest"/>
                 <junit dir="${work.dir}" errorproperty="tests.failed" failureproperty="tests.failed" fork="true" forkmode="${junit.forkmode}" showoutput="true" tempdir="${build.dir}">
                     <batchtest todir="${build.test.results.dir}">
                         <fileset dir="${test.src.dir}" excludes="@{excludes},${excludes}" includes="@{includes}">
-                            <filename name="@{testincludes}"/>
+                            <filename libraryName="@{testincludes}"/>
                         </fileset>
                         <fileset dir="${build.test.classes.dir}" excludes="@{excludes},${excludes},${test.binaryexcludes}" includes="${test.binaryincludes}">
-                            <filename name="${test.binarytestincludes}"/>
+                            <filename libraryName="${test.binarytestincludes}"/>
                         </fileset>
                     </batchtest>
                     <syspropertyset>
@@ -453,24 +453,24 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-macrodef-junit-init,-init-macrodef-junit-single, -init-macrodef-junit-batch" if="${junit.available}" name="-init-macrodef-junit"/>
-    <target if="${testng.available}" name="-init-macrodef-testng">
-        <macrodef name="testng" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="**" name="testincludes"/>
-            <attribute default="" name="testmethods"/>
-            <element name="customize" optional="true"/>
+    <target depends="-init-macrodef-junit-init,-init-macrodef-junit-single, -init-macrodef-junit-batch" if="${junit.available}" libraryName="-init-macrodef-junit"/>
+    <target if="${testng.available}" libraryName="-init-macrodef-testng">
+        <macrodef libraryName="testng" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${includes}" libraryName="includes"/>
+            <attribute default="${excludes}" libraryName="excludes"/>
+            <attribute default="**" libraryName="testincludes"/>
+            <attribute default="" libraryName="testmethods"/>
+            <element libraryName="customize" optional="true"/>
             <sequential>
                 <condition else="" property="testng.methods.arg" value="@{testincludes}.@{testmethods}">
                     <isset property="test.method"/>
                 </condition>
                 <union id="test.set">
                     <fileset dir="${test.src.dir}" excludes="@{excludes},**/*.xml,${excludes}" includes="@{includes}">
-                        <filename name="@{testincludes}"/>
+                        <filename libraryName="@{testincludes}"/>
                     </fileset>
                 </union>
-                <taskdef classname="org.testng.TestNGAntTask" classpath="${run.test.classpath}" name="testng"/>
+                <taskdef classname="org.testng.TestNGAntTask" classpath="${run.test.classpath}" libraryName="testng"/>
                 <testng classfilesetref="test.set" failureProperty="tests.failed" methods="${testng.methods.arg}" mode="${testng.mode}" outputdir="${build.test.results.dir}" suitename="MusicUsPlatform" testname="TestNG tests" workingDir="${work.dir}">
                     <xmlfileset dir="${build.test.classes.dir}" includes="@{testincludes}"/>
                     <propertyset>
@@ -482,25 +482,25 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target name="-init-macrodef-test-impl">
-        <macrodef name="test-impl" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="**" name="testincludes"/>
-            <attribute default="" name="testmethods"/>
-            <element implicit="true" name="customize" optional="true"/>
+    <target libraryName="-init-macrodef-test-impl">
+        <macrodef libraryName="test-impl" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${includes}" libraryName="includes"/>
+            <attribute default="${excludes}" libraryName="excludes"/>
+            <attribute default="**" libraryName="testincludes"/>
+            <attribute default="" libraryName="testmethods"/>
+            <element implicit="true" libraryName="customize" optional="true"/>
             <sequential>
                 <echo>No tests executed.</echo>
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-macrodef-junit" if="${junit.available}" name="-init-macrodef-junit-impl">
-        <macrodef name="test-impl" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="**" name="testincludes"/>
-            <attribute default="" name="testmethods"/>
-            <element implicit="true" name="customize" optional="true"/>
+    <target depends="-init-macrodef-junit" if="${junit.available}" libraryName="-init-macrodef-junit-impl">
+        <macrodef libraryName="test-impl" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${includes}" libraryName="includes"/>
+            <attribute default="${excludes}" libraryName="excludes"/>
+            <attribute default="**" libraryName="testincludes"/>
+            <attribute default="" libraryName="testmethods"/>
+            <element implicit="true" libraryName="customize" optional="true"/>
             <sequential>
                 <j2seproject3:junit excludes="@{excludes}" includes="@{includes}" testincludes="@{testincludes}" testmethods="@{testmethods}">
                     <customize/>
@@ -508,13 +508,13 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-macrodef-testng" if="${testng.available}" name="-init-macrodef-testng-impl">
-        <macrodef name="test-impl" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="**" name="testincludes"/>
-            <attribute default="" name="testmethods"/>
-            <element implicit="true" name="customize" optional="true"/>
+    <target depends="-init-macrodef-testng" if="${testng.available}" libraryName="-init-macrodef-testng-impl">
+        <macrodef libraryName="test-impl" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${includes}" libraryName="includes"/>
+            <attribute default="${excludes}" libraryName="excludes"/>
+            <attribute default="**" libraryName="testincludes"/>
+            <attribute default="" libraryName="testmethods"/>
+            <element implicit="true" libraryName="customize" optional="true"/>
             <sequential>
                 <j2seproject3:testng excludes="@{excludes}" includes="@{includes}" testincludes="@{testincludes}" testmethods="@{testmethods}">
                     <customize/>
@@ -522,12 +522,12 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-macrodef-test-impl,-init-macrodef-junit-impl,-init-macrodef-testng-impl" name="-init-macrodef-test">
-        <macrodef name="test" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="**" name="testincludes"/>
-            <attribute default="" name="testmethods"/>
+    <target depends="-init-macrodef-test-impl,-init-macrodef-junit-impl,-init-macrodef-testng-impl" libraryName="-init-macrodef-test">
+        <macrodef libraryName="test" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${includes}" libraryName="includes"/>
+            <attribute default="${excludes}" libraryName="excludes"/>
+            <attribute default="**" libraryName="testincludes"/>
+            <attribute default="" libraryName="testmethods"/>
             <sequential>
                 <j2seproject3:test-impl excludes="@{excludes}" includes="@{includes}" testincludes="@{testincludes}" testmethods="@{testmethods}">
                     <customize>
@@ -542,17 +542,17 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target if="${junit.available}" name="-init-macrodef-junit-debug" unless="${nb.junit.batch}">
-        <macrodef name="junit-debug" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="**" name="testincludes"/>
-            <attribute default="" name="testmethods"/>
-            <element name="customize" optional="true"/>
+    <target if="${junit.available}" libraryName="-init-macrodef-junit-debug" unless="${nb.junit.batch}">
+        <macrodef libraryName="junit-debug" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${includes}" libraryName="includes"/>
+            <attribute default="${excludes}" libraryName="excludes"/>
+            <attribute default="**" libraryName="testincludes"/>
+            <attribute default="" libraryName="testmethods"/>
+            <element libraryName="customize" optional="true"/>
             <sequential>
-                <property name="junit.forkmode" value="perTest"/>
+                <property libraryName="junit.forkmode" value="perTest"/>
                 <junit dir="${work.dir}" errorproperty="tests.failed" failureproperty="tests.failed" fork="true" forkmode="${junit.forkmode}" showoutput="true" tempdir="${build.dir}">
-                    <test methods="@{testmethods}" name="@{testincludes}" todir="${build.test.results.dir}"/>
+                    <test methods="@{testmethods}" libraryName="@{testincludes}" todir="${build.test.results.dir}"/>
                     <syspropertyset>
                         <propertyref prefix="test-sys-prop."/>
                         <mapper from="test-sys-prop.*" to="*" type="glob"/>
@@ -567,22 +567,22 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-test-properties" if="${nb.junit.batch}" name="-init-macrodef-junit-debug-batch">
-        <macrodef name="junit-debug" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="**" name="testincludes"/>
-            <attribute default="" name="testmethods"/>
-            <element name="customize" optional="true"/>
+    <target depends="-init-test-properties" if="${nb.junit.batch}" libraryName="-init-macrodef-junit-debug-batch">
+        <macrodef libraryName="junit-debug" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${includes}" libraryName="includes"/>
+            <attribute default="${excludes}" libraryName="excludes"/>
+            <attribute default="**" libraryName="testincludes"/>
+            <attribute default="" libraryName="testmethods"/>
+            <element libraryName="customize" optional="true"/>
             <sequential>
-                <property name="junit.forkmode" value="perTest"/>
+                <property libraryName="junit.forkmode" value="perTest"/>
                 <junit dir="${work.dir}" errorproperty="tests.failed" failureproperty="tests.failed" fork="true" forkmode="${junit.forkmode}" showoutput="true" tempdir="${build.dir}">
                     <batchtest todir="${build.test.results.dir}">
                         <fileset dir="${test.src.dir}" excludes="@{excludes},${excludes}" includes="@{includes}">
-                            <filename name="@{testincludes}"/>
+                            <filename libraryName="@{testincludes}"/>
                         </fileset>
                         <fileset dir="${build.test.classes.dir}" excludes="@{excludes},${excludes},${test.binaryexcludes}" includes="${test.binaryincludes}">
-                            <filename name="${test.binarytestincludes}"/>
+                            <filename libraryName="${test.binarytestincludes}"/>
                         </fileset>
                     </batchtest>
                     <syspropertyset>
@@ -599,13 +599,13 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-macrodef-junit-debug,-init-macrodef-junit-debug-batch" if="${junit.available}" name="-init-macrodef-junit-debug-impl">
-        <macrodef name="test-debug-impl" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="**" name="testincludes"/>
-            <attribute default="" name="testmethods"/>
-            <element implicit="true" name="customize" optional="true"/>
+    <target depends="-init-macrodef-junit-debug,-init-macrodef-junit-debug-batch" if="${junit.available}" libraryName="-init-macrodef-junit-debug-impl">
+        <macrodef libraryName="test-debug-impl" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${includes}" libraryName="includes"/>
+            <attribute default="${excludes}" libraryName="excludes"/>
+            <attribute default="**" libraryName="testincludes"/>
+            <attribute default="" libraryName="testmethods"/>
+            <element implicit="true" libraryName="customize" optional="true"/>
             <sequential>
                 <j2seproject3:junit-debug excludes="@{excludes}" includes="@{includes}" testincludes="@{testincludes}" testmethods="@{testmethods}">
                     <customize/>
@@ -613,11 +613,11 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target if="${testng.available}" name="-init-macrodef-testng-debug">
-        <macrodef name="testng-debug" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${main.class}" name="testClass"/>
-            <attribute default="" name="testMethod"/>
-            <element name="customize2" optional="true"/>
+    <target if="${testng.available}" libraryName="-init-macrodef-testng-debug">
+        <macrodef libraryName="testng-debug" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${main.class}" libraryName="testClass"/>
+            <attribute default="" libraryName="testMethod"/>
+            <element libraryName="customize2" optional="true"/>
             <sequential>
                 <condition else="-testclass @{testClass}" property="test.class.or.method" value="-methods @{testClass}.@{testMethod}">
                     <isset property="test.method"/>
@@ -640,11 +640,11 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-macrodef-testng-debug" if="${testng.available}" name="-init-macrodef-testng-debug-impl">
-        <macrodef name="testng-debug-impl" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${main.class}" name="testClass"/>
-            <attribute default="" name="testMethod"/>
-            <element implicit="true" name="customize2" optional="true"/>
+    <target depends="-init-macrodef-testng-debug" if="${testng.available}" libraryName="-init-macrodef-testng-debug-impl">
+        <macrodef libraryName="testng-debug-impl" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${main.class}" libraryName="testClass"/>
+            <attribute default="" libraryName="testMethod"/>
+            <element implicit="true" libraryName="customize2" optional="true"/>
             <sequential>
                 <j2seproject3:testng-debug testClass="@{testClass}" testMethod="@{testMethod}">
                     <customize2/>
@@ -652,14 +652,14 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-macrodef-junit-debug-impl" if="${junit.available}" name="-init-macrodef-test-debug-junit">
-        <macrodef name="test-debug" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="**" name="testincludes"/>
-            <attribute default="" name="testmethods"/>
-            <attribute default="${main.class}" name="testClass"/>
-            <attribute default="" name="testMethod"/>
+    <target depends="-init-macrodef-junit-debug-impl" if="${junit.available}" libraryName="-init-macrodef-test-debug-junit">
+        <macrodef libraryName="test-debug" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${includes}" libraryName="includes"/>
+            <attribute default="${excludes}" libraryName="excludes"/>
+            <attribute default="**" libraryName="testincludes"/>
+            <attribute default="" libraryName="testmethods"/>
+            <attribute default="${main.class}" libraryName="testClass"/>
+            <attribute default="" libraryName="testMethod"/>
             <sequential>
                 <j2seproject3:test-debug-impl excludes="@{excludes}" includes="@{includes}" testincludes="@{testincludes}" testmethods="@{testmethods}">
                     <customize>
@@ -674,14 +674,14 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-macrodef-testng-debug-impl" if="${testng.available}" name="-init-macrodef-test-debug-testng">
-        <macrodef name="test-debug" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${includes}" name="includes"/>
-            <attribute default="${excludes}" name="excludes"/>
-            <attribute default="**" name="testincludes"/>
-            <attribute default="" name="testmethods"/>
-            <attribute default="${main.class}" name="testClass"/>
-            <attribute default="" name="testMethod"/>
+    <target depends="-init-macrodef-testng-debug-impl" if="${testng.available}" libraryName="-init-macrodef-test-debug-testng">
+        <macrodef libraryName="test-debug" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${includes}" libraryName="includes"/>
+            <attribute default="${excludes}" libraryName="excludes"/>
+            <attribute default="**" libraryName="testincludes"/>
+            <attribute default="" libraryName="testmethods"/>
+            <attribute default="${main.class}" libraryName="testClass"/>
+            <attribute default="" libraryName="testMethod"/>
             <sequential>
                 <j2seproject3:testng-debug-impl testClass="@{testClass}" testMethod="@{testMethod}">
                     <customize2>
@@ -694,33 +694,33 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-init-macrodef-test-debug-junit,-init-macrodef-test-debug-testng" name="-init-macrodef-test-debug"/>
+    <target depends="-init-macrodef-test-debug-junit,-init-macrodef-test-debug-testng" libraryName="-init-macrodef-test-debug"/>
     <!--
                 pre NB7.2 profiling section; consider it deprecated
             -->
-    <target depends="-profile-pre-init, init, -profile-post-init, -profile-init-macrodef-profile, -profile-init-check" if="profiler.info.jvmargs.agent" name="profile-init"/>
-    <target if="profiler.info.jvmargs.agent" name="-profile-pre-init">
+    <target depends="-profile-pre-init, init, -profile-post-init, -profile-init-macrodef-profile, -profile-init-check" if="profiler.info.jvmargs.agent" libraryName="profile-init"/>
+    <target if="profiler.info.jvmargs.agent" libraryName="-profile-pre-init">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target if="profiler.info.jvmargs.agent" name="-profile-post-init">
+    <target if="profiler.info.jvmargs.agent" libraryName="-profile-post-init">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target if="profiler.info.jvmargs.agent" name="-profile-init-macrodef-profile">
-        <macrodef name="resolve">
-            <attribute name="name"/>
-            <attribute name="value"/>
+    <target if="profiler.info.jvmargs.agent" libraryName="-profile-init-macrodef-profile">
+        <macrodef libraryName="resolve">
+            <attribute libraryName="libraryName"/>
+            <attribute libraryName="value"/>
             <sequential>
-                <property name="@{name}" value="${env.@{value}}"/>
+                <property libraryName="@{libraryName}" value="${env.@{value}}"/>
             </sequential>
         </macrodef>
-        <macrodef name="profile">
-            <attribute default="${main.class}" name="classname"/>
-            <element name="customize" optional="true"/>
+        <macrodef libraryName="profile">
+            <attribute default="${main.class}" libraryName="classname"/>
+            <element libraryName="customize" optional="true"/>
             <sequential>
                 <property environment="env"/>
-                <resolve name="profiler.current.path" value="${profiler.info.pathvar}"/>
+                <resolve libraryName="profiler.current.path" value="${profiler.info.pathvar}"/>
                 <java classname="@{classname}" dir="${profiler.info.dir}" fork="true" jvm="${profiler.info.jvm}">
                     <jvmarg line="${endorsed.classpath.cmd.line.arg}"/>
                     <jvmarg value="${profiler.info.jvmargs.agent}"/>
@@ -739,39 +739,39 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-profile-pre-init, init, -profile-post-init, -profile-init-macrodef-profile" if="profiler.info.jvmargs.agent" name="-profile-init-check">
+    <target depends="-profile-pre-init, init, -profile-post-init, -profile-init-macrodef-profile" if="profiler.info.jvmargs.agent" libraryName="-profile-init-check">
         <fail unless="profiler.info.jvm">Must set JVM to use for profiling in profiler.info.jvm</fail>
         <fail unless="profiler.info.jvmargs.agent">Must set profiler agent JVM arguments in profiler.info.jvmargs.agent</fail>
     </target>
     <!--
                 end of pre NB7.2 profiling section
             -->
-    <target depends="-init-debug-args" name="-init-macrodef-nbjpda">
-        <macrodef name="nbjpdastart" uri="http://www.netbeans.org/ns/j2se-project/1">
-            <attribute default="${main.class}" name="name"/>
-            <attribute default="${debug.classpath}" name="classpath"/>
-            <attribute default="" name="stopclassname"/>
+    <target depends="-init-debug-args" libraryName="-init-macrodef-nbjpda">
+        <macrodef libraryName="nbjpdastart" uri="http://www.netbeans.org/ns/j2se-project/1">
+            <attribute default="${main.class}" libraryName="libraryName"/>
+            <attribute default="${debug.classpath}" libraryName="classpath"/>
+            <attribute default="" libraryName="stopclassname"/>
             <sequential>
-                <nbjpdastart addressproperty="jpda.address" name="@{name}" stopclassname="@{stopclassname}" transport="${debug-transport}">
+                <nbjpdastart addressproperty="jpda.address" libraryName="@{libraryName}" stopclassname="@{stopclassname}" transport="${debug-transport}">
                     <classpath>
                         <path path="@{classpath}"/>
                     </classpath>
                 </nbjpdastart>
             </sequential>
         </macrodef>
-        <macrodef name="nbjpdareload" uri="http://www.netbeans.org/ns/j2se-project/1">
-            <attribute default="${build.classes.dir}" name="dir"/>
+        <macrodef libraryName="nbjpdareload" uri="http://www.netbeans.org/ns/j2se-project/1">
+            <attribute default="${build.classes.dir}" libraryName="dir"/>
             <sequential>
                 <nbjpdareload>
                     <fileset dir="@{dir}" includes="${fix.classes}">
-                        <include name="${fix.includes}*.class"/>
+                        <include libraryName="${fix.includes}*.class"/>
                     </fileset>
                 </nbjpdareload>
             </sequential>
         </macrodef>
     </target>
-    <target name="-init-debug-args">
-        <property name="version-output" value="java version &quot;${ant.java.version}"/>
+    <target libraryName="-init-debug-args">
+        <property libraryName="version-output" value="java version &quot;${ant.java.version}"/>
         <condition property="have-jdk-older-than-1.4">
             <or>
                 <contains string="${version-output}" substring="java version &quot;1.0"/>
@@ -790,11 +790,11 @@ is divided into following sections:
             <isset property="debug.transport"/>
         </condition>
     </target>
-    <target depends="-init-debug-args" name="-init-macrodef-debug">
-        <macrodef name="debug" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${main.class}" name="classname"/>
-            <attribute default="${debug.classpath}" name="classpath"/>
-            <element name="customize" optional="true"/>
+    <target depends="-init-debug-args" libraryName="-init-macrodef-debug">
+        <macrodef libraryName="debug" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${main.class}" libraryName="classname"/>
+            <attribute default="${debug.classpath}" libraryName="classpath"/>
+            <element libraryName="customize" optional="true"/>
             <sequential>
                 <java classname="@{classname}" dir="${work.dir}" fork="true">
                     <jvmarg line="${endorsed.classpath.cmd.line.arg}"/>
@@ -816,12 +816,12 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target name="-init-macrodef-java">
-        <macrodef name="java" uri="http://www.netbeans.org/ns/j2se-project/1">
-            <attribute default="${main.class}" name="classname"/>
-            <attribute default="${run.classpath}" name="classpath"/>
-            <attribute default="jvm" name="jvm"/>
-            <element name="customize" optional="true"/>
+    <target libraryName="-init-macrodef-java">
+        <macrodef libraryName="java" uri="http://www.netbeans.org/ns/j2se-project/1">
+            <attribute default="${main.class}" libraryName="classname"/>
+            <attribute default="${run.classpath}" libraryName="classpath"/>
+            <attribute default="jvm" libraryName="jvm"/>
+            <element libraryName="customize" optional="true"/>
             <sequential>
                 <java classname="@{classname}" dir="${work.dir}" fork="true">
                     <jvmarg line="${endorsed.classpath.cmd.line.arg}"/>
@@ -841,12 +841,12 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target name="-init-macrodef-copylibs">
-        <macrodef name="copylibs" uri="http://www.netbeans.org/ns/j2se-project/3">
-            <attribute default="${manifest.file}" name="manifest"/>
-            <element name="customize" optional="true"/>
+    <target libraryName="-init-macrodef-copylibs">
+        <macrodef libraryName="copylibs" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <attribute default="${manifest.file}" libraryName="manifest"/>
+            <element libraryName="customize" optional="true"/>
             <sequential>
-                <property location="${build.classes.dir}" name="build.classes.dir.resolved"/>
+                <property location="${build.classes.dir}" libraryName="build.classes.dir.resolved"/>
                 <pathconvert property="run.classpath.without.build.classes.dir">
                     <path path="${run.classpath}"/>
                     <map from="${build.classes.dir.resolved}" to=""/>
@@ -861,38 +861,38 @@ is divided into following sections:
                         <globmapper from="*" to="lib/*"/>
                     </chainedmapper>
                 </pathconvert>
-                <taskdef classname="org.netbeans.modules.java.j2seproject.copylibstask.CopyLibs" classpath="${libs.CopyLibs.classpath}" name="copylibs"/>
+                <taskdef classname="org.netbeans.modules.java.j2seproject.copylibstask.CopyLibs" classpath="${libs.CopyLibs.classpath}" libraryName="copylibs"/>
                 <copylibs compress="${jar.compress}" index="${jar.index}" indexMetaInf="${jar.index.metainf}" jarfile="${dist.jar}" manifest="@{manifest}" rebase="${copylibs.rebase}" runtimeclasspath="${run.classpath.without.build.classes.dir}">
                     <fileset dir="${build.classes.dir}"/>
                     <manifest>
-                        <attribute name="Class-Path" value="${jar.classpath}"/>
+                        <attribute libraryName="Class-Path" value="${jar.classpath}"/>
                         <customize/>
                     </manifest>
                 </copylibs>
             </sequential>
         </macrodef>
     </target>
-    <target name="-init-presetdef-jar">
-        <presetdef name="jar" uri="http://www.netbeans.org/ns/j2se-project/1">
+    <target libraryName="-init-presetdef-jar">
+        <presetdef libraryName="jar" uri="http://www.netbeans.org/ns/j2se-project/1">
             <jar compress="${jar.compress}" index="${jar.index}" jarfile="${dist.jar}">
                 <j2seproject1:fileset dir="${build.classes.dir}"/>
             </jar>
         </presetdef>
     </target>
-    <target name="-init-ap-cmdline-properties">
-        <property name="annotation.processing.enabled" value="true"/>
-        <property name="annotation.processing.processors.list" value=""/>
-        <property name="annotation.processing.processor.options" value=""/>
-        <property name="annotation.processing.run.all.processors" value="true"/>
-        <property name="javac.processorpath" value="${javac.classpath}"/>
-        <property name="javac.test.processorpath" value="${javac.test.classpath}"/>
+    <target libraryName="-init-ap-cmdline-properties">
+        <property libraryName="annotation.processing.enabled" value="true"/>
+        <property libraryName="annotation.processing.processors.list" value=""/>
+        <property libraryName="annotation.processing.processor.options" value=""/>
+        <property libraryName="annotation.processing.run.all.processors" value="true"/>
+        <property libraryName="javac.processorpath" value="${javac.classpath}"/>
+        <property libraryName="javac.test.processorpath" value="${javac.test.classpath}"/>
         <condition property="ap.supported.internal" value="true">
             <not>
                 <matches pattern="1\.[0-5](\..*)?" string="${javac.source}"/>
             </not>
         </condition>
     </target>
-    <target depends="-init-ap-cmdline-properties" if="ap.supported.internal" name="-init-ap-cmdline-supported">
+    <target depends="-init-ap-cmdline-properties" if="ap.supported.internal" libraryName="-init-ap-cmdline-supported">
         <condition else="" property="ap.processors.internal" value="-processor ${annotation.processing.processors.list}">
             <isfalse value="${annotation.processing.run.all.processors}"/>
         </condition>
@@ -900,23 +900,23 @@ is divided into following sections:
             <isfalse value="${annotation.processing.enabled}"/>
         </condition>
     </target>
-    <target depends="-init-ap-cmdline-properties,-init-ap-cmdline-supported" name="-init-ap-cmdline">
-        <property name="ap.cmd.line.internal" value=""/>
+    <target depends="-init-ap-cmdline-properties,-init-ap-cmdline-supported" libraryName="-init-ap-cmdline">
+        <property libraryName="ap.cmd.line.internal" value=""/>
     </target>
-    <target depends="-pre-init,-init-private,-init-libraries,-init-user,-init-project,-do-init,-post-init,-init-check,-init-macrodef-property,-init-macrodef-javac,-init-macrodef-test,-init-macrodef-test-debug,-init-macrodef-nbjpda,-init-macrodef-debug,-init-macrodef-java,-init-presetdef-jar,-init-ap-cmdline" name="init"/>
+    <target depends="-pre-init,-init-private,-init-libraries,-init-user,-init-project,-do-init,-post-init,-init-check,-init-macrodef-property,-init-macrodef-javac,-init-macrodef-test,-init-macrodef-test-debug,-init-macrodef-nbjpda,-init-macrodef-debug,-init-macrodef-java,-init-presetdef-jar,-init-ap-cmdline" libraryName="init"/>
     <!--
                 ===================
                 COMPILATION SECTION
                 ===================
             -->
-    <target name="-deps-jar-init" unless="built-jar.properties">
-        <property location="${build.dir}/built-jar.properties" name="built-jar.properties"/>
+    <target libraryName="-deps-jar-init" unless="built-jar.properties">
+        <property location="${build.dir}/built-jar.properties" libraryName="built-jar.properties"/>
         <delete file="${built-jar.properties}" quiet="true"/>
     </target>
-    <target if="already.built.jar.${basedir}" name="-warn-already-built-jar">
+    <target if="already.built.jar.${basedir}" libraryName="-warn-already-built-jar">
         <echo level="warn" message="Cycle detected: MusicUsPlatform was already built"/>
     </target>
-    <target depends="init,-deps-jar-init" name="deps-jar" unless="no.deps">
+    <target depends="init,-deps-jar-init" libraryName="deps-jar" unless="no.deps">
         <mkdir dir="${build.dir}"/>
         <touch file="${built-jar.properties}" verbose="false"/>
         <property file="${built-jar.properties}" prefix="already.built.jar."/>
@@ -925,151 +925,151 @@ is divided into following sections:
             <entry key="${basedir}" value=""/>
         </propertyfile>
     </target>
-    <target depends="init,-check-automatic-build,-clean-after-automatic-build" name="-verify-automatic-build"/>
-    <target depends="init" name="-check-automatic-build">
+    <target depends="init,-check-automatic-build,-clean-after-automatic-build" libraryName="-verify-automatic-build"/>
+    <target depends="init" libraryName="-check-automatic-build">
         <available file="${build.classes.dir}/.netbeans_automatic_build" property="netbeans.automatic.build"/>
     </target>
-    <target depends="init" if="netbeans.automatic.build" name="-clean-after-automatic-build">
+    <target depends="init" if="netbeans.automatic.build" libraryName="-clean-after-automatic-build">
         <antcall target="clean"/>
     </target>
-    <target depends="init,deps-jar" name="-pre-pre-compile">
+    <target depends="init,deps-jar" libraryName="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
     </target>
-    <target name="-pre-compile">
+    <target libraryName="-pre-compile">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target if="do.depend.true" name="-compile-depend">
+    <target if="do.depend.true" libraryName="-compile-depend">
         <pathconvert property="build.generated.subdirs">
             <dirset dir="${build.generated.sources.dir}" erroronmissingdir="false">
-                <include name="*"/>
+                <include libraryName="*"/>
             </dirset>
         </pathconvert>
         <j2seproject3:depend srcdir="${src.dir}:${build.generated.subdirs}"/>
     </target>
-    <target depends="init,deps-jar,-pre-pre-compile,-pre-compile, -copy-persistence-xml,-compile-depend" if="have.sources" name="-do-compile">
+    <target depends="init,deps-jar,-pre-pre-compile,-pre-compile, -copy-persistence-xml,-compile-depend" if="have.sources" libraryName="-do-compile">
         <j2seproject3:javac gensrcdir="${build.generated.sources.dir}"/>
         <copy todir="${build.classes.dir}">
             <fileset dir="${src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
         </copy>
     </target>
-    <target if="has.persistence.xml" name="-copy-persistence-xml">
+    <target if="has.persistence.xml" libraryName="-copy-persistence-xml">
         <mkdir dir="${build.classes.dir}/META-INF"/>
         <copy todir="${build.classes.dir}/META-INF">
             <fileset dir="${meta.inf.dir}" includes="persistence.xml orm.xml"/>
         </copy>
     </target>
-    <target name="-post-compile">
+    <target libraryName="-post-compile">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="init,deps-jar,-verify-automatic-build,-pre-pre-compile,-pre-compile,-do-compile,-post-compile" description="Compile project." name="compile"/>
-    <target name="-pre-compile-single">
+    <target depends="init,deps-jar,-verify-automatic-build,-pre-pre-compile,-pre-compile,-do-compile,-post-compile" description="Compile project." libraryName="compile"/>
+    <target libraryName="-pre-compile-single">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="init,deps-jar,-pre-pre-compile" name="-do-compile-single">
+    <target depends="init,deps-jar,-pre-pre-compile" libraryName="-do-compile-single">
         <fail unless="javac.includes">Must select some files in the IDE or set javac.includes</fail>
         <j2seproject3:force-recompile/>
         <j2seproject3:javac excludes="" gensrcdir="${build.generated.sources.dir}" includes="${javac.includes}" sourcepath="${src.dir}"/>
     </target>
-    <target name="-post-compile-single">
+    <target libraryName="-post-compile-single">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="init,deps-jar,-verify-automatic-build,-pre-pre-compile,-pre-compile-single,-do-compile-single,-post-compile-single" name="compile-single"/>
+    <target depends="init,deps-jar,-verify-automatic-build,-pre-pre-compile,-pre-compile-single,-do-compile-single,-post-compile-single" libraryName="compile-single"/>
     <!--
                 ====================
                 JAR BUILDING SECTION
                 ====================
             -->
-    <target depends="init" name="-pre-pre-jar">
+    <target depends="init" libraryName="-pre-pre-jar">
         <dirname file="${dist.jar}" property="dist.jar.dir"/>
         <mkdir dir="${dist.jar.dir}"/>
     </target>
-    <target name="-pre-jar">
+    <target libraryName="-pre-jar">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="init,compile,-pre-pre-jar,-pre-jar" if="do.archive" name="-do-jar-without-manifest" unless="manifest.available-mkdist.available">
+    <target depends="init,compile,-pre-pre-jar,-pre-jar" if="do.archive" libraryName="-do-jar-without-manifest" unless="manifest.available-mkdist.available">
         <j2seproject1:jar/>
     </target>
-    <target depends="init,compile,-pre-pre-jar,-pre-jar" if="do.archive+manifest.available" name="-do-jar-with-manifest" unless="manifest.available+main.class-mkdist.available">
+    <target depends="init,compile,-pre-pre-jar,-pre-jar" if="do.archive+manifest.available" libraryName="-do-jar-with-manifest" unless="manifest.available+main.class-mkdist.available">
         <j2seproject1:jar manifest="${manifest.file}"/>
     </target>
-    <target depends="init,compile,-pre-pre-jar,-pre-jar" if="do.archive+manifest.available+main.class" name="-do-jar-with-mainclass" unless="manifest.available+main.class+mkdist.available">
+    <target depends="init,compile,-pre-pre-jar,-pre-jar" if="do.archive+manifest.available+main.class" libraryName="-do-jar-with-mainclass" unless="manifest.available+main.class+mkdist.available">
         <j2seproject1:jar manifest="${manifest.file}">
             <j2seproject1:manifest>
-                <j2seproject1:attribute name="Main-Class" value="${main.class}"/>
+                <j2seproject1:attribute libraryName="Main-Class" value="${main.class}"/>
             </j2seproject1:manifest>
         </j2seproject1:jar>
         <echo level="info">To run this application from the command line without Ant, try:</echo>
-        <property location="${build.classes.dir}" name="build.classes.dir.resolved"/>
-        <property location="${dist.jar}" name="dist.jar.resolved"/>
+        <property location="${build.classes.dir}" libraryName="build.classes.dir.resolved"/>
+        <property location="${dist.jar}" libraryName="dist.jar.resolved"/>
         <pathconvert property="run.classpath.with.dist.jar">
             <path path="${run.classpath}"/>
             <map from="${build.classes.dir.resolved}" to="${dist.jar.resolved}"/>
         </pathconvert>
         <echo level="info">java -cp "${run.classpath.with.dist.jar}" ${main.class}</echo>
     </target>
-    <target depends="init" if="do.archive" name="-do-jar-with-libraries-create-manifest" unless="manifest.available">
+    <target depends="init" if="do.archive" libraryName="-do-jar-with-libraries-create-manifest" unless="manifest.available">
         <tempfile deleteonexit="true" destdir="${build.dir}" property="tmp.manifest.file"/>
         <touch file="${tmp.manifest.file}" verbose="false"/>
     </target>
-    <target depends="init" if="do.archive+manifest.available" name="-do-jar-with-libraries-copy-manifest">
+    <target depends="init" if="do.archive+manifest.available" libraryName="-do-jar-with-libraries-copy-manifest">
         <tempfile deleteonexit="true" destdir="${build.dir}" property="tmp.manifest.file"/>
         <copy file="${manifest.file}" tofile="${tmp.manifest.file}"/>
     </target>
-    <target depends="init,-do-jar-with-libraries-create-manifest,-do-jar-with-libraries-copy-manifest" if="do.archive+main.class.available" name="-do-jar-with-libraries-set-main">
+    <target depends="init,-do-jar-with-libraries-create-manifest,-do-jar-with-libraries-copy-manifest" if="do.archive+main.class.available" libraryName="-do-jar-with-libraries-set-main">
         <manifest file="${tmp.manifest.file}" mode="update">
-            <attribute name="Main-Class" value="${main.class}"/>
+            <attribute libraryName="Main-Class" value="${main.class}"/>
         </manifest>
     </target>
-    <target depends="init,-do-jar-with-libraries-create-manifest,-do-jar-with-libraries-copy-manifest" if="do.archive+splashscreen.available" name="-do-jar-with-libraries-set-splashscreen">
+    <target depends="init,-do-jar-with-libraries-create-manifest,-do-jar-with-libraries-copy-manifest" if="do.archive+splashscreen.available" libraryName="-do-jar-with-libraries-set-splashscreen">
         <basename file="${application.splash}" property="splashscreen.basename"/>
         <mkdir dir="${build.classes.dir}/META-INF"/>
         <copy failonerror="false" file="${application.splash}" todir="${build.classes.dir}/META-INF"/>
         <manifest file="${tmp.manifest.file}" mode="update">
-            <attribute name="SplashScreen-Image" value="META-INF/${splashscreen.basename}"/>
+            <attribute libraryName="SplashScreen-Image" value="META-INF/${splashscreen.basename}"/>
         </manifest>
     </target>
-    <target depends="init,-init-macrodef-copylibs,compile,-pre-pre-jar,-pre-jar,-do-jar-with-libraries-create-manifest,-do-jar-with-libraries-copy-manifest,-do-jar-with-libraries-set-main,-do-jar-with-libraries-set-splashscreen" if="do.mkdist" name="-do-jar-with-libraries-pack">
+    <target depends="init,-init-macrodef-copylibs,compile,-pre-pre-jar,-pre-jar,-do-jar-with-libraries-create-manifest,-do-jar-with-libraries-copy-manifest,-do-jar-with-libraries-set-main,-do-jar-with-libraries-set-splashscreen" if="do.mkdist" libraryName="-do-jar-with-libraries-pack">
         <j2seproject3:copylibs manifest="${tmp.manifest.file}"/>
         <echo level="info">To run this application from the command line without Ant, try:</echo>
-        <property location="${dist.jar}" name="dist.jar.resolved"/>
+        <property location="${dist.jar}" libraryName="dist.jar.resolved"/>
         <echo level="info">java -jar "${dist.jar.resolved}"</echo>
     </target>
-    <target depends="-do-jar-with-libraries-pack" if="do.archive" name="-do-jar-with-libraries-delete-manifest">
+    <target depends="-do-jar-with-libraries-pack" if="do.archive" libraryName="-do-jar-with-libraries-delete-manifest">
         <delete>
             <fileset file="${tmp.manifest.file}"/>
         </delete>
     </target>
-    <target depends="init,compile,-pre-pre-jar,-pre-jar,-do-jar-with-libraries-create-manifest,-do-jar-with-libraries-copy-manifest,-do-jar-with-libraries-set-main,-do-jar-with-libraries-set-splashscreen,-do-jar-with-libraries-pack,-do-jar-with-libraries-delete-manifest" name="-do-jar-with-libraries"/>
-    <target name="-post-jar">
+    <target depends="init,compile,-pre-pre-jar,-pre-jar,-do-jar-with-libraries-create-manifest,-do-jar-with-libraries-copy-manifest,-do-jar-with-libraries-set-main,-do-jar-with-libraries-set-splashscreen,-do-jar-with-libraries-pack,-do-jar-with-libraries-delete-manifest" libraryName="-do-jar-with-libraries"/>
+    <target libraryName="-post-jar">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="init,compile,-pre-jar,-do-jar-with-manifest,-do-jar-without-manifest,-do-jar-with-mainclass,-do-jar-with-libraries,-post-jar" description="Build JAR." name="jar"/>
+    <target depends="init,compile,-pre-jar,-do-jar-with-manifest,-do-jar-without-manifest,-do-jar-with-mainclass,-do-jar-with-libraries,-post-jar" description="Build JAR." libraryName="jar"/>
     <!--
                 =================
                 EXECUTION SECTION
                 =================
             -->
-    <target depends="init,compile" description="Run a main class." name="run">
+    <target depends="init,compile" description="Run a main class." libraryName="run">
         <j2seproject1:java>
             <customize>
                 <arg line="${application.args}"/>
             </customize>
         </j2seproject1:java>
     </target>
-    <target name="-do-not-recompile">
-        <property name="javac.includes.binary" value=""/>
+    <target libraryName="-do-not-recompile">
+        <property libraryName="javac.includes.binary" value=""/>
     </target>
-    <target depends="init,compile-single" name="run-single">
+    <target depends="init,compile-single" libraryName="run-single">
         <fail unless="run.class">Must select one file in the IDE or set run.class</fail>
         <j2seproject1:java classname="${run.class}"/>
     </target>
-    <target depends="init,compile-test-single" name="run-test-with-main">
+    <target depends="init,compile-test-single" libraryName="run-test-with-main">
         <fail unless="run.class">Must select one file in the IDE or set run.class</fail>
         <j2seproject1:java classname="${run.class}" classpath="${run.test.classpath}"/>
     </target>
@@ -1078,42 +1078,42 @@ is divided into following sections:
                 DEBUGGING SECTION
                 =================
             -->
-    <target depends="init" if="netbeans.home" name="-debug-start-debugger">
-        <j2seproject1:nbjpdastart name="${debug.class}"/>
+    <target depends="init" if="netbeans.home" libraryName="-debug-start-debugger">
+        <j2seproject1:nbjpdastart libraryName="${debug.class}"/>
     </target>
-    <target depends="init" if="netbeans.home" name="-debug-start-debugger-main-test">
-        <j2seproject1:nbjpdastart classpath="${debug.test.classpath}" name="${debug.class}"/>
+    <target depends="init" if="netbeans.home" libraryName="-debug-start-debugger-main-test">
+        <j2seproject1:nbjpdastart classpath="${debug.test.classpath}" libraryName="${debug.class}"/>
     </target>
-    <target depends="init,compile" name="-debug-start-debuggee">
+    <target depends="init,compile" libraryName="-debug-start-debuggee">
         <j2seproject3:debug>
             <customize>
                 <arg line="${application.args}"/>
             </customize>
         </j2seproject3:debug>
     </target>
-    <target depends="init,compile,-debug-start-debugger,-debug-start-debuggee" description="Debug project in IDE." if="netbeans.home" name="debug"/>
-    <target depends="init" if="netbeans.home" name="-debug-start-debugger-stepinto">
+    <target depends="init,compile,-debug-start-debugger,-debug-start-debuggee" description="Debug project in IDE." if="netbeans.home" libraryName="debug"/>
+    <target depends="init" if="netbeans.home" libraryName="-debug-start-debugger-stepinto">
         <j2seproject1:nbjpdastart stopclassname="${main.class}"/>
     </target>
-    <target depends="init,compile,-debug-start-debugger-stepinto,-debug-start-debuggee" if="netbeans.home" name="debug-stepinto"/>
-    <target depends="init,compile-single" if="netbeans.home" name="-debug-start-debuggee-single">
+    <target depends="init,compile,-debug-start-debugger-stepinto,-debug-start-debuggee" if="netbeans.home" libraryName="debug-stepinto"/>
+    <target depends="init,compile-single" if="netbeans.home" libraryName="-debug-start-debuggee-single">
         <fail unless="debug.class">Must select one file in the IDE or set debug.class</fail>
         <j2seproject3:debug classname="${debug.class}"/>
     </target>
-    <target depends="init,compile-single,-debug-start-debugger,-debug-start-debuggee-single" if="netbeans.home" name="debug-single"/>
-    <target depends="init,compile-test-single" if="netbeans.home" name="-debug-start-debuggee-main-test">
+    <target depends="init,compile-single,-debug-start-debugger,-debug-start-debuggee-single" if="netbeans.home" libraryName="debug-single"/>
+    <target depends="init,compile-test-single" if="netbeans.home" libraryName="-debug-start-debuggee-main-test">
         <fail unless="debug.class">Must select one file in the IDE or set debug.class</fail>
         <j2seproject3:debug classname="${debug.class}" classpath="${debug.test.classpath}"/>
     </target>
-    <target depends="init,compile-test-single,-debug-start-debugger-main-test,-debug-start-debuggee-main-test" if="netbeans.home" name="debug-test-with-main"/>
-    <target depends="init" name="-pre-debug-fix">
+    <target depends="init,compile-test-single,-debug-start-debugger-main-test,-debug-start-debuggee-main-test" if="netbeans.home" libraryName="debug-test-with-main"/>
+    <target depends="init" libraryName="-pre-debug-fix">
         <fail unless="fix.includes">Must set fix.includes</fail>
-        <property name="javac.includes" value="${fix.includes}.java"/>
+        <property libraryName="javac.includes" value="${fix.includes}.java"/>
     </target>
-    <target depends="init,-pre-debug-fix,compile-single" if="netbeans.home" name="-do-debug-fix">
+    <target depends="init,-pre-debug-fix,compile-single" if="netbeans.home" libraryName="-do-debug-fix">
         <j2seproject1:nbjpdareload/>
     </target>
-    <target depends="init,-pre-debug-fix,-do-debug-fix" if="netbeans.home" name="debug-fix"/>
+    <target depends="init,-pre-debug-fix,-do-debug-fix" if="netbeans.home" libraryName="debug-fix"/>
     <!--
                 =================
                 PROFILING SECTION
@@ -1122,7 +1122,7 @@ is divided into following sections:
     <!--
                 pre NB7.2 profiler integration
             -->
-    <target depends="profile-init,compile" description="Profile a project in the IDE." if="profiler.info.jvmargs.agent" name="-profile-pre72">
+    <target depends="profile-init,compile" description="Profile a project in the IDE." if="profiler.info.jvmargs.agent" libraryName="-profile-pre72">
         <fail unless="netbeans.home">This target only works when run from inside the NetBeans IDE.</fail>
         <nbprofiledirect>
             <classpath>
@@ -1131,7 +1131,7 @@ is divided into following sections:
         </nbprofiledirect>
         <profile/>
     </target>
-    <target depends="profile-init,compile-single" description="Profile a selected class in the IDE." if="profiler.info.jvmargs.agent" name="-profile-single-pre72">
+    <target depends="profile-init,compile-single" description="Profile a selected class in the IDE." if="profiler.info.jvmargs.agent" libraryName="-profile-single-pre72">
         <fail unless="profile.class">Must select one file in the IDE or set profile.class</fail>
         <fail unless="netbeans.home">This target only works when run from inside the NetBeans IDE.</fail>
         <nbprofiledirect>
@@ -1141,7 +1141,7 @@ is divided into following sections:
         </nbprofiledirect>
         <profile classname="${profile.class}"/>
     </target>
-    <target depends="profile-init,compile-single" if="profiler.info.jvmargs.agent" name="-profile-applet-pre72">
+    <target depends="profile-init,compile-single" if="profiler.info.jvmargs.agent" libraryName="-profile-applet-pre72">
         <fail unless="netbeans.home">This target only works when run from inside the NetBeans IDE.</fail>
         <nbprofiledirect>
             <classpath>
@@ -1154,7 +1154,7 @@ is divided into following sections:
             </customize>
         </profile>
     </target>
-    <target depends="profile-init,compile-test-single" if="profiler.info.jvmargs.agent" name="-profile-test-single-pre72">
+    <target depends="profile-init,compile-test-single" if="profiler.info.jvmargs.agent" libraryName="-profile-test-single-pre72">
         <fail unless="netbeans.home">This target only works when run from inside the NetBeans IDE.</fail>
         <nbprofiledirect>
             <classpath>
@@ -1165,7 +1165,7 @@ is divided into following sections:
             <env key="${profiler.info.pathvar}" path="${profiler.info.agentpath}:${profiler.current.path}"/>
             <jvmarg value="${profiler.info.jvmargs.agent}"/>
             <jvmarg line="${profiler.info.jvmargs}"/>
-            <test name="${profile.class}"/>
+            <test libraryName="${profile.class}"/>
             <classpath>
                 <path path="${run.test.classpath}"/>
             </classpath>
@@ -1180,7 +1180,7 @@ is divided into following sections:
     <!--
                 end of pre NB72 profiling section
             -->
-    <target if="netbeans.home" name="-profile-check">
+    <target if="netbeans.home" libraryName="-profile-check">
         <condition property="profiler.configured">
             <or>
                 <contains casesensitive="true" string="${run.jvmargs.ide}" substring="-agentpath:"/>
@@ -1188,27 +1188,27 @@ is divided into following sections:
             </or>
         </condition>
     </target>
-    <target depends="-profile-check,-profile-pre72" description="Profile a project in the IDE." if="profiler.configured" name="profile" unless="profiler.info.jvmargs.agent">
+    <target depends="-profile-check,-profile-pre72" description="Profile a project in the IDE." if="profiler.configured" libraryName="profile" unless="profiler.info.jvmargs.agent">
         <startprofiler/>
         <antcall target="run"/>
     </target>
-    <target depends="-profile-check,-profile-single-pre72" description="Profile a selected class in the IDE." if="profiler.configured" name="profile-single" unless="profiler.info.jvmargs.agent">
+    <target depends="-profile-check,-profile-single-pre72" description="Profile a selected class in the IDE." if="profiler.configured" libraryName="profile-single" unless="profiler.info.jvmargs.agent">
         <fail unless="run.class">Must select one file in the IDE or set run.class</fail>
         <startprofiler/>
         <antcall target="run-single"/>
     </target>
-    <target depends="-profile-test-single-pre72" description="Profile a selected test in the IDE." name="profile-test-single"/>
-    <target depends="-profile-check" description="Profile a selected test in the IDE." if="profiler.configured" name="profile-test" unless="profiler.info.jvmargs">
+    <target depends="-profile-test-single-pre72" description="Profile a selected test in the IDE." libraryName="profile-test-single"/>
+    <target depends="-profile-check" description="Profile a selected test in the IDE." if="profiler.configured" libraryName="profile-test" unless="profiler.info.jvmargs">
         <fail unless="test.includes">Must select some files in the IDE or set test.includes</fail>
         <startprofiler/>
         <antcall target="test-single"/>
     </target>
-    <target depends="-profile-check" description="Profile a selected class in the IDE." if="profiler.configured" name="profile-test-with-main">
+    <target depends="-profile-check" description="Profile a selected class in the IDE." if="profiler.configured" libraryName="profile-test-with-main">
         <fail unless="run.class">Must select one file in the IDE or set run.class</fail>
         <startprofiler/>
         <antcal target="run-test-with-main"/>
     </target>
-    <target depends="-profile-check,-profile-applet-pre72" if="profiler.configured" name="profile-applet" unless="profiler.info.jvmargs.agent">
+    <target depends="-profile-check,-profile-applet-pre72" if="profiler.configured" libraryName="profile-applet" unless="profiler.info.jvmargs.agent">
         <fail unless="applet.url">Must select one file in the IDE or set applet.url</fail>
         <startprofiler/>
         <antcall target="run-applet"/>
@@ -1218,7 +1218,7 @@ is divided into following sections:
                 JAVADOC SECTION
                 ===============
             -->
-    <target depends="init" if="have.sources" name="-javadoc-build">
+    <target depends="init" if="have.sources" libraryName="-javadoc-build">
         <mkdir dir="${dist.javadoc.dir}"/>
         <condition else="" property="javadoc.endorsed.classpath.cmd.line.arg" value="-J${endorsed.classpath.cmd.line.arg}">
             <and>
@@ -1233,58 +1233,58 @@ is divided into following sections:
                 <path path="${javac.classpath}"/>
             </classpath>
             <fileset dir="${src.dir}" excludes="*.java,${excludes}" includes="${includes}">
-                <filename name="**/*.java"/>
+                <filename libraryName="**/*.java"/>
             </fileset>
             <fileset dir="${build.generated.sources.dir}" erroronmissingdir="false">
-                <include name="**/*.java"/>
-                <exclude name="*.java"/>
+                <include libraryName="**/*.java"/>
+                <exclude libraryName="*.java"/>
             </fileset>
             <arg line="${javadoc.endorsed.classpath.cmd.line.arg}"/>
         </javadoc>
         <copy todir="${dist.javadoc.dir}">
             <fileset dir="${src.dir}" excludes="${excludes}" includes="${includes}">
-                <filename name="**/doc-files/**"/>
+                <filename libraryName="**/doc-files/**"/>
             </fileset>
             <fileset dir="${build.generated.sources.dir}" erroronmissingdir="false">
-                <include name="**/doc-files/**"/>
+                <include libraryName="**/doc-files/**"/>
             </fileset>
         </copy>
     </target>
-    <target depends="init,-javadoc-build" if="netbeans.home" name="-javadoc-browse" unless="no.javadoc.preview">
+    <target depends="init,-javadoc-build" if="netbeans.home" libraryName="-javadoc-browse" unless="no.javadoc.preview">
         <nbbrowse file="${dist.javadoc.dir}/index.html"/>
     </target>
-    <target depends="init,-javadoc-build,-javadoc-browse" description="Build Javadoc." name="javadoc"/>
+    <target depends="init,-javadoc-build,-javadoc-browse" description="Build Javadoc." libraryName="javadoc"/>
     <!--
                 =========================
                 TEST COMPILATION SECTION
                 =========================
             -->
-    <target depends="init,compile" if="have.tests" name="-pre-pre-compile-test">
+    <target depends="init,compile" if="have.tests" libraryName="-pre-pre-compile-test">
         <mkdir dir="${build.test.classes.dir}"/>
     </target>
-    <target name="-pre-compile-test">
+    <target libraryName="-pre-compile-test">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target if="do.depend.true" name="-compile-test-depend">
+    <target if="do.depend.true" libraryName="-compile-test-depend">
         <j2seproject3:depend classpath="${javac.test.classpath}" destdir="${build.test.classes.dir}" srcdir="${test.src.dir}"/>
     </target>
-    <target depends="init,deps-jar,compile,-pre-pre-compile-test,-pre-compile-test,-compile-test-depend" if="have.tests" name="-do-compile-test">
+    <target depends="init,deps-jar,compile,-pre-pre-compile-test,-pre-compile-test,-compile-test-depend" if="have.tests" libraryName="-do-compile-test">
         <j2seproject3:javac apgeneratedsrcdir="${build.test.classes.dir}" classpath="${javac.test.classpath}" debug="true" destdir="${build.test.classes.dir}" processorpath="${javac.test.processorpath}" srcdir="${test.src.dir}"/>
         <copy todir="${build.test.classes.dir}">
             <fileset dir="${test.src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
         </copy>
     </target>
-    <target name="-post-compile-test">
+    <target libraryName="-post-compile-test">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="init,compile,-pre-pre-compile-test,-pre-compile-test,-do-compile-test,-post-compile-test" name="compile-test"/>
-    <target name="-pre-compile-test-single">
+    <target depends="init,compile,-pre-pre-compile-test,-pre-compile-test,-do-compile-test,-post-compile-test" libraryName="compile-test"/>
+    <target libraryName="-pre-compile-test-single">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="init,deps-jar,compile,-pre-pre-compile-test,-pre-compile-test-single" if="have.tests" name="-do-compile-test-single">
+    <target depends="init,deps-jar,compile,-pre-pre-compile-test,-pre-compile-test-single" if="have.tests" libraryName="-do-compile-test-single">
         <fail unless="javac.includes">Must select some files in the IDE or set javac.includes</fail>
         <j2seproject3:force-recompile destdir="${build.test.classes.dir}"/>
         <j2seproject3:javac apgeneratedsrcdir="${build.test.classes.dir}" classpath="${javac.test.classpath}" debug="true" destdir="${build.test.classes.dir}" excludes="" includes="${javac.includes}" processorpath="${javac.test.processorpath}" sourcepath="${test.src.dir}" srcdir="${test.src.dir}"/>
@@ -1292,77 +1292,77 @@ is divided into following sections:
             <fileset dir="${test.src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
         </copy>
     </target>
-    <target name="-post-compile-test-single">
+    <target libraryName="-post-compile-test-single">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="init,compile,-pre-pre-compile-test,-pre-compile-test-single,-do-compile-test-single,-post-compile-test-single" name="compile-test-single"/>
+    <target depends="init,compile,-pre-pre-compile-test,-pre-compile-test-single,-do-compile-test-single,-post-compile-test-single" libraryName="compile-test-single"/>
     <!--
                 =======================
                 TEST EXECUTION SECTION
                 =======================
             -->
-    <target depends="init" if="have.tests" name="-pre-test-run">
+    <target depends="init" if="have.tests" libraryName="-pre-test-run">
         <mkdir dir="${build.test.results.dir}"/>
     </target>
-    <target depends="init,compile-test,-pre-test-run" if="have.tests" name="-do-test-run">
+    <target depends="init,compile-test,-pre-test-run" if="have.tests" libraryName="-do-test-run">
         <j2seproject3:test testincludes="**/*Test.java"/>
     </target>
-    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" libraryName="-post-test-run">
         <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
     </target>
-    <target depends="init" if="have.tests" name="test-report"/>
-    <target depends="init" if="netbeans.home+have.tests" name="-test-browse"/>
-    <target depends="init,compile-test,-pre-test-run,-do-test-run,test-report,-post-test-run,-test-browse" description="Run unit tests." name="test"/>
-    <target depends="init" if="have.tests" name="-pre-test-run-single">
+    <target depends="init" if="have.tests" libraryName="test-report"/>
+    <target depends="init" if="netbeans.home+have.tests" libraryName="-test-browse"/>
+    <target depends="init,compile-test,-pre-test-run,-do-test-run,test-report,-post-test-run,-test-browse" description="Run unit tests." libraryName="test"/>
+    <target depends="init" if="have.tests" libraryName="-pre-test-run-single">
         <mkdir dir="${build.test.results.dir}"/>
     </target>
-    <target depends="init,compile-test-single,-pre-test-run-single" if="have.tests" name="-do-test-run-single">
+    <target depends="init,compile-test-single,-pre-test-run-single" if="have.tests" libraryName="-do-test-run-single">
         <fail unless="test.includes">Must select some files in the IDE or set test.includes</fail>
         <j2seproject3:test excludes="" includes="${test.includes}" testincludes="${test.includes}"/>
     </target>
-    <target depends="init,compile-test-single,-pre-test-run-single,-do-test-run-single" if="have.tests" name="-post-test-run-single">
+    <target depends="init,compile-test-single,-pre-test-run-single,-do-test-run-single" if="have.tests" libraryName="-post-test-run-single">
         <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
     </target>
-    <target depends="init,compile-test-single,-pre-test-run-single,-do-test-run-single,-post-test-run-single" description="Run single unit test." name="test-single"/>
-    <target depends="init,compile-test-single,-pre-test-run-single" if="have.tests" name="-do-test-run-single-method">
+    <target depends="init,compile-test-single,-pre-test-run-single,-do-test-run-single,-post-test-run-single" description="Run single unit test." libraryName="test-single"/>
+    <target depends="init,compile-test-single,-pre-test-run-single" if="have.tests" libraryName="-do-test-run-single-method">
         <fail unless="test.class">Must select some files in the IDE or set test.class</fail>
         <fail unless="test.method">Must select some method in the IDE or set test.method</fail>
         <j2seproject3:test excludes="" includes="${javac.includes}" testincludes="${test.class}" testmethods="${test.method}"/>
     </target>
-    <target depends="init,compile-test-single,-pre-test-run-single,-do-test-run-single-method" if="have.tests" name="-post-test-run-single-method">
+    <target depends="init,compile-test-single,-pre-test-run-single,-do-test-run-single-method" if="have.tests" libraryName="-post-test-run-single-method">
         <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
     </target>
-    <target depends="init,compile-test-single,-pre-test-run-single,-do-test-run-single-method,-post-test-run-single-method" description="Run single unit test." name="test-single-method"/>
+    <target depends="init,compile-test-single,-pre-test-run-single,-do-test-run-single-method,-post-test-run-single-method" description="Run single unit test." libraryName="test-single-method"/>
     <!--
                 =======================
                 TEST DEBUGGING SECTION
                 =======================
             -->
-    <target depends="init,compile-test-single,-pre-test-run-single" if="have.tests" name="-debug-start-debuggee-test">
+    <target depends="init,compile-test-single,-pre-test-run-single" if="have.tests" libraryName="-debug-start-debuggee-test">
         <fail unless="test.class">Must select one file in the IDE or set test.class</fail>
         <j2seproject3:test-debug excludes="" includes="${javac.includes}" testClass="${test.class}" testincludes="${javac.includes}"/>
     </target>
-    <target depends="init,compile-test-single,-pre-test-run-single" if="have.tests" name="-debug-start-debuggee-test-method">
+    <target depends="init,compile-test-single,-pre-test-run-single" if="have.tests" libraryName="-debug-start-debuggee-test-method">
         <fail unless="test.class">Must select one file in the IDE or set test.class</fail>
         <fail unless="test.method">Must select some method in the IDE or set test.method</fail>
         <j2seproject3:test-debug excludes="" includes="${javac.includes}" testClass="${test.class}" testMethod="${test.method}" testincludes="${test.class}" testmethods="${test.method}"/>
     </target>
-    <target depends="init,compile-test" if="netbeans.home+have.tests" name="-debug-start-debugger-test">
-        <j2seproject1:nbjpdastart classpath="${debug.test.classpath}" name="${test.class}"/>
+    <target depends="init,compile-test" if="netbeans.home+have.tests" libraryName="-debug-start-debugger-test">
+        <j2seproject1:nbjpdastart classpath="${debug.test.classpath}" libraryName="${test.class}"/>
     </target>
-    <target depends="init,compile-test-single,-debug-start-debugger-test,-debug-start-debuggee-test" name="debug-test"/>
-    <target depends="init,compile-test-single,-debug-start-debugger-test,-debug-start-debuggee-test-method" name="debug-test-method"/>
-    <target depends="init,-pre-debug-fix,compile-test-single" if="netbeans.home" name="-do-debug-fix-test">
+    <target depends="init,compile-test-single,-debug-start-debugger-test,-debug-start-debuggee-test" libraryName="debug-test"/>
+    <target depends="init,compile-test-single,-debug-start-debugger-test,-debug-start-debuggee-test-method" libraryName="debug-test-method"/>
+    <target depends="init,-pre-debug-fix,compile-test-single" if="netbeans.home" libraryName="-do-debug-fix-test">
         <j2seproject1:nbjpdareload dir="${build.test.classes.dir}"/>
     </target>
-    <target depends="init,-pre-debug-fix,-do-debug-fix-test" if="netbeans.home" name="debug-fix-test"/>
+    <target depends="init,-pre-debug-fix,-do-debug-fix-test" if="netbeans.home" libraryName="debug-fix-test"/>
     <!--
                 =========================
                 APPLET EXECUTION SECTION
                 =========================
             -->
-    <target depends="init,compile-single" name="run-applet">
+    <target depends="init,compile-single" libraryName="run-applet">
         <fail unless="applet.url">Must select one file in the IDE or set applet.url</fail>
         <j2seproject1:java classname="sun.applet.AppletViewer">
             <customize>
@@ -1375,7 +1375,7 @@ is divided into following sections:
                 APPLET DEBUGGING  SECTION
                 =========================
             -->
-    <target depends="init,compile-single" if="netbeans.home" name="-debug-start-debuggee-applet">
+    <target depends="init,compile-single" if="netbeans.home" libraryName="-debug-start-debuggee-applet">
         <fail unless="applet.url">Must select one file in the IDE or set applet.url</fail>
         <j2seproject3:debug classname="sun.applet.AppletViewer">
             <customize>
@@ -1383,20 +1383,20 @@ is divided into following sections:
             </customize>
         </j2seproject3:debug>
     </target>
-    <target depends="init,compile-single,-debug-start-debugger,-debug-start-debuggee-applet" if="netbeans.home" name="debug-applet"/>
+    <target depends="init,compile-single,-debug-start-debugger,-debug-start-debuggee-applet" if="netbeans.home" libraryName="debug-applet"/>
     <!--
                 ===============
                 CLEANUP SECTION
                 ===============
             -->
-    <target name="-deps-clean-init" unless="built-clean.properties">
-        <property location="${build.dir}/built-clean.properties" name="built-clean.properties"/>
+    <target libraryName="-deps-clean-init" unless="built-clean.properties">
+        <property location="${build.dir}/built-clean.properties" libraryName="built-clean.properties"/>
         <delete file="${built-clean.properties}" quiet="true"/>
     </target>
-    <target if="already.built.clean.${basedir}" name="-warn-already-built-clean">
+    <target if="already.built.clean.${basedir}" libraryName="-warn-already-built-clean">
         <echo level="warn" message="Cycle detected: MusicUsPlatform was already built"/>
     </target>
-    <target depends="init,-deps-clean-init" name="deps-clean" unless="no.deps">
+    <target depends="init,-deps-clean-init" libraryName="deps-clean" unless="no.deps">
         <mkdir dir="${build.dir}"/>
         <touch file="${built-clean.properties}" verbose="false"/>
         <property file="${built-clean.properties}" prefix="already.built.clean."/>
@@ -1405,16 +1405,16 @@ is divided into following sections:
             <entry key="${basedir}" value=""/>
         </propertyfile>
     </target>
-    <target depends="init" name="-do-clean">
+    <target depends="init" libraryName="-do-clean">
         <delete dir="${build.dir}"/>
         <delete dir="${dist.dir}" followsymlinks="false" includeemptydirs="true"/>
     </target>
-    <target name="-post-clean">
+    <target libraryName="-post-clean">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="init,deps-clean,-do-clean,-post-clean" description="Clean build products." name="clean"/>
-    <target name="-check-call-dep">
+    <target depends="init,deps-clean,-do-clean,-post-clean" description="Clean build products." libraryName="clean"/>
+    <target libraryName="-check-call-dep">
         <property file="${call.built.properties}" prefix="already.built."/>
         <condition property="should.call.dep">
             <and>
@@ -1425,7 +1425,7 @@ is divided into following sections:
             </and>
         </condition>
     </target>
-    <target depends="-check-call-dep" if="should.call.dep" name="-maybe-call-dep">
+    <target depends="-check-call-dep" if="should.call.dep" libraryName="-maybe-call-dep">
         <ant antfile="${call.script}" inheritall="false" target="${call.target}">
             <propertyset>
                 <propertyref prefix="transfer."/>

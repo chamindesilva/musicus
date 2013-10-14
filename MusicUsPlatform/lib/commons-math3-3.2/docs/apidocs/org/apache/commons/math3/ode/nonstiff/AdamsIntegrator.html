@@ -188,7 +188,7 @@ Base class for <A HREF="../../../../../../org/apache/commons/math3/ode/nonstiff/
 <B>Constructor Summary</B></FONT></TH>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../org/apache/commons/math3/ode/nonstiff/AdamsIntegrator.html#AdamsIntegrator(java.lang.String, int, int, double, double, double[], double[])">AdamsIntegrator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name,
+<TD><CODE><B><A HREF="../../../../../../org/apache/commons/math3/ode/nonstiff/AdamsIntegrator.html#AdamsIntegrator(java.lang.String, int, int, double, double, double[], double[])">AdamsIntegrator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName,
                 int&nbsp;nSteps,
                 int&nbsp;order,
                 double&nbsp;minStep,
@@ -200,7 +200,7 @@ Base class for <A HREF="../../../../../../org/apache/commons/math3/ode/nonstiff/
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build an Adams integrator with the given order and step control parameters.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../../../../../org/apache/commons/math3/ode/nonstiff/AdamsIntegrator.html#AdamsIntegrator(java.lang.String, int, int, double, double, double, double)">AdamsIntegrator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name,
+<TD><CODE><B><A HREF="../../../../../../org/apache/commons/math3/ode/nonstiff/AdamsIntegrator.html#AdamsIntegrator(java.lang.String, int, int, double, double, double, double)">AdamsIntegrator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName,
                 int&nbsp;nSteps,
                 int&nbsp;order,
                 double&nbsp;minStep,
@@ -312,7 +312,7 @@ Base class for <A HREF="../../../../../../org/apache/commons/math3/ode/nonstiff/
 <A NAME="AdamsIntegrator(java.lang.String, int, int, double, double, double, double)"><!-- --></A><H3>
 AdamsIntegrator</H3>
 <PRE>
-public <B>AdamsIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name,
+public <B>AdamsIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName,
                        int&nbsp;nSteps,
                        int&nbsp;order,
                        double&nbsp;minStep,
@@ -324,7 +324,7 @@ public <B>AdamsIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/
 <DD>Build an Adams integrator with the given order and step control parameters.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - name of the method<DD><CODE>nSteps</CODE> - number of steps of the method excluding the one being computed<DD><CODE>order</CODE> - order of the method<DD><CODE>minStep</CODE> - minimal step (sign is irrelevant, regardless of
+<DT><B>Parameters:</B><DD><CODE>libraryName</CODE> - libraryName of the method<DD><CODE>nSteps</CODE> - number of steps of the method excluding the one being computed<DD><CODE>order</CODE> - order of the method<DD><CODE>minStep</CODE> - minimal step (sign is irrelevant, regardless of
  integration direction, forward or backward), the last step can
  be smaller than this<DD><CODE>maxStep</CODE> - maximal step (sign is irrelevant, regardless of
  integration direction, forward or backward), the last step can
@@ -337,7 +337,7 @@ public <B>AdamsIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/
 <A NAME="AdamsIntegrator(java.lang.String, int, int, double, double, double[], double[])"><!-- --></A><H3>
 AdamsIntegrator</H3>
 <PRE>
-public <B>AdamsIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name,
+public <B>AdamsIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName,
                        int&nbsp;nSteps,
                        int&nbsp;order,
                        double&nbsp;minStep,
@@ -349,7 +349,7 @@ public <B>AdamsIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/
 <DD>Build an Adams integrator with the given order and step control parameters.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - name of the method<DD><CODE>nSteps</CODE> - number of steps of the method excluding the one being computed<DD><CODE>order</CODE> - order of the method<DD><CODE>minStep</CODE> - minimal step (sign is irrelevant, regardless of
+<DT><B>Parameters:</B><DD><CODE>libraryName</CODE> - libraryName of the method<DD><CODE>nSteps</CODE> - number of steps of the method excluding the one being computed<DD><CODE>order</CODE> - order of the method<DD><CODE>minStep</CODE> - minimal step (sign is irrelevant, regardless of
  integration direction, forward or backward), the last step can
  be smaller than this<DD><CODE>maxStep</CODE> - maximal step (sign is irrelevant, regardless of
  integration direction, forward or backward), the last step can
