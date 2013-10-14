@@ -2491,7 +2491,7 @@ public <A HREF="../../../../../org/apache/commons/math3/dfp/Dfp.html" title="cla
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>type</CODE> - the trap type<DD><CODE>what</CODE> - - name of routine trap occurred in<DD><CODE>oper</CODE> - - input operator to function<DD><CODE>result</CODE> - - the result computed prior to the trap
+<DT><B>Parameters:</B><DD><CODE>type</CODE> - the trap type<DD><CODE>what</CODE> - - libraryName of routine trap occurred in<DD><CODE>oper</CODE> - - input operator to function<DD><CODE>result</CODE> - - the result computed prior to the trap
 <DT><B>Returns:</B><DD>The suggested return value from the trap handler</DL>
 </DD>
 </DL>
@@ -2513,7 +2513,7 @@ protected <A HREF="../../../../../org/apache/commons/math3/dfp/Dfp.html" title="
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>type</CODE> - The exception type - e.g. FLAG_OVERFLOW<DD><CODE>what</CODE> - The name of the routine we were in e.g. divide()<DD><CODE>oper</CODE> - An operand to this function if any<DD><CODE>def</CODE> - The default return value if trap not enabled<DD><CODE>result</CODE> - The result that is specified to be delivered per
+<DT><B>Parameters:</B><DD><CODE>type</CODE> - The exception type - e.g. FLAG_OVERFLOW<DD><CODE>what</CODE> - The libraryName of the routine we were in e.g. divide()<DD><CODE>oper</CODE> - An operand to this function if any<DD><CODE>def</CODE> - The default return value if trap not enabled<DD><CODE>result</CODE> - The result that is specified to be delivered per
                    IEEE 854, if any
 <DT><B>Returns:</B><DD>the value that should be return by the operation triggering the trap</DL>
 </DD>

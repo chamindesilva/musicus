@@ -44,7 +44,7 @@ import java.util.List;
 //
 //    @Override protected void onTick()
 //    {
-//        MusicUsAgent.log( myAgent.getAID().getName(), "Checking for new songs" );
+//        MusicUsAgent.log( myAgent.getAID().getLibraryName(), "Checking for new songs" );
 //        // find music library
 //        AID[] musicLibraries = MusicLibraryAgent.getAgents( myAgent );
 //
@@ -53,12 +53,12 @@ import java.util.List;
 //            // find new songs
 //            for( File musicFolder : musicFolders )
 //            {
-//                MusicUsAgent.log( myAgent.getAID().getName(), "Checking music in ", musicFolder.getAbsolutePath() );
+//                MusicUsAgent.log( myAgent.getAID().getLibraryName(), "Checking music in ", musicFolder.getAbsolutePath() );
 //
 //                for( File file : musicFolder.listFiles( mp3FileFilter ) )
 //                {
 //                    String newMusicFile = file.getAbsolutePath();
-//                    MusicUsAgent.log( myAgent.getAID().getName(), "Detected file : ", newMusicFile );
+//                    MusicUsAgent.log( myAgent.getAID().getLibraryName(), "Detected file : ", newMusicFile );
 //
 //                    sendMessageMusicLibrary( musicLibraries, newMusicFile );
 //                }
@@ -66,7 +66,7 @@ import java.util.List;
 //        }
 //        else
 //        {
-//            MusicUsAgent.log( myAgent.getAID().getName(), "No music libraries found!!!" );
+//            MusicUsAgent.log( myAgent.getAID().getLibraryName(), "No music libraries found!!!" );
 //        }
 //    }
 //

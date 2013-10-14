@@ -1,5 +1,6 @@
 package com.musicus.agent;
 
+import com.musicus.Utils.Calculations;
 import com.musicus.Utils.LimitedQueue;
 import com.musicus.db.DbConnector;
 import com.musicus.db.FileDb;
@@ -21,8 +22,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -178,7 +181,7 @@ public class MusicLibraryAgent extends MusicUsAgent
                 {
                     // Message received. Process it
                     String song = msg.getContent();
-                    MusicUsAgent.log( getAID().getName(), "MusicLibraryAgent ", getAID().getName(), " received song ", song );
+                    MusicUsAgent.log( getAID().getLibraryName(), "MusicLibraryAgent ", getAID().getLibraryName(), " received song ", song );
 
                     // if message contains a song that library doesn't contain, send it to analyser
                     if( !musicLibrary.containsKey( song ) )
@@ -193,7 +196,7 @@ public class MusicLibraryAgent extends MusicUsAgent
                             newSongInform.setConversationId( Constants.FEATURE_EXTRACTION_PROPOSAL );
                             newSongInform.setReplyWith( song );
                             myAgent.send( newSongInform );
-                            log( myAgent.getName(), "Sent request to extract features from ", song );
+                            log( myAgent.getLibraryName(), "Sent request to extract features from ", song );
                         }
                         else
                         {
@@ -247,7 +250,7 @@ public class MusicLibraryAgent extends MusicUsAgent
                                     {
                                         String featureVal = featureVals[featureValNo];
                                         Feature feature = new Feature( songPath, attributesList.get( featureValNo ), Double.parseDouble( !"NaN".equals( featureVal ) ? featureVal : "0.0" ) );
-                                        song.getFeatures().add( feature );
+                                        song.getFeatures().put( feature.getName(), feature );
                                     }
                                 }
                             }
@@ -384,15 +387,15 @@ public class MusicLibraryAgent extends MusicUsAgent
         } );
 
         // Play songs
-        addBehaviour( new TickerBehaviour( this, (long) ( 0.5 * 60 * 1000 ) )
+        /*addBehaviour( new TickerBehaviour( this, (long) ( 0.5 * 60 * 1000 ) )
         {
             @Override protected void onTick()
             {
-                /*double selectedDistance = Long.MAX_VALUE;
+                double selectedDistance = Long.MAX_VALUE;
                 Map.Entry<String, List<Double>> selectedSong = null;
                 for( Listener listener : listeners )
                 {
-                    log( Constants.LOG_IMPORTANT, getName(), listener.getName(), " MSL : ", String.valueOf( listener.getMSL() ) );
+                    log( Constants.LOG_IMPORTANT, getLibraryName(), listener.getLibraryName(), " MSL : ", String.valueOf( listener.getMSL() ) );
                 }
 
 
@@ -410,17 +413,17 @@ public class MusicLibraryAgent extends MusicUsAgent
                         double distanceFromSongToListener = Calculations.calculateEuclideanDistance( listener.getSongPreferenceFeatureModel(), libraryEntry.getValue(), featureMaxValues, featureMinValues );
                         distances[listenerNo] = distanceFromSongToListener;
                         totDistances += ( distanceFromSongToListener * listener.getMSL() );
-                        log( getName(), "For ", listener.getName(), " totDistance : ", String.valueOf( totDistances ) );
+                        log( getLibraryName(), "For ", listener.getLibraryName(), " totDistance : ", String.valueOf( totDistances ) );
                         listenerNo++;
                     }
-//                    log( Constants.LOG_IMPORTANT, getName(), "Total Distances ", Arrays.toString( distances ), " = ", String.valueOf( totDistances ), " for : ", libraryEntry.getKey().substring( libraryEntry.getKey().lastIndexOf( "\\" ) ) );
+//                    log( Constants.LOG_IMPORTANT, getLibraryName(), "Total Distances ", Arrays.toString( distances ), " = ", String.valueOf( totDistances ), " for : ", libraryEntry.getKey().substring( libraryEntry.getKey().lastIndexOf( "\\" ) ) );
 
                     if( selectedDistance > totDistances && !lastPlayedQueue.contains( libraryEntry.getKey() ) )
                     {
-                        log( Constants.LOG_IMPORTANT, getName(), "Total Distances ", Arrays.toString( distances ), " = ", String.valueOf( totDistances ), " for : ", libraryEntry.getKey().substring( libraryEntry.getKey().lastIndexOf( "\\" ) ) );
+                        log( Constants.LOG_IMPORTANT, getLibraryName(), "Total Distances ", Arrays.toString( distances ), " = ", String.valueOf( totDistances ), " for : ", libraryEntry.getKey().substring( libraryEntry.getKey().lastIndexOf( "\\" ) ) );
                         selectedDistance = totDistances;
                         selectedSong = libraryEntry;
-                        log( Constants.LOG_IMPORTANT, getName(), "Selected song ", selectedSong.getKey() );
+                        log( Constants.LOG_IMPORTANT, getLibraryName(), "Selected song ", selectedSong.getKey() );
                     }
                 }
 
@@ -428,7 +431,7 @@ public class MusicLibraryAgent extends MusicUsAgent
                 {
                     // Play song
                     lastPlayedQueue.add( selectedSong.getKey() );
-                    log( getName(), "Playing selected song ", selectedSong.getKey() );
+                    log( getLibraryName(), "Playing selected song ", selectedSong.getKey() );
                     if( playerAgents != null && playerAgents.length != 0 )
                     {
                         ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
@@ -437,7 +440,7 @@ public class MusicLibraryAgent extends MusicUsAgent
                         newSongInform.setConversationId( Constants.PLAY_REQUEST );
                         newSongInform.setReplyWith( Constants.PLAY_REQUEST + System.currentTimeMillis() );
                         myAgent.send( newSongInform );
-                        log( myAgent.getName(), "Sent request to play ", selectedSong.getKey() );
+                        log( myAgent.getLibraryName(), "Sent request to play ", selectedSong.getKey() );
 
                         String mslLog = "";
                         for( Listener listener : listeners )
@@ -467,7 +470,7 @@ public class MusicLibraryAgent extends MusicUsAgent
                         {
                             maxMSLVal = listener.getMSL();
                         }
-                        log( Constants.LOG_IMPORTANT, getName(), "Updating MSL for ", listener.getName(), " MSL value: ", String.valueOf( listenerMSL ), " / ",  String.valueOf( distanceFromSongToListener ), " = ", String.valueOf( listener.getMSL() ) );
+                        log( Constants.LOG_IMPORTANT, getLibraryName(), "Updating MSL for ", listener.getLibraryName(), " MSL value: ", String.valueOf( listenerMSL ), " / ",  String.valueOf( distanceFromSongToListener ), " = ", String.valueOf( listener.getMSL() ) );
 
                     }
                     // Rearrange MSL values to be 0 - 1 with max val as 1 (but don't change min val to 0)
@@ -475,12 +478,12 @@ public class MusicLibraryAgent extends MusicUsAgent
                     {
                         double listenerMSL = listener.getMSL();
                         listener.setMSL( listenerMSL / maxMSLVal );
-                        log( Constants.LOG_IMPORTANT, getName(), "Normalized MSL for ", listener.getName(), " MSL value: ", String.valueOf( listener.getMSL() ) );
+                        log( Constants.LOG_IMPORTANT, getLibraryName(), "Normalized MSL for ", listener.getLibraryName(), " MSL value: ", String.valueOf( listener.getMSL() ) );
                     }
-                }   */
+                }
 
             }
-        } );
+        } );*/
     }
 
     private void updateListenerModels()
@@ -509,7 +512,7 @@ public class MusicLibraryAgent extends MusicUsAgent
 
     private void printLibrary()
     {
-        /*MusicUsAgent.log( getAID().getName(), "############ Music Library ############" );
+        /*MusicUsAgent.log( getAID().getLibraryName(), "############ Music Library ############" );
         for( Map.Entry<String, List<Double>> stringListEntry : musicLibrary.entrySet() )
         {
             StringBuilder logSb = new StringBuilder();
@@ -519,7 +522,7 @@ public class MusicLibraryAgent extends MusicUsAgent
                 logSb.append( "," );
                 logSb.append( featureVal );
             }
-            MusicUsAgent.log( getAID().getName(), logSb.toString() );
+            MusicUsAgent.log( getAID().getLibraryName(), logSb.toString() );
         }*/
     }
 

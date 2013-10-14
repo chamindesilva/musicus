@@ -183,12 +183,12 @@ Base class managing common boilerplate for all integrators.
 <TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/AbstractIntegrator.html#AbstractIntegrator()">AbstractIntegrator</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build an instance with a null name.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build an instance with a null libraryName.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/AbstractIntegrator.html#AbstractIntegrator(java.lang.String)">AbstractIntegrator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name)</CODE>
+<TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/AbstractIntegrator.html#AbstractIntegrator(java.lang.String)">AbstractIntegrator</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName)</CODE>
 
 <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Build an instance.</TD>
@@ -333,7 +333,7 @@ Base class managing common boilerplate for all integrators.
 <TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/AbstractIntegrator.html#getName()">getName</A></B>()</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the name of the method.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get the libraryName of the method.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -502,12 +502,12 @@ protected boolean <B>resetOccurred</B></PRE>
 <A NAME="AbstractIntegrator(java.lang.String)"><!-- --></A><H3>
 AbstractIntegrator</H3>
 <PRE>
-public <B>AbstractIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name)</PRE>
+public <B>AbstractIntegrator</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName)</PRE>
 <DL>
 <DD>Build an instance.
 <P>
 <DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - name of the method</DL>
+<DT><B>Parameters:</B><DD><CODE>libraryName</CODE> - libraryName of the method</DL>
 </DL>
 <HR>
 
@@ -516,7 +516,7 @@ AbstractIntegrator</H3>
 <PRE>
 protected <B>AbstractIntegrator</B>()</PRE>
 <DL>
-<DD>Build an instance with a null name.
+<DD>Build an instance with a null libraryName.
 <P>
 </DL>
 
@@ -535,14 +535,14 @@ getName</H3>
 <PRE>
 public <A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A> <B>getName</B>()</PRE>
 <DL>
-<DD>Get the name of the method.
+<DD>Get the libraryName of the method.
 <P>
 <DD><DL>
 <DT><B>Specified by:</B><DD><CODE><A HREF="../../../../../org/apache/commons/math3/ode/ODEIntegrator.html#getName()">getName</A></CODE> in interface <CODE><A HREF="../../../../../org/apache/commons/math3/ode/ODEIntegrator.html" title="interface in org.apache.commons.math3.ode">ODEIntegrator</A></CODE></DL>
 </DD>
 <DD><DL>
 
-<DT><B>Returns:</B><DD>name of the method</DL>
+<DT><B>Returns:</B><DD>libraryName of the method</DL>
 </DD>
 </DL>
 <HR>

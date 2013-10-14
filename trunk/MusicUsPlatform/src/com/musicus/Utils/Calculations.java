@@ -22,7 +22,7 @@ public class Calculations
             //            {
             //                System.out.println("error");
             //            }
-            double maxMinusMin = featureMaxValues[i] - featureMinValues[i];
+            double maxMinusMin = featureMaxValues[i] - featureMinValues[i];             // ??
             double diff = ( featureList1[i] - featureList2.get( i ) ) / ( maxMinusMin != 0 ? maxMinusMin : 1.0 );
             //            System.out.println( ">>>> "+ featureList1[i] + " - " + featureList2.get( i ) + " = " + diff );
             tot += ( diff * diff );

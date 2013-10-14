@@ -125,15 +125,15 @@ Interface to compute by finite difference Jacobian matrix for some parameter
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;double</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/ParameterizedODE.html#getParameter(java.lang.String)">getParameter</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name)</CODE>
+<TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/ParameterizedODE.html#getParameter(java.lang.String)">getParameter</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName)</CODE>
 
 <BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get parameter value from its name.</TD>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Get parameter value from its libraryName.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;void</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/ParameterizedODE.html#setParameter(java.lang.String, double)">setParameter</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name,
+<TD><CODE><B><A HREF="../../../../../org/apache/commons/math3/ode/ParameterizedODE.html#setParameter(java.lang.String, double)">setParameter</A></B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName,
              double&nbsp;value)</CODE>
 
 <BR>
@@ -165,16 +165,16 @@ Interface to compute by finite difference Jacobian matrix for some parameter
 <A NAME="getParameter(java.lang.String)"><!-- --></A><H3>
 getParameter</H3>
 <PRE>
-double <B>getParameter</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name)
+double <B>getParameter</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName)
                     throws <A HREF="../../../../../org/apache/commons/math3/ode/UnknownParameterException.html" title="class in org.apache.commons.math3.ode">UnknownParameterException</A></PRE>
 <DL>
-<DD>Get parameter value from its name.
+<DD>Get parameter value from its libraryName.
 <P>
 <DD><DL>
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - parameter name
+<DT><B>Parameters:</B><DD><CODE>libraryName</CODE> - parameter libraryName
 <DT><B>Returns:</B><DD>parameter value
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../org/apache/commons/math3/ode/UnknownParameterException.html" title="class in org.apache.commons.math3.ode">UnknownParameterException</A></CODE> - if parameter is not supported</DL>
@@ -185,7 +185,7 @@ double <B>getParameter</B>(<A HREF="http://download.oracle.com/javase/6/docs/api
 <A NAME="setParameter(java.lang.String, double)"><!-- --></A><H3>
 setParameter</H3>
 <PRE>
-void <B>setParameter</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;name,
+void <B>setParameter</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</A>&nbsp;libraryName,
                   double&nbsp;value)
                   throws <A HREF="../../../../../org/apache/commons/math3/ode/UnknownParameterException.html" title="class in org.apache.commons.math3.ode">UnknownParameterException</A></PRE>
 <DL>
@@ -195,7 +195,7 @@ void <B>setParameter</B>(<A HREF="http://download.oracle.com/javase/6/docs/api/j
 </DL>
 </DD>
 <DD><DL>
-<DT><B>Parameters:</B><DD><CODE>name</CODE> - parameter name<DD><CODE>value</CODE> - parameter value
+<DT><B>Parameters:</B><DD><CODE>libraryName</CODE> - parameter libraryName<DD><CODE>value</CODE> - parameter value
 <DT><B>Throws:</B>
 <DD><CODE><A HREF="../../../../../org/apache/commons/math3/ode/UnknownParameterException.html" title="class in org.apache.commons.math3.ode">UnknownParameterException</A></CODE> - if parameter is not supported</DL>
 </DD>

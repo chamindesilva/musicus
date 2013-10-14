@@ -23,7 +23,7 @@ public class Song extends FileSavable
 {
     private String path;        // Primary key
     private String name;
-    private Set<Feature> features;
+    private Map<String, Feature> features;
     private int status;
 
     // hold the list of all song objs. So before creating a new song obj, check whether a song obj is already created
@@ -64,16 +64,16 @@ public class Song extends FileSavable
         return loadedObj;
     }
 
-    private static Set<Feature> getLoadingFeatures( String path, String fileDirPath )
+    private static Map<String, Feature> getLoadingFeatures( String path, String fileDirPath )
     {
-        Set<Feature> featureSet = new HashSet<Feature>();
+        Map<String, Feature> featureSet = new HashMap<String, Feature>();
         List<FileSavable> fileSavables = FileSavable.loadData( new Feature(), fileDirPath );
         for( FileSavable fileSavable : fileSavables )
         {
             Feature feature = (Feature) fileSavable;
             if( path.equals( feature.getOwner() ) )
             {
-                featureSet.add( feature );
+                featureSet.put( feature.getName(), feature );
             }
         }
 
@@ -110,16 +110,16 @@ public class Song extends FileSavable
         this.path = path;
     }
 
-    public Set<Feature> getFeatures()
+    public Map<String, Feature> getFeatures()
     {
         if( features == null )
         {
-            features = new HashSet<Feature>(  );
+            features = new HashMap<String, Feature>();
         }
         return features;
     }
 
-    public void setFeatures( Set<Feature> features )
+    public void setFeatures( Map<String, Feature> features )
     {
         this.features = features;
     }

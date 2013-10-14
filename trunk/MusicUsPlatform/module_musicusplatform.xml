@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="module_musicusplatform" default="compile.module.musicusplatform">
+<project libraryName="module_musicusplatform" default="compile.module.musicusplatform">
   <dirname property="module.musicusplatform.basedir" file="${ant.file.module_musicusplatform}"/>
   
-  <property name="module.jdk.home.musicusplatform" value="${project.jdk.home}"/>
-  <property name="module.jdk.bin.musicusplatform" value="${project.jdk.bin}"/>
-  <property name="module.jdk.classpath.musicusplatform" value="${project.jdk.classpath}"/>
+  <property libraryName="module.jdk.home.musicusplatform" value="${project.jdk.home}"/>
+  <property libraryName="module.jdk.bin.musicusplatform" value="${project.jdk.bin}"/>
+  <property libraryName="module.jdk.classpath.musicusplatform" value="${project.jdk.classpath}"/>
   
-  <property name="compiler.args.musicusplatform" value="${compiler.args}"/>
+  <property libraryName="compiler.args.musicusplatform" value="${compiler.args}"/>
   
-  <property name="musicusplatform.output.dir" value="${module.musicusplatform.basedir}/out/production/MusicUsPlatform"/>
-  <property name="musicusplatform.testoutput.dir" value="${module.musicusplatform.basedir}/out/test/MusicUsPlatform"/>
+  <property libraryName="musicusplatform.output.dir" value="${module.musicusplatform.basedir}/out/production/MusicUsPlatform"/>
+  <property libraryName="musicusplatform.testoutput.dir" value="${module.musicusplatform.basedir}/out/test/MusicUsPlatform"/>
   
   <path id="musicusplatform.module.bootclasspath">
     <!-- Paths to be included in compilation bootclasspath -->
@@ -48,14 +48,14 @@
   
   <path id="musicusplatform.module.sourcepath">
     <dirset dir="${module.musicusplatform.basedir}">
-      <include name="src"/>
+      <include libraryName="src"/>
     </dirset>
   </path>
   
   
-  <target name="compile.module.musicusplatform" depends="compile.module.musicusplatform.production,compile.module.musicusplatform.tests" description="Compile module MusicUsPlatform"/>
+  <target libraryName="compile.module.musicusplatform" depends="compile.module.musicusplatform.production,compile.module.musicusplatform.tests" description="Compile module MusicUsPlatform"/>
   
-  <target name="compile.module.musicusplatform.production" depends="register.custom.compilers" description="Compile module MusicUsPlatform; production classes">
+  <target libraryName="compile.module.musicusplatform.production" depends="register.custom.compilers" description="Compile module MusicUsPlatform; production classes">
     <mkdir dir="${musicusplatform.output.dir}"/>
     <javac2 destdir="${musicusplatform.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.musicusplatform}/javac">
       <compilerarg line="${compiler.args.musicusplatform}"/>
@@ -73,9 +73,9 @@
     </copy>
   </target>
   
-  <target name="compile.module.musicusplatform.tests" depends="register.custom.compilers,compile.module.musicusplatform.production" description="compile module MusicUsPlatform; test classes" unless="skip.tests"/>
+  <target libraryName="compile.module.musicusplatform.tests" depends="register.custom.compilers,compile.module.musicusplatform.production" description="compile module MusicUsPlatform; test classes" unless="skip.tests"/>
   
-  <target name="clean.module.musicusplatform" description="cleanup module">
+  <target libraryName="clean.module.musicusplatform" description="cleanup module">
     <delete dir="${musicusplatform.output.dir}"/>
     <delete dir="${musicusplatform.testoutput.dir}"/>
   </target>

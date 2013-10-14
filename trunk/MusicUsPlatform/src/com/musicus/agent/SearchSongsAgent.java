@@ -106,12 +106,12 @@ public class SearchSongsAgent extends MusicUsAgent
                 {
                     for( File musicFolder : musicFolders )
                     {
-                        MusicUsAgent.log( myAgent.getAID().getName(), "Checking music in ", musicFolder.getAbsolutePath() );
+                        MusicUsAgent.log( myAgent.getAID().getLibraryName(), "Checking music in ", musicFolder.getAbsolutePath() );
 
                         for( File file : musicFolder.listFiles( mp3FileFilter ) )
                         {
                             String newMusicFile = file.getAbsolutePath();
-//                            MusicUsAgent.log( myAgent.getAID().getName(), "Detected file : ", newMusicFile );
+//                            MusicUsAgent.log( myAgent.getAID().getLibraryName(), "Detected file : ", newMusicFile );
 
                             sendMessageMusicLibrary( musicLibraries, newMusicFile );
                         }
@@ -119,12 +119,12 @@ public class SearchSongsAgent extends MusicUsAgent
                 }
                 else
                 {
-                    MusicUsAgent.log( myAgent.getAID().getName(), "No music directories found!!!" );
+                    MusicUsAgent.log( myAgent.getAID().getLibraryName(), "No music directories found!!!" );
                 }
             }
             else
             {
-                MusicUsAgent.log( myAgent.getAID().getName(), "No music libraries found!!!" );
+                MusicUsAgent.log( myAgent.getAID().getLibraryName(), "No music libraries found!!!" );
             }  */
         }
 
