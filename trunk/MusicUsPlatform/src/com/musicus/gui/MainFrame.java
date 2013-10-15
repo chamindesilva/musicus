@@ -4,6 +4,7 @@
 */
 package com.musicus.gui;
 
+import com.musicus.agent.Constants;
 import com.musicus.agent.MusicLibraryAgent;
 import com.musicus.db.SongCollection;
 import com.musicus.model.Song;
@@ -292,7 +293,11 @@ public class MainFrame extends javax.swing.JFrame
                 {
                     List<SongCollection> musicLibrary = musicLibraryAgent.getMusicLibrary();
                     SongCollection collection = musicLibrary.get( rowIndex );
-                    if( columnIndex == 1 )
+                    if( columnIndex == 0 )
+                    {
+                        collection.setName( (String) aValue );
+                    }
+                    else if( columnIndex == 1 )
                     {
                         collection.setEnabled( (Boolean) aValue );
                     }
@@ -752,6 +757,7 @@ public class MainFrame extends javax.swing.JFrame
                         if( !songList.isEmpty() )
                         {
                             selectedCollection.getSongsList().addAll( songList );
+                            musicLibraryAgent.setLibraryUpdatesToBeSentToDj( true );
                         }
 
                         ( (AbstractTableModel) tblCollectionSongs.getModel() ).fireTableDataChanged();

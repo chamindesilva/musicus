@@ -60,22 +60,19 @@ public class FileDb
         for( SongCollection songCollection : collection )
         {
             List<Song> songsList = songCollection.getSongsList();
-            if( songsList != null && !songsList.isEmpty() )
+            for( Song song : songsList )
             {
-                for( Song song : songsList )
+                SongCollectionEntry entry = new SongCollectionEntry();
+                entry.setSongCollectionName( songCollection.getName() );
+                entry.setSong( song.getPath() );
+                collectionEntrySet.add( entry );
+
+                songSet.add( song );
+
+                Collection<Feature> features = song.getFeatures().values();
+                if( features != null )
                 {
-                    SongCollectionEntry entry = new SongCollectionEntry();
-                    entry.setSongCollectionName( songCollection.getName() );
-                    entry.setSong( song.getPath() );
-                    collectionEntrySet.add( entry );
-
-                    songSet.add( song );
-
-                    Collection<Feature> features = song.getFeatures().values();
-                    if( features != null )
-                    {
-                        featureSet.addAll( features );
-                    }
+                    featureSet.addAll( features );
                 }
             }
         }

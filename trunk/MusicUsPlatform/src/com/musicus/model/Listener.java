@@ -91,12 +91,28 @@ public class Listener
 
     /**
      * Get enabled library collections(Playlists)
+     *
      * @return
      */
     public List<SongCollection> getMusicLibraryCollection()
     {
-        List<SongCollection> enabledMusicLibraryCollection = new ArrayList<SongCollection>( );
-        for( SongCollection collection : musicLibraryCollection )
+        if( null == musicLibraryCollection )
+        {
+            musicLibraryCollection = new ArrayList<SongCollection>();
+        }
+
+        return musicLibraryCollection;
+    }
+
+    /**
+     * Get enabled library collections(Playlists)
+     *
+     * @return
+     */
+    public List<SongCollection> getEnabledMusicLibraryCollection()
+    {
+        List<SongCollection> enabledMusicLibraryCollection = new ArrayList<SongCollection>();
+        for( SongCollection collection : getMusicLibraryCollection() )
         {
             if( collection.isEnabled() )
             {
@@ -162,9 +178,9 @@ public class Listener
         double[] featureModel = new double[Constants.CALCULATION_USED_FEATURES.length];    // No of features considered
         int calculatedSongCount = 0;
 
-        for( SongCollection collection : getMusicLibraryCollection() )
+        for( SongCollection collection : getEnabledMusicLibraryCollection() )
         {
-            for( Song song : collection.getSongsList() )
+            for( Song song : collection.getNotPlayedSongsList() )
             {
                 System.out.println( getLibraryName() + " : Going through features of : " + song.getPath() );
                 Map<String, Feature> featuresMap = song.getFeatures();
