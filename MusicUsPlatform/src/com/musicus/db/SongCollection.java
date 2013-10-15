@@ -20,10 +20,10 @@ public class SongCollection extends FileSavable
     private List<Song> songsList;
 
 
-//    @Override public FileSavable getInstance()
-//    {
-//        return new SongCollection();
-//    }
+    //    @Override public FileSavable getInstance()
+    //    {
+    //        return new SongCollection();
+    //    }
 
 
     public SongCollection()
@@ -46,7 +46,7 @@ public class SongCollection extends FileSavable
             String name = dbValues[0];
             boolean sequenced = Boolean.parseBoolean( dbValues[1] );
             boolean enabled = Boolean.parseBoolean( dbValues[2] );
-            List<Song> filteredSongList = getfilteredSongs( name,fileDirPath );
+            List<Song> filteredSongList = getfilteredSongs( name, fileDirPath );
             loadedObj = new SongCollection( name, sequenced, enabled, filteredSongList );
         }
 
@@ -57,7 +57,7 @@ public class SongCollection extends FileSavable
     {
         List<Song> filteredSongList = new ArrayList<Song>();
         List<Song> fullSongsList = FileSavable.getFullSongsList( fileDirPath );
-        List<FileSavable> fileSavables = FileSavable.loadData( new SongCollectionEntry(null, null), fileDirPath );
+        List<FileSavable> fileSavables = FileSavable.loadData( new SongCollectionEntry( null, null ), fileDirPath );
         for( FileSavable fileSavable : fileSavables )
         {
             SongCollectionEntry collectionEntry = (SongCollectionEntry) fileSavable;
@@ -120,6 +120,20 @@ public class SongCollection extends FileSavable
             songsList = new ArrayList<Song>();
         }
         return songsList;
+    }
+
+    public List<Song> getNotPlayedSongsList()
+    {
+        // get not played songs
+        List<Song> filteredNotPlayedSongList = new ArrayList<Song>();
+        for( Song song : getSongsList() )
+        {
+            if( 0 == song.getPlayedNumber() )       // not played. if played no is positive.
+            {
+                filteredNotPlayedSongList.add( song );
+            }
+        }
+        return filteredNotPlayedSongList;
     }
 
     public void setSongsList( List<Song> songsList )

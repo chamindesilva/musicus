@@ -3,6 +3,7 @@ package com.musicus.agent;
 import com.musicus.Utils.Calculations;
 import com.musicus.db.FileDb;
 import com.musicus.db.SongCollection;
+import com.musicus.model.Feature;
 import com.musicus.model.Listener;
 import com.musicus.model.Song;
 import jade.core.AID;
@@ -32,8 +33,10 @@ public class DjAgent extends MusicUsAgent
 {
     private Map<String, Listener> connectedListeners = new HashMap<String, Listener>();
 
-    private double[] featureMaxValues = new double[Constants.ANALYSED_FEATURES_COUNT];      // used to normalize data
-    private double[] featureMinValues = new double[Constants.ANALYSED_FEATURES_COUNT];      // used to normalize data
+    private double[] featureMaxValues = new double[Constants.CALCULATION_USED_FEATURES.length];      // used to normalize data
+    private double[] featureMinValues = new double[Constants.CALCULATION_USED_FEATURES.length];      // used to normalize data
+
+    private int playingSongsNo;
 
     @Override protected String getAgentType()
     {
@@ -118,33 +121,45 @@ public class DjAgent extends MusicUsAgent
                 for( Map.Entry<String, Listener> connectedListenerEntry : connectedListeners.entrySet() )
                 {
                     Listener connectedListener = connectedListenerEntry.getValue();
-                    for( SongCollection collection : connectedListener.getMusicLibraryCollection() )
+                    for( SongCollection collection : connectedListener.getEnabledMusicLibraryCollection() )
                     {
-                        for( Song song : collection.getSongsList() )
+                        for( Song song : collection.getNotPlayedSongsList() )
                         {
-                            if( song.getFeatures().isEmpty() )        // Not extracted files
+                            //                            double[] calculationUsedFeatureValArr = song.getCalculationUsedFeatureValArr();
+                            for( int featureNo = 0; featureNo < Constants.CALCULATION_USED_FEATURES.length; featureNo++ )
                             {
-                                continue;
+                                String featureName = Constants.CALCULATION_USED_FEATURES[featureNo];
+                                Feature feature = song.getFeatures().get( featureName );
+                                if( featureMaxValues[featureNo] < feature.getVal() )
+                                {
+                                    featureMaxValues[featureNo] = feature.getVal();
+                                }
+                                if( featureMinValues[featureNo] > feature.getVal() )
+                                {
+                                    featureMinValues[featureNo] = feature.getVal();
+                                }
                             }
-
 
                         }
                     }
                 }
 
                 double selectedDistance = Long.MAX_VALUE;
-                Map.Entry<String, List<Double>> selectedSong = null;
+                Song selectedSong = null;
+                AID selectedSongsLibraryAgent = null;
 
                 // For each song find total distance to all the listeners
                 for( Map.Entry<String, Listener> connectedListenerEntry : connectedListeners.entrySet() )
                 {
                     Listener connectedListener = connectedListenerEntry.getValue();
-                    connectedListener.updateSongPreference();       // update the model(averages of the songs of the listener)
                     log( Constants.LOG_IMPORTANT, getName(), connectedListener.getLibraryName(), " MSL : ", String.valueOf( connectedListener.getMSL() ) );
 
-                    for( SongCollection collection : connectedListener.getMusicLibraryCollection() )
+                    // Update the model(averages of the songs of the listener)
+                    connectedListener.updateSongPreference();
+
+                    for( SongCollection collection : connectedListener.getEnabledMusicLibraryCollection() )
                     {
-                        for( Song song : collection.getSongsList() )
+                        for( Song song : collection.getNotPlayedSongsList() )
                         {
                             if( song.getFeatures().isEmpty() )        // Not extracted files
                             {
@@ -155,9 +170,8 @@ public class DjAgent extends MusicUsAgent
                             int listenerNo = 0;
                             for( Listener listener : connectedListeners.values() )
                             {
-                                double distanceFromSongToListener =
-                                        Calculations.calculateEuclideanDistance( listener.getSongPreferenceFeatureModel(),
-                                                song.getFeatures(), featureMaxValues, featureMinValues );
+                                double distanceFromSongToListener = Calculations.calculateEuclideanDistance(
+                                        listener.getSongPreferenceFeatureModel(), song.getCalculationUsedFeatureValArr(), featureMaxValues, featureMinValues );
                                 distances[listenerNo] = distanceFromSongToListener;
                                 totDistances += ( distanceFromSongToListener * listener.getMSL() );
                                 log( getName(), "For ", listener.getLibraryName(), " totDistance : ", String.valueOf( totDistances ) );
@@ -165,77 +179,81 @@ public class DjAgent extends MusicUsAgent
                             }
                             //                    log( Constants.LOG_IMPORTANT, getLibraryName(), "Total Distances ", Arrays.toString( distances ), " = ", String.valueOf( totDistances ), " for : ", libraryEntry.getKey().substring( libraryEntry.getKey().lastIndexOf( "\\" ) ) );
 
-                            if( selectedDistance > totDistances && !lastPlayedQueue.contains( connectedListenerEntry.getKey() ) )
+
+                            // IGNORE PLAYEDSONGS IN CALCULATIONS AS WELL
+                            if( selectedDistance > totDistances )
                             {
-                                log( Constants.LOG_IMPORTANT, getName(), "Total Distances ", Arrays.toString( distances ), " = ", String.valueOf( totDistances ), " for : ", connectedListenerEntry.getKey().substring( connectedListenerEntry.getKey().lastIndexOf( "\\" ) ) );
+                                log( Constants.LOG_IMPORTANT, getName(), "Total Distances ", Arrays.toString( distances ), " = ",
+                                        String.valueOf( totDistances ), " for : ", selectedSong.getPath(), " of ", selectedSongsLibraryAgent.getName() );
                                 selectedDistance = totDistances;
-                                selectedSong = connectedListenerEntry;
-                                log( Constants.LOG_IMPORTANT, getName(), "Selected song ", selectedSong.getKey() );
+                                selectedSong = song;
+                                selectedSongsLibraryAgent = connectedListenerEntry.getValue().getLibrary();
+                                log( Constants.LOG_IMPORTANT, getName(), "Selected song ", selectedSong.getPath(), " of ", selectedSongsLibraryAgent.getName() );
                             }
 
                         }
                     }
-
-                    if( selectedSong != null )
-                    {
-                        // Play song
-                        lastPlayedQueue.add( selectedSong.getKey() );
-                        log( getName(), "Playing selected song ", selectedSong.getKey() );
-                        if( playerAgents != null && playerAgents.length != 0 )
-                        {
-                            ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
-                            newSongInform.addReceiver( playerAgents[0] );
-                            newSongInform.setContent( selectedSong.getKey() );   // Can also send byte arrays, serializable objects
-                            newSongInform.setConversationId( Constants.PLAY_REQUEST );
-                            newSongInform.setReplyWith( Constants.PLAY_REQUEST + System.currentTimeMillis() );
-                            myAgent.send( newSongInform );
-                            log( myAgent.getName(), "Sent request to play ", selectedSong.getKey() );
-
-                            String mslLog = "";
-                            for( Listener listener : listeners )
-                            {
-                                mslLog += listener.getMSL();
-                                mslLog += ",";
-                            }
-                            String songFullPath = selectedSong.getKey();
-                            int lastSeperator = songFullPath.lastIndexOf( "\\" );
-                            int secondLastSeperator = songFullPath.lastIndexOf( "\\", lastSeperator - 1 );
-                            System.out.println( ">>>>>>> " + lastSeperator + " ::" + secondLastSeperator );
-                            mslLog += songFullPath.substring( lastSeperator + 1 );
-                            mslLog += ",";
-                            mslLog += songFullPath.substring( secondLastSeperator + 1, lastSeperator );
-                            mstLog( mslLog );
-                        }
-
-
-                        // Update satisfaction levels of listeners
-                        double maxMSLVal = Double.MIN_VALUE;
-                        for( Listener listener : listeners )
-                        {
-                            double listenerMSL = listener.getMSL();
-                            double distanceFromSongToListener = Calculations.calculateEuclideanDistance( listener.getSongPreferenceFeatureModel(), selectedSong.getValue(), featureMaxValues, featureMinValues );
-                            listener.setMSL( listenerMSL / distanceFromSongToListener );        // ( Math.pow( listenerMSL, 2 ) / distanceFromSongToListener )
-                            if( listener.getMSL() > maxMSLVal )
-                            {
-                                maxMSLVal = listener.getMSL();
-                            }
-                            log( Constants.LOG_IMPORTANT, getName(), "Updating MSL for ", listener.getLibraryName(), " MSL value: ", String.valueOf( listenerMSL ), " / ", String.valueOf( distanceFromSongToListener ), " = ", String.valueOf( listener.getMSL() ) );
-
-                        }
-                        // Rearrange MSL values to be 0 - 1 with max val as 1 (but don't change min val to 0)
-                        for( Listener listener : listeners )
-                        {
-                            double listenerMSL = listener.getMSL();
-                            listener.setMSL( listenerMSL / maxMSLVal );
-                            log( Constants.LOG_IMPORTANT, getName(), "Normalized MSL for ", listener.getLibraryName(), " MSL value: ", String.valueOf( listener.getMSL() ) );
-                        }
-                    }
-
                 }
-            }
 
-            );
-        }
+                if( selectedSong != null )
+                {
+                    // Play song
+                    selectedSong.setPlayedNumber( ++playingSongsNo );
+                    log( getName(), "Playing selected song ", selectedSong.getPath(), " of ", selectedSongsLibraryAgent.getName() );
+//                    if( playerAgents != null && playerAgents.length != 0 )
+                    {
+                        ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
+                        newSongInform.addReceiver( selectedSongsLibraryAgent );
+                        newSongInform.setContent( selectedSong.getPath() );   // Can also send byte arrays, serializable objects
+                        newSongInform.setConversationId( Constants.PLAY_REQUEST );
+                        newSongInform.setReplyWith( Constants.PLAY_REQUEST + System.currentTimeMillis() );
+                        myAgent.send( newSongInform );
+                        log( myAgent.getName(), "Sent request to play ", selectedSong.getPath(), " to ", selectedSongsLibraryAgent.getName() );
+
+                        String mslLog = "";
+                        for( Listener listener : connectedListeners.values() )
+                        {
+                            mslLog += listener.getMSL();
+                            mslLog += ",";
+                        }
+                        String songFullPath = selectedSong.getPath();
+                        int lastSeperator = songFullPath.lastIndexOf( "\\" );
+                        int secondLastSeperator = songFullPath.lastIndexOf( "\\", lastSeperator - 1 );
+                        System.out.println( ">>>>>>> " + lastSeperator + " ::" + secondLastSeperator );
+                        mslLog += songFullPath.substring( lastSeperator + 1 );
+                        mslLog += ",";
+                        mslLog += songFullPath.substring( secondLastSeperator + 1, lastSeperator );
+                        mstLog( mslLog );
+                    }
+
+
+                    // Update satisfaction levels of listeners
+                    double maxMSLVal = Double.MIN_VALUE;
+                    for( Listener listener : connectedListeners.values() )
+                    {
+                        double listenerMSL = listener.getMSL();
+                        double distanceFromSongToListener = Calculations.calculateEuclideanDistance(
+                                listener.getSongPreferenceFeatureModel(), selectedSong.getCalculationUsedFeatureValArr(), featureMaxValues, featureMinValues );
+                        listener.setMSL( listenerMSL / distanceFromSongToListener );        // ( Math.pow( listenerMSL, 2 ) / distanceFromSongToListener )
+                        if( listener.getMSL() > maxMSLVal )
+                        {
+                            maxMSLVal = listener.getMSL();
+                        }
+                        log( Constants.LOG_IMPORTANT, getName(), "Updating MSL for ", listener.getLibraryName(), " MSL value: ", String.valueOf( listenerMSL ), " / ", String.valueOf( distanceFromSongToListener ), " = ", String.valueOf( listener.getMSL() ) );
+
+                    }
+                    // Rearrange MSL values to be 0 - 1 with max val as 1 (but don't change min val to 0)
+                    for( Listener listener : connectedListeners.values() )
+                    {
+                        double listenerMSL = listener.getMSL();
+                        listener.setMSL( listenerMSL / maxMSLVal );
+                        log( Constants.LOG_IMPORTANT, getName(), "Normalized MSL for ", listener.getLibraryName(), " MSL value: ", String.valueOf( listener.getMSL() ) );
+                    }
+                }
+
+            }
+        });
+    }
 
     private void outputToFile( String fileName, String text )
     {

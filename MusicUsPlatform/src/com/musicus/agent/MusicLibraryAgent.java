@@ -47,8 +47,8 @@ public class MusicLibraryAgent extends MusicUsAgent
     private AID djAgent;
     private List<Listener> listeners = new ArrayList<Listener>();
     private LimitedQueue<String> lastPlayedQueue = new LimitedQueue<String>( 30 );
-    private double[] featureMaxValues = new double[Constants.ANALYSED_FEATURES_COUNT];      // used to normalize data
-    private double[] featureMinValues = new double[Constants.ANALYSED_FEATURES_COUNT];      // used to normalize data
+//    private double[] featureMaxValues = new double[Constants.ANALYSED_FEATURES_COUNT];      // used to normalize data
+//    private double[] featureMinValues = new double[Constants.ANALYSED_FEATURES_COUNT];      // used to normalize data
     private boolean libraryUpdatesToBeSentToDj = true;
 
     @Override protected void init()
@@ -86,13 +86,13 @@ public class MusicLibraryAgent extends MusicUsAgent
         //        addListener( "ListenerDJCollection", 5, musicFolders );
 
 
-        for( int i = 0; i < Constants.ANALYSED_FEATURES_COUNT; i++ )
+        /*for( int i = 0; i < Constants.CALCULATION_USED_FEATURES.length; i++ )
         {
             featureMaxValues[i] = Double.MIN_VALUE;
             featureMinValues[i] = Double.MAX_VALUE;
         }
         // Load existing data to library
-        /*try
+        try
         {
             List<String> extractedSongsList = readFileToList( EXTRACTED_SONGS_FILE );
             List<String> extractedFeatureList = readFileToList( EXTRACTED_FEATURE_VALUES_FILE );
@@ -124,9 +124,9 @@ public class MusicLibraryAgent extends MusicUsAgent
         catch( IOException e )
         {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }*/
+        }
 
-        updateListenerModels();
+        updateListenerModels();*/
 
     }
 
@@ -136,7 +136,7 @@ public class MusicLibraryAgent extends MusicUsAgent
     }
 
     /**
-     * Check messages for new song messages
+     * Check for new songs to be sent to extractor
      */
     @Override protected void addBehaviours()
     {
@@ -146,33 +146,31 @@ public class MusicLibraryAgent extends MusicUsAgent
         // TODO: Receive new songs and collection messages from GUI instead of GUI directly adding songs to library by sharing lib obj
         addBehaviour( new CyclicBehaviour()
         {
+            // Look for new songs that features are not extracted and
             @Override public void action()
             {
-
-
                 for( SongCollection songCollection : musicLibrary )
                 {
-                    if( songCollection.getSongsList() != null )
+                    //                    if( songCollection.getSongsList() != null )
+                    //                    {
+                    for( Song song : songCollection.getSongsList() )
                     {
-                        for( Song song : songCollection.getSongsList() )
+                        if( ( song.getFeatures() == null || song.getFeatures().isEmpty() ) && !songsSentToExtraction.contains( song.getPath() ) )
                         {
-                            if( ( song.getFeatures() == null || song.getFeatures().isEmpty() ) && !songsSentToExtraction.contains( song.getPath() ) )
-                            {
-                                // send to feature extractor
-                                System.out.println( "Sending to feature extractor : " + song.getName() + ", " + song.getPath() );
-                                songsSentToExtraction.add( song.getPath() );
+                            // send to feature extractor
+                            System.out.println( "Sending to feature extractor : " + song.getName() + ", " + song.getPath() );
+                            songsSentToExtraction.add( song.getPath() );
 
-                                ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
-                                newSongInform.addReceiver( featureExtractorAgents[0] );
-                                newSongInform.setContent( song.getPath() );   // Can also send byte arrays, serializable objects
-                                newSongInform.setConversationId( Constants.FEATURE_EXTRACTION_PROPOSAL );
-                                newSongInform.setReplyWith( song.getPath() );
-                                myAgent.send( newSongInform );
-                                log( myAgent.getName(), "Sent request to extract features from ", song.getPath() );
-                            }
+                            ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
+                            newSongInform.addReceiver( featureExtractorAgents[0] );
+                            newSongInform.setContent( song.getPath() );   // Can also send byte arrays, serializable objects
+                            newSongInform.setConversationId( Constants.FEATURE_EXTRACTION_PROPOSAL );
+                            newSongInform.setReplyWith( song.getPath() );
+                            myAgent.send( newSongInform );
+                            log( myAgent.getName(), "Sent request to extract features from ", song.getPath() );
                         }
-
                     }
+                    //                    }
                 }
                 // Check messages for new songs
                 /*MessageTemplate newSongProposalMt = MessageTemplate.MatchPerformative( ACLMessage.PROPOSE );
@@ -252,6 +250,8 @@ public class MusicLibraryAgent extends MusicUsAgent
                                         Feature feature = new Feature( songPath, attributesList.get( featureValNo ), Double.parseDouble( !"NaN".equals( featureVal ) ? featureVal : "0.0" ) );
                                         song.getFeatures().put( feature.getName(), feature );
                                     }
+
+                                    libraryUpdatesToBeSentToDj = true;      // Send library to DJ with new features
                                 }
                             }
 
@@ -309,7 +309,7 @@ public class MusicLibraryAgent extends MusicUsAgent
         //            }
         //        } );
 
-        // scan for feature extract agents
+        // If lib is updated, send the lib to DJ
         addBehaviour( new TickerBehaviour( this, (long) ( 1 * 60 * 1000 ) )
         {
             @Override protected void onTick()
@@ -344,11 +344,12 @@ public class MusicLibraryAgent extends MusicUsAgent
                         }
                     }
 
-
+                    libraryUpdatesToBeSentToDj = false;
                 }
             }
         } );
 
+        // scan for feature extract agents
         addBehaviour( new TickerBehaviour( this, (long) ( Constants.SCAN_FOR_AGENTS_INTERVAL * 60 * 1000 ) )
         {
             @Override protected void onTick()
@@ -562,5 +563,15 @@ public class MusicLibraryAgent extends MusicUsAgent
     public void setMusicLibrary( List<SongCollection> musicLibrary )
     {
         this.musicLibrary = musicLibrary;
+    }
+
+    public boolean isLibraryUpdatesToBeSentToDj()
+    {
+        return libraryUpdatesToBeSentToDj;
+    }
+
+    public void setLibraryUpdatesToBeSentToDj( boolean libraryUpdatesToBeSentToDj )
+    {
+        this.libraryUpdatesToBeSentToDj = libraryUpdatesToBeSentToDj;
     }
 }

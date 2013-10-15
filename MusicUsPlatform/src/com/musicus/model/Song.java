@@ -1,5 +1,6 @@
 package com.musicus.model;
 
+import com.musicus.agent.Constants;
 import com.musicus.db.FileSavable;
 import com.musicus.db.Savable;
 
@@ -25,6 +26,7 @@ public class Song extends FileSavable
     private String name;
     private Map<String, Feature> features;
     private int status;
+    private int playedNumber;       // if the song is played, no of the order it played is stored
 
     // hold the list of all song objs. So before creating a new song obj, check whether a song obj is already created
     private static Map<String, Song> createdSongs = new HashMap<String, Song>();
@@ -124,8 +126,40 @@ public class Song extends FileSavable
         this.features = features;
     }
 
+    public int getPlayedNumber()
+    {
+        return playedNumber;
+    }
+
+    public void setPlayedNumber( int playedNumber )
+    {
+        this.playedNumber = playedNumber;
+    }
+
     public String getCompositePrimaryKey()
     {
         return path;
+    }
+
+    public double[] getCalculationUsedFeatureValArr()
+    {
+        double[] calculationUsedFeatureValArr = new double[Constants.CALCULATION_USED_FEATURES.length];
+
+        for( int featureNo = 0; featureNo < Constants.CALCULATION_USED_FEATURES.length; featureNo++ )
+        {
+            String calculationUsedFeatureName = Constants.CALCULATION_USED_FEATURES[featureNo];
+
+            Feature feature = null;
+            if( ( feature = getFeatures().get( calculationUsedFeatureName ) ) != null )
+            {
+                calculationUsedFeatureValArr[featureNo] = feature.getVal();
+            }
+//            else
+//            {
+//                System.out.println( ">>>>> FEATURE " + calculationUsedFeatureName + "NOT FOUND FOR SONG " + song.getPath() );
+//            }
+        }
+
+        return calculationUsedFeatureValArr;
     }
 }
