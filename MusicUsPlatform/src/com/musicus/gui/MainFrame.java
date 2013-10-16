@@ -295,14 +295,46 @@ public class MainFrame extends javax.swing.JFrame
                     SongCollection collection = musicLibrary.get( rowIndex );
                     if( columnIndex == 0 )
                     {
-                        collection.setName( (String) aValue );
+                        String newName = (String) aValue;
+                        boolean nameExists = isNameExists( rowIndex, musicLibrary, newName );
+                        if( nameExists )
+                        {
+                            for( int i = 0; i < 100; i++ )
+                            {
+                                String newNameWithNo = newName + i;
+                                nameExists = isNameExists( rowIndex, musicLibrary, newNameWithNo );
+                                if( !nameExists )
+                                {
+                                    break;
+                                }
+
+                            }
+                        }
+                        collection.setName( newName );
+                        musicLibraryAgent.setLibraryUpdatesToBeSentToDj( true );
                     }
                     else if( columnIndex == 1 )
                     {
                         collection.setEnabled( (Boolean) aValue );
+                        musicLibraryAgent.setLibraryUpdatesToBeSentToDj( true );
                     }
                 }
 
+            }
+
+            private boolean isNameExists( int rowIndex, List<SongCollection> musicLibrary, String newName )
+            {
+                boolean nameExists = false;
+                for( int i = 0; i < musicLibrary.size(); i++ )
+                {
+                    if( i != rowIndex && musicLibrary.get( i ).getName().equals( newName ) )
+                    {
+                        nameExists = true;
+                        break;
+                    }
+                }
+
+                return nameExists;
             }
 
             public Class getColumnClass( int columnIndex )
@@ -714,6 +746,7 @@ public class MainFrame extends javax.swing.JFrame
                 }
             }
         }
+        musicLibraryAgent.setLibraryUpdatesToBeSentToDj( true );
         ( (AbstractTableModel) tblCollectionLists.getModel() ).fireTableDataChanged();
     }
 

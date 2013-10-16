@@ -60,7 +60,8 @@ public class DjAgent extends MusicUsAgent
                 if( msg != null )
                 {
                     AID sender = msg.getSender();
-                    String senderName = sender.getName();
+                    // Change name from musicLib@101.2.186.224:1099/JADE to musicLib@101.2.186.224-1099#JADE to support creation of dir by name
+                    String senderName = sender.getName().replace( ":" ,"-").replace( "/" ,"#");
                     String savedFileName = msg.getConversationId();
                     String fileText = msg.getContent();
 
@@ -71,7 +72,7 @@ public class DjAgent extends MusicUsAgent
                         if( senderDataDir.mkdirs() )
                         {
                             // save to file
-                            outputToFile( savedFileName, fileText );
+                            outputToFile( senderName, savedFileName, fileText );
                         }
                         else
                         {
@@ -81,7 +82,7 @@ public class DjAgent extends MusicUsAgent
                     else
                     {
                         // save to file
-                        outputToFile( savedFileName, fileText );
+                        outputToFile( senderName, savedFileName, fileText );
                     }
 
                     if( !connectedListeners.containsKey( senderName ) )
@@ -96,6 +97,8 @@ public class DjAgent extends MusicUsAgent
                     {
                         List<SongCollection> musicLibrary = FileDb.getSongCollections( senderName );
                         connectedListner.setMusicLibraryCollection( musicLibrary );
+                        connectedListner.setReceivedFiles( 0 );
+
                     }
 
                 }
@@ -183,12 +186,11 @@ public class DjAgent extends MusicUsAgent
                             // IGNORE PLAYEDSONGS IN CALCULATIONS AS WELL
                             if( selectedDistance > totDistances )
                             {
-                                log( Constants.LOG_IMPORTANT, getName(), "Total Distances ", Arrays.toString( distances ), " = ",
-                                        String.valueOf( totDistances ), " for : ", selectedSong.getPath(), " of ", selectedSongsLibraryAgent.getName() );
                                 selectedDistance = totDistances;
                                 selectedSong = song;
                                 selectedSongsLibraryAgent = connectedListenerEntry.getValue().getLibrary();
-                                log( Constants.LOG_IMPORTANT, getName(), "Selected song ", selectedSong.getPath(), " of ", selectedSongsLibraryAgent.getName() );
+                                log( Constants.LOG_IMPORTANT, getName(), "Total Distances ", Arrays.toString( distances ), " = ",
+                                        String.valueOf( totDistances ), " for : ", selectedSong.getPath(), " of ", selectedSongsLibraryAgent.getName() );
                             }
 
                         }
@@ -255,12 +257,13 @@ public class DjAgent extends MusicUsAgent
         });
     }
 
-    private void outputToFile( String fileName, String text )
+    private void outputToFile( String dir, String fileName, String text )
     {
         PrintStream out = null;
+        String filePath = ( dir != null && !dir.isEmpty() ? dir + File.separator + fileName : fileName );
         try
         {
-            out = new PrintStream( new FileOutputStream( fileName ) );
+            out = new PrintStream( new FileOutputStream( filePath ) );
             out.print( text );
         }
         catch( Exception e )

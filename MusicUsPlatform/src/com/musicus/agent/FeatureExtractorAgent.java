@@ -36,7 +36,7 @@ public class FeatureExtractorAgent extends MusicUsAgent
         {
             @Override public void action()
             {
-                // Check messages for new songs
+                // Check messages for new songs to extract features
                 ACLMessage msg = myAgent.receive();
                 if( msg != null )
                 {
