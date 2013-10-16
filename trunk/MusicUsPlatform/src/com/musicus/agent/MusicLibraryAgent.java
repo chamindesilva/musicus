@@ -37,16 +37,16 @@ import java.util.Set;
  */
 public class MusicLibraryAgent extends MusicUsAgent
 {
-    public static final String DATA_TAG = "@DATA";
-    public static final String EXTRACTED_SONGS_FILE = "ExtractedSongsFile.txt";
-    public static final String EXTRACTED_FEATURE_VALUES_FILE = "ExtractedFeatureValues.arff";
+//    public static final String DATA_TAG = "@DATA";
+//    public static final String EXTRACTED_SONGS_FILE = "ExtractedSongsFile.txt";
+//    public static final String EXTRACTED_FEATURE_VALUES_FILE = "ExtractedFeatureValues.arff";
     //    private Map<String, List<Double>> musicLibrary;   // use a hash table for order preservation. Object is a Song object of features list
     private List<SongCollection> musicLibrary = new ArrayList<SongCollection>();
     private AID[] featureExtractorAgents;
     private AID[] playerAgent;
     private AID djAgent;
-    private List<Listener> listeners = new ArrayList<Listener>();
-    private LimitedQueue<String> lastPlayedQueue = new LimitedQueue<String>( 30 );
+//    private List<Listener> listeners = new ArrayList<Listener>();
+//    private LimitedQueue<String> lastPlayedQueue = new LimitedQueue<String>( 30 );
 //    private double[] featureMaxValues = new double[Constants.ANALYSED_FEATURES_COUNT];      // used to normalize data
 //    private double[] featureMinValues = new double[Constants.ANALYSED_FEATURES_COUNT];      // used to normalize data
     private boolean libraryUpdatesToBeSentToDj = true;
@@ -384,6 +384,33 @@ public class MusicLibraryAgent extends MusicUsAgent
             @Override protected void onTick()
             {
                 updateListenerModels();
+            }
+        } );
+
+        // Update listner models
+        addBehaviour( new CyclicBehaviour()
+        {
+            @Override public void action()
+            {
+                MessageTemplate songFeatureReqMt = MessageTemplate.MatchPerformative( ACLMessage.REQUEST );
+                MessageTemplate songFeatureConMt = MessageTemplate.MatchConversationId( Constants.PLAY_REQUEST );
+                MessageTemplate songFeatureCombndMt = MessageTemplate.and( songFeatureReqMt, songFeatureConMt );
+                ACLMessage msg = myAgent.receive( songFeatureConMt );
+                if( msg != null )       // TODO : get the last entry in the queue and play
+                {
+                    ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
+                    newSongInform.addReceiver( playerAgent[0] );
+                    newSongInform.setContent( msg.getContent() );   // Can also send byte arrays, serializable objects
+                    newSongInform.setConversationId( Constants.PLAY_REQUEST );
+                    newSongInform.setReplyWith( msg.getInReplyTo() );
+                    myAgent.send( newSongInform );
+                    log( myAgent.getName(), "Sent request to play ", msg.getContent(), " to ", playerAgent[0].getName() );
+
+                }
+                else
+                {
+                    block();
+                }
             }
         } );
 
