@@ -61,7 +61,7 @@ public class DjAgent extends MusicUsAgent
                 {
                     AID sender = msg.getSender();
                     // Change name from musicLib@101.2.186.224:1099/JADE to musicLib@101.2.186.224-1099#JADE to support creation of dir by name
-                    String senderName = sender.getName().replace( ":" ,"-").replace( "/" ,"#");
+                    String senderName = sender.getName().replace( ":", "-" ).replace( "/" ,"#");
                     String savedFileName = msg.getConversationId();
                     String fileText = msg.getContent();
 
@@ -118,16 +118,26 @@ public class DjAgent extends MusicUsAgent
                 // Update feature value minima and maxima
                 for( int i = 0; i < Constants.CALCULATION_USED_FEATURES.length; i++ )
                 {
-                    featureMaxValues[i] = Double.MIN_VALUE;
+                    featureMaxValues[i] = -Double.MAX_VALUE;
                     featureMinValues[i] = Double.MAX_VALUE;
                 }
+                // Round 1
                 for( Map.Entry<String, Listener> connectedListenerEntry : connectedListeners.entrySet() )
                 {
                     Listener connectedListener = connectedListenerEntry.getValue();
+                    log( Constants.LOG_IMPORTANT, getName(), connectedListener.getLibraryName(), " MSL : ", String.valueOf( connectedListener.getMSL() ) );
+
+                    // Update the model(averages of the songs of the listener)
+                    connectedListener.updateSongPreference();
+
                     for( SongCollection collection : connectedListener.getEnabledMusicLibraryCollection() )
                     {
                         for( Song song : collection.getNotPlayedSongsList() )
                         {
+                            if( song.getFeatures().isEmpty() )        // Not extracted files
+                            {
+                                continue;
+                            }
                             //                            double[] calculationUsedFeatureValArr = song.getCalculationUsedFeatureValArr();
                             for( int featureNo = 0; featureNo < Constants.CALCULATION_USED_FEATURES.length; featureNo++ )
                             {
@@ -147,7 +157,7 @@ public class DjAgent extends MusicUsAgent
                     }
                 }
 
-                double selectedDistance = Long.MAX_VALUE;
+                double selectedMslDistance = Long.MAX_VALUE;
                 Song selectedSong = null;
                 AID selectedSongsLibraryAgent = null;
 
@@ -155,10 +165,6 @@ public class DjAgent extends MusicUsAgent
                 for( Map.Entry<String, Listener> connectedListenerEntry : connectedListeners.entrySet() )
                 {
                     Listener connectedListener = connectedListenerEntry.getValue();
-                    log( Constants.LOG_IMPORTANT, getName(), connectedListener.getLibraryName(), " MSL : ", String.valueOf( connectedListener.getMSL() ) );
-
-                    // Update the model(averages of the songs of the listener)
-                    connectedListener.updateSongPreference();
 
                     for( SongCollection collection : connectedListener.getEnabledMusicLibraryCollection() )
                     {
@@ -168,29 +174,33 @@ public class DjAgent extends MusicUsAgent
                             {
                                 continue;
                             }
-                            double totDistances = 0.0D;
-                            double[] distances = new double[connectedListeners.size()];
+                            double totMslDistances = 0.0D;
+                            double[] mslDistances = new double[connectedListeners.size()];
                             int listenerNo = 0;
                             for( Listener listener : connectedListeners.values() )
                             {
                                 double distanceFromSongToListener = Calculations.calculateEuclideanDistance(
-                                        listener.getSongPreferenceFeatureModel(), song.getCalculationUsedFeatureValArr(), featureMaxValues, featureMinValues );
-                                distances[listenerNo] = distanceFromSongToListener;
-                                totDistances += ( distanceFromSongToListener * listener.getMSL() );
-                                log( getName(), "For ", listener.getLibraryName(), " totDistance : ", String.valueOf( totDistances ) );
+                                        /*Updated in round 1*/listener.getSongPreferenceFeatureModel(), song.getCalculationUsedFeatureValArr(), featureMaxValues, featureMinValues );
+                                double mslDistance = distanceFromSongToListener * listener.getMSL();
+                                mslDistances[listenerNo] = mslDistance;
+                                totMslDistances += mslDistance;
+//                                log( getName(), "For ", listener.getLibraryName(), " totMslDistances : ", String.valueOf( totMslDistances ) );
                                 listenerNo++;
                             }
+                            log( getName(), "Song ", song.getName(), " of ", connectedListener.getLibrary().getName(), " with features ", Arrays.toString( song.getCalculationUsedFeatureValArr() ),
+                                    " has total distance ", String.valueOf( totMslDistances ), " = ", Arrays.toString( mslDistances ), " for listners ",
+                                    Arrays.toString( connectedListeners.keySet().toArray() ) );
                             //                    log( Constants.LOG_IMPORTANT, getLibraryName(), "Total Distances ", Arrays.toString( distances ), " = ", String.valueOf( totDistances ), " for : ", libraryEntry.getKey().substring( libraryEntry.getKey().lastIndexOf( "\\" ) ) );
 
 
                             // IGNORE PLAYEDSONGS IN CALCULATIONS AS WELL
-                            if( selectedDistance > totDistances )
+                            if( selectedMslDistance > totMslDistances )  // ALSO USE STANDARD DEVIATION(LESS MEANS EVERYONE LIKES IT MORE THAN JUST ONE LIKE IT A LOT)
                             {
-                                selectedDistance = totDistances;
+                                selectedMslDistance = totMslDistances;
                                 selectedSong = song;
                                 selectedSongsLibraryAgent = connectedListenerEntry.getValue().getLibrary();
-                                log( Constants.LOG_IMPORTANT, getName(), "Total Distances ", Arrays.toString( distances ), " = ",
-                                        String.valueOf( totDistances ), " for : ", selectedSong.getPath(), " of ", selectedSongsLibraryAgent.getName() );
+                                log( Constants.LOG_IMPORTANT, getName(), /*"Total Distances ", Arrays.toString( distances ), " = ",*/
+                                        " Selected ", selectedSong.getPath(), " of ", selectedSongsLibraryAgent.getName(), "totMslDistances ", String.valueOf( totMslDistances ) );
                             }
 
                         }
@@ -199,33 +209,50 @@ public class DjAgent extends MusicUsAgent
 
                 if( selectedSong != null )
                 {
-                    // Play song
-                    selectedSong.setPlayedNumber( ++playingSongsNo );
-                    log( getName(), "Playing selected song ", selectedSong.getPath(), " of ", selectedSongsLibraryAgent.getName() );
-//                    if( playerAgents != null && playerAgents.length != 0 )
+                    for( Listener connectedListener : connectedListeners.values() )
                     {
-                        ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
-                        newSongInform.addReceiver( selectedSongsLibraryAgent );
-                        newSongInform.setContent( selectedSong.getPath() );   // Can also send byte arrays, serializable objects
-                        newSongInform.setConversationId( Constants.PLAY_REQUEST );
-                        newSongInform.setReplyWith( Constants.PLAY_REQUEST + System.currentTimeMillis() );
-                        myAgent.send( newSongInform );
-                        log( myAgent.getName(), "Sent request to play ", selectedSong.getPath(), " to ", selectedSongsLibraryAgent.getName() );
-
-                        String mslLog = "";
-                        for( Listener listener : connectedListeners.values() )
+                        // Send play request
+                        if( selectedSongsLibraryAgent == connectedListener.getLibrary() )
                         {
-                            mslLog += listener.getMSL();
-                            mslLog += ",";
+                            selectedSong.setPlayedNumber( ++playingSongsNo );
+                            log( getName(), "Playing selected song ", selectedSong.getPath(), " of ", selectedSongsLibraryAgent.getName() );
+                            //                    if( playerAgents != null && playerAgents.length != 0 )
+                            {
+                                ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
+                                newSongInform.addReceiver( selectedSongsLibraryAgent );
+                                newSongInform.setContent( selectedSong.getPath() );   // Can also send byte arrays, serializable objects
+                                newSongInform.setConversationId( Constants.PLAY_REQUEST );
+                                newSongInform.setReplyWith( Constants.PLAY_REQUEST + System.currentTimeMillis() );
+                                myAgent.send( newSongInform );
+                                log( myAgent.getName(), "Sent request to play ", selectedSong.getPath(), " to ", selectedSongsLibraryAgent.getName() );
+
+                                String mslLog = "";
+                                for( Listener listener : connectedListeners.values() )
+                                {
+                                    mslLog += listener.getMSL();
+                                    mslLog += ",";
+                                }
+                                String songFullPath = selectedSong.getPath();
+                                int lastSeperator = songFullPath.lastIndexOf( "\\" );
+                                int secondLastSeperator = songFullPath.lastIndexOf( "\\", lastSeperator - 1 );
+                                System.out.println( ">>>>>>> " + lastSeperator + " ::" + secondLastSeperator );
+                                mslLog += songFullPath.substring( lastSeperator + 1 );
+                                mslLog += ",";
+                                mslLog += songFullPath.substring( secondLastSeperator + 1, lastSeperator );
+                                mstLog( mslLog );
+                            }
                         }
-                        String songFullPath = selectedSong.getPath();
-                        int lastSeperator = songFullPath.lastIndexOf( "\\" );
-                        int secondLastSeperator = songFullPath.lastIndexOf( "\\", lastSeperator - 1 );
-                        System.out.println( ">>>>>>> " + lastSeperator + " ::" + secondLastSeperator );
-                        mslLog += songFullPath.substring( lastSeperator + 1 );
-                        mslLog += ",";
-                        mslLog += songFullPath.substring( secondLastSeperator + 1, lastSeperator );
-                        mstLog( mslLog );
+                        // Send stop playing request to other agents
+                        else
+                        {
+                            ACLMessage stopSongRequest = new ACLMessage( ACLMessage.REQUEST );
+                            stopSongRequest.addReceiver( connectedListener.getLibrary() );
+                            stopSongRequest.setContent( "" );   // Can also send byte arrays, serializable objects
+                            stopSongRequest.setConversationId( Constants.STOP_REQUEST );
+                            stopSongRequest.setReplyWith( Constants.STOP_REQUEST + System.currentTimeMillis() );
+                            myAgent.send( stopSongRequest );
+                            log( myAgent.getName(), "Sent request to stop to ", connectedListener.getLibrary().getName() );
+                        }
                     }
 
 

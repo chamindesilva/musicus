@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact name="MusicUsPlatform">
-    <output-path>C:/JADE/jade/MusicUs</output-path>
+    <output-path>C:/JADE/jade/MusicUs - DJ</output-path>
     <root id="root">
       <element id="archive" name="MusicUsPlatform.jar">
         <element id="directory" name="META-INF">

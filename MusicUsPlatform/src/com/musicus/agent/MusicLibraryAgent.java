@@ -15,6 +15,9 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.wrapper.AgentController;
+import jade.wrapper.ContainerController;
+import jade.wrapper.StaleProxyException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -27,6 +30,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,7 +47,7 @@ public class MusicLibraryAgent extends MusicUsAgent
     //    private Map<String, List<Double>> musicLibrary;   // use a hash table for order preservation. Object is a Song object of features list
     private List<SongCollection> musicLibrary = new ArrayList<SongCollection>();
     private AID[] featureExtractorAgents;
-    private AID[] playerAgent;
+    private AID playerAgent;
     private AID djAgent;
 //    private List<Listener> listeners = new ArrayList<Listener>();
 //    private LimitedQueue<String> lastPlayedQueue = new LimitedQueue<String>( 30 );
@@ -51,8 +55,17 @@ public class MusicLibraryAgent extends MusicUsAgent
 //    private double[] featureMinValues = new double[Constants.ANALYSED_FEATURES_COUNT];      // used to normalize data
     private boolean libraryUpdatesToBeSentToDj = true;
 
-    @Override protected void init()
+    @Override protected void init() throws Exception
     {
+        // Create sub agents to support this library agent
+        ContainerController containerController = getContainerController();
+        System.out.println( "Launching the local agents in the container" + containerController.getContainerName() + " under " + getName() );
+        String agentUUID = String.valueOf( UUID.randomUUID() ).split( "-" )[0];
+        AID featureExtractorAgentId = createAgent( containerController, "featExtractor" + agentUUID, FeatureExtractorAgent.class.getCanonicalName(), new Object[0] );
+        featureExtractorAgents = new AID[]{featureExtractorAgentId};
+        playerAgent = createAgent( containerController, "musicPlayer" + agentUUID, PlayerAgent.class.getCanonicalName(), new Object[0] );
+
+        // Load data from files
         musicLibrary = FileDb.getSongCollections();
 
         // LOAD GUI
@@ -63,10 +76,10 @@ public class MusicLibraryAgent extends MusicUsAgent
 
         DbConnector.getConnection();
         super.init();
-        //        musicLibrary = new HashMap<String, List<Double>>();
-        featureExtractorAgents = FeatureExtractorAgent.getAgents( this );
-        playerAgent = PlayerAgent.getAgents( this );
         djAgent = DjAgent.getAgents( this );
+        //        musicLibrary = new HashMap<String, List<Double>>();
+        //        featureExtractorAgents = FeatureExtractorAgent.getAgents( this );
+        //        playerAgent = PlayerAgent.getAgents( this );
         //        List<String> musicFolders = new ArrayList<String>();
         //        musicFolders.add( new String( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\VH1 100 Greatest Songs of 80s" ) );
         //        musicFolders.add( new String( "D:\\shared music\\AUDIO SONGS\\ENGLISH\\VH1s_100_Greatest_Songs_Of_The_90s_-_KoD-2008" ) );
@@ -350,24 +363,24 @@ public class MusicLibraryAgent extends MusicUsAgent
         } );
 
         // scan for feature extract agents
-        addBehaviour( new TickerBehaviour( this, (long) ( Constants.SCAN_FOR_AGENTS_INTERVAL * 60 * 1000 ) )
-        {
-            @Override protected void onTick()
-            {
-                // No need of featureExtractorAgents to be accessed with synchronized even though it is been accessed by multiple behaviours.
-                // As those behaviours are within same agent, all of those behaviours run in same thread. So no concurrency violence.
-                featureExtractorAgents = FeatureExtractorAgent.getAgents( myAgent );
-            }
-        } );
+//        addBehaviour( new TickerBehaviour( this, (long) ( Constants.SCAN_FOR_AGENTS_INTERVAL * 60 * 1000 ) )
+//        {
+//            @Override protected void onTick()
+//            {
+//                // No need of featureExtractorAgents to be accessed with synchronized even though it is been accessed by multiple behaviours.
+//                // As those behaviours are within same agent, all of those behaviours run in same thread. So no concurrency violence.
+//                featureExtractorAgents = FeatureExtractorAgent.getAgents( myAgent );
+//            }
+//        } );
 
         // scan for player agent
-        addBehaviour( new TickerBehaviour( this, (long) ( Constants.SCAN_FOR_AGENTS_INTERVAL * 60 * 1000 ) )
-        {
-            @Override protected void onTick()
-            {
-                playerAgent = PlayerAgent.getAgents( myAgent );
-            }
-        } );
+//        addBehaviour( new TickerBehaviour( this, (long) ( Constants.SCAN_FOR_AGENTS_INTERVAL * 60 * 1000 ) )
+//        {
+//            @Override protected void onTick()
+//            {
+//                playerAgent = PlayerAgent.getAgents( myAgent );
+//            }
+//        } );
 
         // scan for dj agent
         addBehaviour( new TickerBehaviour( this, (long) ( Constants.SCAN_FOR_AGENTS_INTERVAL * 60 * 1000 ) )
@@ -379,32 +392,59 @@ public class MusicLibraryAgent extends MusicUsAgent
         } );
 
         // Update listner models
-        addBehaviour( new TickerBehaviour( this, (long) ( Constants.LISTNER_MODEL_UPDATE_INTERVAL * 60 * 1000 ) )
-        {
-            @Override protected void onTick()
-            {
-                updateListenerModels();
-            }
-        } );
+//        addBehaviour( new TickerBehaviour( this, (long) ( Constants.LISTNER_MODEL_UPDATE_INTERVAL * 60 * 1000 ) )
+//        {
+//            @Override protected void onTick()
+//            {
+//                updateListenerModels();
+//            }
+//        } );
 
-        // Update listner models
+        // Parse PLAY request from DJ to lib's player agent
         addBehaviour( new CyclicBehaviour()
         {
             @Override public void action()
             {
-                MessageTemplate songFeatureReqMt = MessageTemplate.MatchPerformative( ACLMessage.REQUEST );
-                MessageTemplate songFeatureConMt = MessageTemplate.MatchConversationId( Constants.PLAY_REQUEST );
-                MessageTemplate songFeatureCombndMt = MessageTemplate.and( songFeatureReqMt, songFeatureConMt );
-                ACLMessage msg = myAgent.receive( songFeatureConMt );
+                MessageTemplate performativeMt = MessageTemplate.MatchPerformative( ACLMessage.REQUEST );
+                MessageTemplate conversationIdMt = MessageTemplate.MatchConversationId( Constants.PLAY_REQUEST );
+                MessageTemplate performativeConversationIdMt = MessageTemplate.and( performativeMt, conversationIdMt );
+                ACLMessage msg = myAgent.receive( conversationIdMt );
                 if( msg != null )       // TODO : get the last entry in the queue and play
                 {
                     ACLMessage newSongInform = new ACLMessage( ACLMessage.REQUEST );
-                    newSongInform.addReceiver( playerAgent[0] );
+                    newSongInform.addReceiver( playerAgent );
                     newSongInform.setContent( msg.getContent() );   // Can also send byte arrays, serializable objects
                     newSongInform.setConversationId( Constants.PLAY_REQUEST );
                     newSongInform.setReplyWith( msg.getInReplyTo() );
                     myAgent.send( newSongInform );
-                    log( myAgent.getName(), "Sent request to play ", msg.getContent(), " to ", playerAgent[0].getName() );
+                    log( myAgent.getName(), "Sent request to play ", msg.getContent(), " to ", playerAgent.getName() );
+
+                }
+                else
+                {
+                    block();
+                }
+            }
+        } );
+
+        // Parse STOP request from DJ to lib's player agent
+        addBehaviour( new CyclicBehaviour()
+        {
+            @Override public void action()
+            {
+                MessageTemplate performativeMt = MessageTemplate.MatchPerformative( ACLMessage.REQUEST );
+                MessageTemplate conversationIdMt = MessageTemplate.MatchConversationId( Constants.STOP_REQUEST );
+                MessageTemplate performativeConversationIdMt = MessageTemplate.and( performativeMt, conversationIdMt );
+                ACLMessage msg = myAgent.receive( conversationIdMt );
+                if( msg != null )       // TODO : get the last entry in the queue and play
+                {
+                    ACLMessage stopSongRequest = new ACLMessage( ACLMessage.REQUEST );
+                    stopSongRequest.addReceiver( playerAgent );
+                    stopSongRequest.setContent( msg.getContent() );   // Can also send byte arrays, serializable objects
+                    stopSongRequest.setConversationId( Constants.STOP_REQUEST );
+                    stopSongRequest.setReplyWith( msg.getInReplyTo() );
+                    myAgent.send( stopSongRequest );
+                    log( myAgent.getName(), "Sent request to stop ", msg.getContent(), " to ", playerAgent.getName() );
 
                 }
                 else
@@ -514,14 +554,14 @@ public class MusicLibraryAgent extends MusicUsAgent
         } );*/
     }
 
-    private void updateListenerModels()
-    {
-        /*for( Listener listener : listeners )
-        {
-            listener.updateListenersLibrary( musicLibrary );
-            listener.updateSongPreference();
-        } */
-    }
+//    private void updateListenerModels()
+//    {
+//        /*for( Listener listener : listeners )
+//        {
+//            listener.updateListenersLibrary( musicLibrary );
+//            listener.updateSongPreference();
+//        } */
+//    }
 
     @Override protected String getAgentType()
     {

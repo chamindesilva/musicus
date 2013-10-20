@@ -6,6 +6,7 @@ import com.musicus.db.SongCollection;
 import jade.core.AID;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -225,7 +226,7 @@ public class Listener
                 featureModel[featureNo] /= calculatedSongCount;
                 System.out.println( " = " + featureModel[featureNo] );
             }
-            MusicUsAgent.log( getLibraryName(), "Feature values ", String.valueOf( featureModel ) );
+            MusicUsAgent.log( getLibraryName(), "Feature values ", Arrays.toString( featureModel ) );
             setSongPreferenceFeatureModel( featureModel );
         }
     }

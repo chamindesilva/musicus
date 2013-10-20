@@ -7,133 +7,36 @@
   </component>
   <component name="ChangeListManager">
     <list readonly="true" id="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" name="Default" comment="" />
-    <list default="true" id="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" name="jAudio xml files&#10;" comment="With GUI">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/APDescription.txt" afterPath="$PROJECT_DIR$/lib/APDescription.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/AbstractIntegrator.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/AbstractIntegrator.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/AbstractParameterizable.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/AbstractParameterizable.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/nonstiff/AdamsIntegrator.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/nonstiff/AdamsIntegrator.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/nonstiff/AdaptiveStepsizeIntegrator.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/nonstiff/AdaptiveStepsizeIntegrator.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/analysis/solvers/AllowedSolution.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/analysis/solvers/AllowedSolution.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/analysis/solvers/class-use/AllowedSolution.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/analysis/solvers/class-use/AllowedSolution.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/geometry/partitioning/BSPTreeVisitor.Order.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/geometry/partitioning/BSPTreeVisitor.Order.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/geometry/partitioning/class-use/BSPTreeVisitor.Order.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/geometry/partitioning/class-use/BSPTreeVisitor.Order.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/analysis/solvers/BaseSecantSolver.Method.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/analysis/solvers/BaseSecantSolver.Method.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/analysis/solvers/class-use/BaseSecantSolver.Method.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/analysis/solvers/class-use/BaseSecantSolver.Method.html" />
+    <list default="true" id="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" name="jAudio xml files&#10;" comment="Seperate DJ and listners and allof the nodes work in a network">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/jade-src.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/Utils/Calculations.java" afterPath="$PROJECT_DIR$/src/com/musicus/Utils/Calculations.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/CholeskyDecomposition.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/CholeskyDecomposition.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optimization/general/ConjugateGradientFormula.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optimization/general/ConjugateGradientFormula.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optimization/general/class-use/ConjugateGradientFormula.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optimization/general/class-use/ConjugateGradientFormula.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/agent/Constants.java" afterPath="$PROJECT_DIR$/src/com/musicus/agent/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/DctNormalization.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/DctNormalization.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/class-use/DctNormalization.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/class-use/DctNormalization.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/dfp/Dfp.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/dfp/Dfp.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/dfp/DfpField.RoundingMode.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/dfp/DfpField.RoundingMode.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/dfp/class-use/DfpField.RoundingMode.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/dfp/class-use/DfpField.RoundingMode.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/DftNormalization.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/DftNormalization.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/class-use/DftNormalization.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/class-use/DftNormalization.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/agent/DjAgent.java" afterPath="$PROJECT_DIR$/src/com/musicus/agent/DjAgent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/DstNormalization.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/DstNormalization.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/class-use/DstNormalization.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/class-use/DstNormalization.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/nonstiff/EmbeddedRungeKuttaIntegrator.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/nonstiff/EmbeddedRungeKuttaIntegrator.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/events/EventHandler.Action.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/events/EventHandler.Action.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/events/class-use/EventHandler.Action.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/events/class-use/EventHandler.Action.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/FieldLUDecomposition.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/FieldLUDecomposition.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/db/FileDb.java" afterPath="$PROJECT_DIR$/src/com/musicus/db/FileDb.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/events/FilterType.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/events/FilterType.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/events/class-use/FilterType.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/events/class-use/FilterType.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optim/nonlinear/scalar/GoalType.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optim/nonlinear/scalar/GoalType.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optim/nonlinear/scalar/class-use/GoalType.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optim/nonlinear/scalar/class-use/GoalType.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optimization/GoalType.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optimization/GoalType.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optimization/class-use/GoalType.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optimization/class-use/GoalType.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConfFiles/JAudioBatchFile.xml" afterPath="$PROJECT_DIR$/ConfFiles/JAudioBatchFile.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/JacobianMatrices.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/JacobianMatrices.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ml/clustering/KMeansPlusPlusClusterer.EmptyClusterStrategy.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ml/clustering/KMeansPlusPlusClusterer.EmptyClusterStrategy.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ml/clustering/class-use/KMeansPlusPlusClusterer.EmptyClusterStrategy.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ml/clustering/class-use/KMeansPlusPlusClusterer.EmptyClusterStrategy.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/clustering/KMeansPlusPlusClusterer.EmptyClusterStrategy.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/clustering/KMeansPlusPlusClusterer.EmptyClusterStrategy.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/clustering/class-use/KMeansPlusPlusClusterer.EmptyClusterStrategy.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/clustering/class-use/KMeansPlusPlusClusterer.EmptyClusterStrategy.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/LICENSE.txt" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/LICENSE.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/LUDecomposition.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/LUDecomposition.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/agent/FeatureExtractorAgent.java" afterPath="$PROJECT_DIR$/src/com/musicus/agent/FeatureExtractorAgent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/model/Listener.java" afterPath="$PROJECT_DIR$/src/com/musicus/model/Listener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/exception/util/LocalizedFormats.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/exception/util/LocalizedFormats.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/exception/util/class-use/LocalizedFormats.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/exception/util/class-use/LocalizedFormats.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/gui/MainFrame.form" afterPath="$PROJECT_DIR$/src/com/musicus/gui/MainFrame.form" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/gui/MainFrame.java" afterPath="$PROJECT_DIR$/src/com/musicus/gui/MainFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/util/MathArrays.OrderDirection.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/util/MathArrays.OrderDirection.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/util/class-use/MathArrays.OrderDirection.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/util/class-use/MathArrays.OrderDirection.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/MatrixUtils.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/MatrixUtils.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/regression/MillerUpdatingRegression.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/regression/MillerUpdatingRegression.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/MultistepIntegrator.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/MultistepIntegrator.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java" afterPath="$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/ranking/NaNStrategy.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/ranking/NaNStrategy.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/ranking/class-use/NaNStrategy.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/ranking/class-use/NaNStrategy.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optim/nonlinear/scalar/gradient/NonLinearConjugateGradientOptimizer.Formula.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optim/nonlinear/scalar/gradient/NonLinearConjugateGradientOptimizer.Formula.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optim/nonlinear/scalar/gradient/class-use/NonLinearConjugateGradientOptimizer.Formula.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optim/nonlinear/scalar/gradient/class-use/NonLinearConjugateGradientOptimizer.Formula.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/exception/NonMonotonicSequenceException.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/exception/NonMonotonicSequenceException.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/exception/class-use/NumberIsTooSmallException.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/exception/class-use/NumberIsTooSmallException.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/ODEIntegrator.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/ODEIntegrator.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/ParameterJacobianProvider.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/ParameterJacobianProvider.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/Parameterizable.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/Parameterizable.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/ParameterizedODE.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/ParameterizedODE.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/agent/MusicUsAgent.java" afterPath="$PROJECT_DIR$/src/com/musicus/agent/MusicUsAgent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/MusicUsPlatform.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/MusicUsPlatform.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/agent/PlayerAgent.java" afterPath="$PROJECT_DIR$/src/com/musicus/agent/PlayerAgent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/QRDecomposition.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/QRDecomposition.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/RRQRDecomposition.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/RRQRDecomposition.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/random/RandomDataGenerator.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/random/RandomDataGenerator.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/random/RandomDataImpl.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/random/RandomDataImpl.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/RealLinearOperator.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/RealLinearOperator.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/geometry/partitioning/Region.Location.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/geometry/partitioning/Region.Location.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/geometry/partitioning/class-use/Region.Location.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/geometry/partitioning/class-use/Region.Location.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optim/linear/Relationship.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optim/linear/Relationship.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optim/linear/class-use/Relationship.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optim/linear/class-use/Relationship.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optimization/linear/Relationship.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optimization/linear/Relationship.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optimization/linear/class-use/Relationship.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optimization/linear/class-use/Relationship.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/util/ResizableDoubleArray.ExpansionMode.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/util/ResizableDoubleArray.ExpansionMode.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/util/class-use/ResizableDoubleArray.ExpansionMode.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/util/class-use/ResizableDoubleArray.ExpansionMode.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/geometry/euclidean/threed/RotationOrder.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/geometry/euclidean/threed/RotationOrder.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/nonstiff/RungeKuttaIntegrator.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/nonstiff/RungeKuttaIntegrator.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/agent/SearchSongsAgent.java" afterPath="$PROJECT_DIR$/src/com/musicus/agent/SearchSongsAgent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/agent/behaviour/SearchUpdatesInLibBehaviour.java" afterPath="$PROJECT_DIR$/src/com/musicus/agent/behaviour/SearchUpdatesInLibBehaviour.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/descriptive/moment/SemiVariance.Direction.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/descriptive/moment/SemiVariance.Direction.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/descriptive/moment/class-use/SemiVariance.Direction.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/descriptive/moment/class-use/SemiVariance.Direction.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/geometry/partitioning/Side.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/geometry/partitioning/Side.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/geometry/partitioning/class-use/Side.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/geometry/partitioning/class-use/Side.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/SingularValueDecomposition.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/linear/SingularValueDecomposition.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/musicus/model/Song.java" afterPath="$PROJECT_DIR$/src/com/musicus/model/Song.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/sampling/StepNormalizerBounds.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/sampling/StepNormalizerBounds.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/sampling/class-use/StepNormalizerBounds.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/sampling/class-use/StepNormalizerBounds.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/sampling/StepNormalizerMode.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/sampling/StepNormalizerMode.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/sampling/class-use/StepNormalizerMode.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/sampling/class-use/StepNormalizerMode.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/ranking/TiesStrategy.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/ranking/TiesStrategy.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/ranking/class-use/TiesStrategy.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/stat/ranking/class-use/TiesStrategy.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/TransformType.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/TransformType.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/class-use/TransformType.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/transform/class-use/TransformType.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/UnknownParameterException.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/UnknownParameterException.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/class-use/UnknownParameterException.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/ode/class-use/UnknownParameterException.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nbproject/build-impl.xml" afterPath="$PROJECT_DIR$/nbproject/build-impl.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/index.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/module_musicusplatform.xml" afterPath="$PROJECT_DIR$/module_musicusplatform.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/musicusplatform.xml" afterPath="$PROJECT_DIR$/musicusplatform.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optimization/package-summary.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/org/apache/commons/math3/optimization/package-summary.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nbproject/project.properties" afterPath="$PROJECT_DIR$/nbproject/project.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nbproject/project.xml" afterPath="$PROJECT_DIR$/nbproject/project.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/serialized-form.html" afterPath="$PROJECT_DIR$/lib/commons-math3-3.2/docs/apidocs/serialized-form.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/jade.xml" afterPath="$PROJECT_DIR$/.idea/libraries/jade.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MusicUsPlatform.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/SearchSongs.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378147117544" ignored="false" />
-    <file path="/SearchSongsAgent.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378939990466" ignored="false" />
-    <file path="/fragment.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381688259476" ignored="false" />
+    <file path="/SearchSongsAgent.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1382132122221" ignored="false" />
+    <file path="/fragment.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1382192641411" ignored="false" />
     <file path="$PROJECT_DIR$/src/com/musicus/agent/behaviour/SearchUpdateInLibBehaviour.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378150436258" ignored="false" />
     <file path="$PROJECT_DIR$/src/com/musicus/agent/SearchUpdateInLibBehaviour.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378150531016" ignored="false" />
     <file path="/SearchUpdatesInLibBehaviour.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378411630503" ignored="false" />
-    <file path="/Dummy.txt" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381791635786" ignored="false" />
-    <file path="/MusicLibraryAgent.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381778320276" ignored="false" />
+    <file path="/Dummy.txt" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1382256511386" ignored="false" />
+    <file path="/MusicLibraryAgent.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1382136283989" ignored="false" />
     <file path="/a.dummy" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381559688418" ignored="false" />
     <file path="$PROJECT_DIR$/../../prototypes/featureExtractor/src/jAudioFeatureExtractor/CommandLineThread.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378324206145" ignored="false" />
     <file path="/FeatureExtractor.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378337425314" ignored="false" />
-    <file path="/MusicUsAgent.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1379353380007" ignored="false" />
-    <file path="/Constants.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381777239108" ignored="false" />
+    <file path="/MusicUsAgent.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1382131894969" ignored="false" />
+    <file path="/Constants.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1382135955713" ignored="false" />
     <file path="$PROJECT_DIR$/../../prototypes/featureExtractor/src/com/musicus/gui/MainFrame.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378337434101" ignored="false" />
     <file path="$path$/travelboxv3/codegen/ReservationManager/src/it/codegen/tbx/reservationmanager/CarBooking.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378372652053" ignored="false" />
     <file path="/AvisWebServiceRequestMapper.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381295721945" ignored="false" />
@@ -143,7 +46,7 @@
     <file path="/DetailProduct.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378375268447" ignored="false" />
     <file path="/AvisDecorder.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381296938523" ignored="false" />
     <file path="$path$/travelboxv3/codegen/ProjectLibs/CommonLibraries/CommonLibraries-src.jar!/it/codegen/tbx/reservationmanager/Booking.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378376847492" ignored="false" />
-    <file path="/FeatureExtractorAgent.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381663027936" ignored="false" />
+    <file path="/FeatureExtractorAgent.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1382132154957" ignored="false" />
     <file path="$path$/travelboxv3/codegen/CommonCarGateway/src/it/codegen/tbx/cargateway/Avis/AvisSearchJob.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378388757514" ignored="false" />
     <file path="/AvisSearchJob.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378388741046" ignored="false" />
     <file path="/ExtendedXMLDocumentParser.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378562812717" ignored="false" />
@@ -151,25 +54,25 @@
     <file path="$PROJECT_DIR$/../../prototypes/featureExtractor/feature_values_1.xml" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378564628111" ignored="false" />
     <file path="$PROJECT_DIR$/../../prototypes/featureExtractor/feature_definitions_1.xml" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378564628111" ignored="false" />
     <file path="/Listner.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378730403932" ignored="false" />
-    <file path="/Listener.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381789892724" ignored="false" />
+    <file path="/Listener.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1382187489243" ignored="false" />
     <file path="/Calculations.java" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1379095230191" ignored="false" />
     <file path="/README" changelist="1a3eda46-d9ab-4fd9-b9c3-cc8809d5e29f" time="1378924785337" ignored="false" />
-    <file path="/PlayerAgent.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381678358664" ignored="false" />
+    <file path="/PlayerAgent.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1382136666876" ignored="false" />
     <file path="/TODO.txt" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1379172145007" ignored="false" />
-    <file path="/Song.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381778200769" ignored="false" />
+    <file path="/Song.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381865435749" ignored="false" />
     <file path="/Feature.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381670894296" ignored="false" />
-    <file path="/MainFrame.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381671009278" ignored="false" />
+    <file path="/MainFrame.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381957634530" ignored="false" />
     <file path="/DbConnector.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1380603052385" ignored="false" />
     <file path="/FileDb.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381778482162" ignored="false" />
     <file path="/FileSavable.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381678002025" ignored="false" />
-    <file path="/SongCollection.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381670095953" ignored="false" />
+    <file path="/SongCollection.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381867022377" ignored="false" />
     <file path="/SongCollectionEntry.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1380611735194" ignored="false" />
     <file path="$path$/travelboxv3/codegen/TravelBoxSearch/WebServiceJAXWS/wsdl/TravelBoxSearchService.wsdl" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381128065507" ignored="false" />
     <file path="$path$/travelboxv3/codegen/ReservationClient/ReservationClient.CarHire/src/it/codegen/tbx/search/carHire/presentation/CarResultDetailExpandPanel.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381137648960" ignored="false" />
     <file path="$path$/travelboxv3/codegen/ReservationClient/src/it/codegen/tbx/reservationclient/CarBookingSession.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381210297138" ignored="false" />
     <file path="/CarBookingSession.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381138319904" ignored="false" />
     <file path="$path$/travelboxv3/codegen/AccomGateWay/src/it/codegen/tbx/accommodationgateway/sunhotels/SunHotelsController.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381301390185" ignored="false" />
-    <file path="/DjAgent.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381789767211" ignored="false" />
+    <file path="/DjAgent.java" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1382256249616" ignored="false" />
     <file path="$PROJECT_DIR$/build/classes/com/musicus/gui/MainFrame.form" changelist="36c2f29e-e6d9-4bb4-a4c2-c02bf9c32632" time="1381774692695" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -185,7 +88,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -222,8 +124,9 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java" line="55" class="com.musicus.agent.MusicLibraryAgent" package="com.musicus.agent">
+      <breakpoint url="file://$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java" line="233" class="com.musicus.agent.MusicLibraryAgent$2" package="com.musicus.agent">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -238,7 +141,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java" line="222" class="com.musicus.agent.MusicLibraryAgent$2" package="com.musicus.agent">
+      <breakpoint url="file://$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java" line="332" class="com.musicus.agent.MusicLibraryAgent$3" package="com.musicus.agent">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -253,7 +156,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/com/musicus/agent/DjAgent.java" line="50" class="com.musicus.agent.DjAgent" package="com.musicus.agent">
+      <breakpoint url="file://$PROJECT_DIR$/src/com/musicus/agent/DjAgent.java" line="179" class="com.musicus.agent.DjAgent$2" package="com.musicus.agent">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -281,28 +184,16 @@
       <file leaf-file-name="MusicLibraryAgent.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="115" column="29" selection-start="5447" selection-end="5456" vertical-scroll-proportion="-43.52">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1478#1494#0" expanded="true" />
-                <element signature="e#1648#1658#0" expanded="true" />
-                <element signature="e#1729#1737#0" expanded="true" />
-                <element signature="e#6125#6133#0" expanded="true" />
-                <element signature="e#6364#9747#0" expanded="true" />
-                <element signature="e#9736#9737#0" expanded="true" />
-                <element signature="e#9835#14640#0" expanded="true" />
-                <element signature="e#10402#10410#0" expanded="true" />
-                <element signature="e#14629#14630#0" expanded="true" />
-                <element signature="e#25624#25632#0" expanded="true" />
-              </folding>
+            <state line="435" column="107" selection-start="21339" selection-end="21351" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SearchSongsAgent.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/SearchSongsAgent.java">
+      <file leaf-file-name="FeatureExtractorAgent.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/FeatureExtractorAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="142" column="42" selection-start="4865" selection-end="5397" vertical-scroll-proportion="0.0">
+            <state line="88" column="29" selection-start="3362" selection-end="3362" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -311,7 +202,16 @@
       <file leaf-file-name="PlayerAgent.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/PlayerAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="83" column="22" selection-start="2357" selection-end="2357" vertical-scroll-proportion="0.0">
+            <state line="95" column="92" selection-start="3317" selection-end="3317" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MusicUsAgent.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/MusicUsAgent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="34" column="16" selection-start="874" selection-end="874" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -320,25 +220,38 @@
       <file leaf-file-name="DjAgent.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/DjAgent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="129" column="29" selection-start="4685" selection-end="4882" vertical-scroll-proportion="0.35853514">
+            <state line="190" column="125" selection-start="8885" selection-end="8885" vertical-scroll-proportion="0.21024735">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#881#899#0" expanded="true" />
-                <element signature="e#1471#3776#0" expanded="true" />
-                <element signature="e#3764#3765#0" expanded="true" />
+                <element signature="e#915#933#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Listener.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/musicus/model/Listener.java">
+      <file leaf-file-name="SongCollection.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/musicus/db/SongCollection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="92" column="47" selection-start="2151" selection-end="2151" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2317#2333#0" expanded="true" />
-              </folding>
+            <state line="124" column="22" selection-start="3255" selection-end="3255" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TODO.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TODO.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Constants.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="59" column="59" selection-start="1877" selection-end="2861" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -346,7 +259,25 @@
       <file leaf-file-name="Calculations.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/musicus/Utils/Calculations.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="74" selection-start="248" selection-end="260" vertical-scroll-proportion="0.0">
+            <state line="14" column="25" selection-start="211" selection-end="211" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="346" selection-start="1127" selection-end="1449" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Listener.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/musicus/model/Listener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="176" column="16" selection-start="4537" selection-end="4537" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -355,18 +286,7 @@
       <file leaf-file-name="Song.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/musicus/model/Song.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="112" column="32" selection-start="2877" selection-end="2877" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#1933#1950#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Constants.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/Constants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="30" selection-start="1624" selection-end="1624" vertical-scroll-proportion="0.0">
+            <state line="143" column="20" selection-start="3556" selection-end="3556" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -382,30 +302,30 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/com/musicus/agent/SearchSongsAgent.java" />
-        <option value="$PROJECT_DIR$/src/com/musicus/agent/FeatureExtractorAgent.java" />
-        <option value="$PROJECT_DIR$/src/com/musicus/db/SongCollectionEntry.java" />
         <option value="$PROJECT_DIR$/src/com/musicus/model/Feature.java" />
-        <option value="$PROJECT_DIR$/src/com/musicus/db/SongCollection.java" />
-        <option value="$PROJECT_DIR$/src/com/musicus/gui/MainFrame.java" />
         <option value="$PROJECT_DIR$/src/com/musicus/db/FileSavable.java" />
-        <option value="$PROJECT_DIR$/src/com/musicus/agent/PlayerAgent.java" />
         <option value="$PROJECT_DIR$/README" />
         <option value="$PROJECT_DIR$/src/com/musicus/model/Song.java" />
-        <option value="$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java" />
+        <option value="$PROJECT_DIR$/src/com/musicus/db/SongCollection.java" />
         <option value="$PROJECT_DIR$/src/com/musicus/db/FileDb.java" />
-        <option value="$PROJECT_DIR$/src/com/musicus/Utils/Calculations.java" />
+        <option value="$PROJECT_DIR$/src/com/musicus/gui/MainFrame.java" />
+        <option value="$PROJECT_DIR$/src/com/musicus/agent/SearchSongsAgent.java" />
+        <option value="$PROJECT_DIR$/src/com/musicus/agent/FeatureExtractorAgent.java" />
+        <option value="$PROJECT_DIR$/src/com/musicus/agent/MusicUsAgent.java" />
         <option value="$PROJECT_DIR$/src/com/musicus/agent/Constants.java" />
+        <option value="$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java" />
+        <option value="$PROJECT_DIR$/src/com/musicus/agent/PlayerAgent.java" />
         <option value="$PROJECT_DIR$/src/com/musicus/model/Listener.java" />
+        <option value="$PROJECT_DIR$/src/com/musicus/Utils/Calculations.java" />
         <option value="$PROJECT_DIR$/src/com/musicus/agent/DjAgent.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1088" />
-    <option name="y" value="-1047" />
-    <option name="width" value="1096" />
-    <option name="height" value="1936" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1320" />
+    <option name="height" value="784" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -461,38 +381,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicUsPlatform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicUsPlatform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicUsPlatform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MusicUsPlatform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -505,15 +393,15 @@
   </component>
   <component name="PropertiesComponent">
     <property name="GenerateAntBuildDialog.generateIdeaHomeProperty" value="false" />
-    <property name="project.structure.last.edited" value="Libraries" />
-    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="OverrideImplement.combined" value="true" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="recentsLimit" value="5" />
-    <property name="GenerateAntBuildDialog.generateSingleFile" value="false" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="GenerateAntBuildDialog.generateSingleFile" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/jade-src.jar!/" />
     <property name="GenerateAntBuildDialog.inclineRuntiemClasspath" value="false" />
-    <property name="last_opened_file_path" value="$path$/travelboxv3/codegen" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="musicusplatform" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -528,8 +416,8 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
-    <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
@@ -561,19 +449,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -599,6 +474,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -762,7 +650,19 @@
       <created>1379474500101</created>
       <updated>1379474500101</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="With GUI">
+      <created>1381791981265</created>
+      <updated>1381791981265</updated>
+    </task>
+    <task id="LOCAL-00016" summary="With GUI">
+      <created>1381874299334</created>
+      <updated>1381874299334</updated>
+    </task>
+    <task id="LOCAL-00017" summary="play songs by PlayerAgent decided by DJ via Library agent&#10;">
+      <created>1381963585328</created>
+      <updated>1381963585328</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -786,28 +686,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1088" y="-1047" width="1096" height="1936" extended-state="6" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1320" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22575517" sideWeight="0.60383385" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14848144" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29061785" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290735" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.095846646" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295583" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32881355" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24951644" sideWeight="0.8512586" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1827853" sideWeight="0.8512586" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18124007" sideWeight="0.9206974" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32837528" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20747218" sideWeight="0.60383385" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.07951945" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25140607" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.076677315" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="SVN Repositories" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3280255" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24960254" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -855,7 +755,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="With GUI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Seperate DJ and listners and allof the nodes work in a network" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -884,6 +784,8 @@
     <MESSAGE value="workspace&#10;" />
     <MESSAGE value="workspace with weka&#10;" />
     <MESSAGE value="With GUI" />
+    <MESSAGE value="play songs by PlayerAgent decided by DJ via Library agent&#10;" />
+    <MESSAGE value="Seperate DJ and listners and allof the nodes work in a network" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -893,139 +795,103 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/musicus/db/FileSavable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="129" column="25" selection-start="3873" selection-end="3873" vertical-scroll-proportion="1.1682464">
-          <folding>
-            <element signature="e#1613#1626#0" expanded="false" />
-            <element signature="e#6754#6760#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="17" selection-start="1120" selection-end="1120" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/MusicUsAgent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="24" selection-start="2850" selection-end="2850" vertical-scroll-proportion="0.009703197">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicus/model/Feature.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="13" selection-start="357" selection-end="357" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/util/HashMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="380" column="19" selection-start="14111" selection-end="14111" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/util/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="133" column="12" selection-start="5719" selection-end="5719" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicus/db/FileDb.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="56" selection-start="2472" selection-end="2472" vertical-scroll-proportion="0.57943386">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicus/db/SongCollection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="22" selection-start="3061" selection-end="3061" vertical-scroll-proportion="0.6992009">
+        <state line="34" column="16" selection-start="874" selection-end="874" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/PlayerAgent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="22" selection-start="2357" selection-end="2357" vertical-scroll-proportion="0.0">
+        <state line="95" column="92" selection-start="3317" selection-end="3317" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/SearchSongsAgent.java">
+    <entry file="file://$PROJECT_DIR$/TODO.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="142" column="42" selection-start="4865" selection-end="5397" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicus/model/Song.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/util/Arrays.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="112" column="32" selection-start="2877" selection-end="2877" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#1933#1950#0" expanded="true" />
-          </folding>
-        </state>
+        <state line="3520" column="25" selection-start="154393" selection-end="154393" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicus/Utils/Calculations.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/util/Set.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="74" selection-start="248" selection-end="260" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="84" column="17" selection-start="2997" selection-end="2997" vertical-scroll-proportion="0.33333334" />
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/util/Map.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="312" column="5" selection-start="14436" selection-end="14436" vertical-scroll-proportion="0.33333334" />
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="235" column="18" selection-start="10169" selection-end="10169" vertical-scroll-proportion="0.33333334" />
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/jade-src.jar!/jade/wrapper/AgentControllerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="65" selection-start="2294" selection-end="2301" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="30" selection-start="1624" selection-end="1624" vertical-scroll-proportion="0.0">
+        <state line="59" column="59" selection-start="1877" selection-end="2861" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/musicus/model/Listener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="47" selection-start="2151" selection-end="2151" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2317#2333#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/MusicLibraryAgent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="29" selection-start="5447" selection-end="5456" vertical-scroll-proportion="-43.52">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1478#1494#0" expanded="true" />
-            <element signature="e#1648#1658#0" expanded="true" />
-            <element signature="e#1729#1737#0" expanded="true" />
-            <element signature="e#6125#6133#0" expanded="true" />
-            <element signature="e#6364#9747#0" expanded="true" />
-            <element signature="e#9736#9737#0" expanded="true" />
-            <element signature="e#9835#14640#0" expanded="true" />
-            <element signature="e#10402#10410#0" expanded="true" />
-            <element signature="e#14629#14630#0" expanded="true" />
-            <element signature="e#25624#25632#0" expanded="true" />
-          </folding>
+        <state line="435" column="107" selection-start="21339" selection-end="21351" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/lang/Math.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="319" column="25" selection-start="11813" selection-end="11813" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/musicus/db/SongCollection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="124" column="22" selection-start="3255" selection-end="3255" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/lang/Double.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="97" column="31" selection-start="2864" selection-end="2864" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/musicus/model/Listener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="176" column="16" selection-start="4537" selection-end="4537" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/musicus/Utils/Calculations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="25" selection-start="211" selection-end="211" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/musicus/agent/DjAgent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="129" column="29" selection-start="4685" selection-end="4882" vertical-scroll-proportion="0.35853514">
+        <state line="190" column="125" selection-start="8885" selection-end="8885" vertical-scroll-proportion="0.21024735">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#881#899#0" expanded="true" />
-            <element signature="e#1471#3776#0" expanded="true" />
-            <element signature="e#3764#3765#0" expanded="true" />
+            <element signature="e#915#933#0" expanded="true" />
           </folding>
         </state>
       </provider>

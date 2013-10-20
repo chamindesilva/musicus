@@ -12,6 +12,7 @@ public class Constants
     public static final String NEW_MUSIC_PROPOSAL = "newMusicProposal";
     public static final String FEATURE_EXTRACTION_PROPOSAL = "featureExtractionProposal";
     public static final String PLAY_REQUEST = "playRequest";
+    public static final String STOP_REQUEST = "stopRequest";
 
     public static final String MUSIC_SEARCH     = "music_search";
     public static final String MUSIC_LIBRARY    = "music-library";
@@ -32,7 +33,7 @@ public class Constants
     public static final String FEATURE_LIST = "feature_list";
     public static final int LISTNER_MODEL_UPDATE_INTERVAL = 3;
 //    public static final int ANALYSED_FEATURES_COUNT = 20;
-    public static final boolean DEBUG_MODE = true;
+    public static final boolean DEBUG_MODE = false;
     public static final int DEBUG_DELAY_SEC = 10 * 1000;
 
     //************ DJ **************
