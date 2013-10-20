@@ -28,6 +28,6 @@ public class Calculations
             tot += ( diff * diff );
         }
 
-        return Math.sqrt( tot );
+        return Math.sqrt( tot / featureList1.length );
     }
 }

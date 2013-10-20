@@ -4,6 +4,7 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -37,7 +38,7 @@ public class PlayerAgent extends MusicUsAgent
     volatile boolean stopped = true;
     private static LinkedList<Line> speakers = new LinkedList<Line>();
 
-    @Override protected void init()
+    @Override protected void init() throws Exception
     {
         super.init();
 //        findSpeakers();
@@ -60,7 +61,10 @@ public class PlayerAgent extends MusicUsAgent
             @Override public void action()
             {
                 // Check messages for new songs
-                ACLMessage msg = myAgent.receive();
+                MessageTemplate performativeMt = MessageTemplate.MatchPerformative( ACLMessage.REQUEST );
+                MessageTemplate conversationIdMt = MessageTemplate.MatchConversationId( Constants.PLAY_REQUEST );
+                MessageTemplate performativeConversationIdMt = MessageTemplate.and( performativeMt, conversationIdMt );
+                ACLMessage msg = myAgent.receive( conversationIdMt );
                 if( msg != null )       // TODO : get the last entry in the queue and play
                 {
                     String audioToPlay;
@@ -72,6 +76,27 @@ public class PlayerAgent extends MusicUsAgent
                         stop();
                         newPlay( audioToPlay );
                     }
+                }
+                else
+                {
+                    block();
+                }
+            }
+        } );
+
+        // Stop play
+        addBehaviour( new CyclicBehaviour()
+        {
+            @Override public void action()
+            {
+                MessageTemplate performativeMt = MessageTemplate.MatchPerformative( ACLMessage.REQUEST );
+                MessageTemplate conversationIdMt = MessageTemplate.MatchConversationId( Constants.STOP_REQUEST );
+                MessageTemplate performativeConversationIdMt = MessageTemplate.and( performativeMt, conversationIdMt );
+                ACLMessage msg = myAgent.receive( conversationIdMt );
+                if( msg != null )
+                {
+                    log( getName(), ">>> STOP Playing :" );
+                    stop();
                 }
                 else
                 {

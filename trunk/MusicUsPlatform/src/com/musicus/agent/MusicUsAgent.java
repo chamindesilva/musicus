@@ -6,6 +6,9 @@ import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
+import jade.wrapper.AgentController;
+import jade.wrapper.ContainerController;
+import jade.wrapper.StaleProxyException;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -25,23 +28,25 @@ public abstract class MusicUsAgent extends Agent
 
     @Override protected void setup()
     {
-        if( Constants.DEBUG_MODE )
         try
         {
-            Thread.sleep( Constants.DEBUG_DELAY_SEC );
+            if( Constants.DEBUG_MODE )
+            {
+                Thread.sleep( Constants.DEBUG_DELAY_SEC );
+            }
+            log( getAID().getName(), "Hello! ", getAID().getName(), " is starting." );
+            registerAgent( getAgentType() );
+            init();     // init check for other agent lists by registration, so agents should be completed registration before init()
+            addBehaviours();
+            log( getAID().getName(), "Hello! ", getAID().getName(), " is started." );
         }
-        catch( InterruptedException e )
+        catch( Exception e )
         {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        log( getAID().getName(), "Hello! ", getAID().getName(), " is starting." );
-        registerAgent( getAgentType() );
-        init();     // init check for other agent lists by registration, so agents should be completed registration before init()
-        addBehaviours();
-        log( getAID().getName(), "Hello! ", getAID().getName(), " is started." );
     }
 
-    protected void init()
+    protected void init() throws Exception
     {
         /*if( Constants.LOG_WRITE_TO_FILE )
         {
@@ -64,6 +69,12 @@ public abstract class MusicUsAgent extends Agent
 
     protected abstract void addBehaviours();
 
+    protected AID createAgent( ContainerController containerController, String agentName, String agentClassName, Object[] args ) throws StaleProxyException
+    {
+        AgentController featureExtractorAgentController = containerController.createNewAgent( agentName, agentClassName, args);
+        featureExtractorAgentController.start();
+        return  new AID( agentName, AID.ISLOCALNAME );
+    }
 
     protected void registerAgent( String agentType )
     {

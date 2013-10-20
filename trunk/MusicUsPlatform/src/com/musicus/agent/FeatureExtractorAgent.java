@@ -86,7 +86,7 @@ public class FeatureExtractorAgent extends MusicUsAgent
         } );
     }
 
-    @Override protected void init()
+    @Override protected void init() throws Exception
     {
         super.init();
     }
