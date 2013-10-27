@@ -2,7 +2,8 @@ package com.musicus.agent;
 
 import com.musicus.Utils.Calculations;
 import com.musicus.db.FileDb;
-import com.musicus.db.SongCollection;
+import com.musicus.model.CollectionSong;
+import com.musicus.model.SongCollection;
 import com.musicus.model.Feature;
 import com.musicus.model.Listener;
 import com.musicus.model.Song;
@@ -61,7 +62,7 @@ public class DjAgent extends MusicUsAgent
                 {
                     AID sender = msg.getSender();
                     // Change name from musicLib@101.2.186.224:1099/JADE to musicLib@101.2.186.224-1099#JADE to support creation of dir by name
-                    String senderName = sender.getName().replace( ":", "-" ).replace( "/" ,"#");
+                    String senderName = sender.getName().replace( ":", "-" ).replace( "/", "#" );
                     String savedFileName = msg.getConversationId();
                     String fileText = msg.getContent();
 
@@ -96,6 +97,7 @@ public class DjAgent extends MusicUsAgent
                     if( connectedListner.getReceivedFiles() == FileDb.TOTAL_FILE_COUNT_FOR_DB )
                     {
                         List<SongCollection> musicLibrary = FileDb.getSongCollections( senderName );
+                        // TODO: AVOID RESETTING THE CURRENT VALUES
                         connectedListner.setMusicLibraryCollection( musicLibrary );
                         connectedListner.setReceivedFiles( 0 );
 
@@ -115,34 +117,79 @@ public class DjAgent extends MusicUsAgent
         {
             @Override protected void onTick()
             {
+                // Adjust collections
+                for( Map.Entry<String, Listener> connectedListenerEntry : connectedListeners.entrySet() )
+                {
+                    Listener connectedListener = connectedListenerEntry.getValue();
+                    for( SongCollection collection : connectedListener.getEnabledMusicLibraryCollection() )
+                    {
+                        // UPDATE THE NOT PLAYED SONG LIST IN THE COLLECTION AND REUSE IN THIS CALCULATION TICK ROUND
+                        List<CollectionSong> notPlayedSongsList = collection.getNotPlayedSongsList();       // Get not played and features extracted songs
+
+                        double[][] collectionFeatureValues = new double[Constants.CALCULATION_USED_FEATURES.length][notPlayedSongsList.size()];
+                        for( int songNo = 0; songNo < notPlayedSongsList.size(); songNo++ )
+                        {
+                            CollectionSong collectionSong = notPlayedSongsList.get( songNo );
+                            Song originalSong = collectionSong.getDelegatedSong();
+                            double[] calculationUsedFeatureValArr = originalSong.getCalculationUsedFeatureValArr();
+
+                            for( int featureNo = 0; featureNo < Constants.CALCULATION_USED_FEATURES.length; featureNo++ )
+                            {
+                                collectionFeatureValues[featureNo][songNo] = calculationUsedFeatureValArr[featureNo];
+                            }
+                        }
+
+                        // Get MEAN and SD
+                        double[] featureMeans = Calculations.getMean( collectionFeatureValues );
+                        double[] featureSDs = Calculations.getSD( collectionFeatureValues );
+
+                        // Set adjusted feature values for collection in the CollectionSong obj
+                        for( CollectionSong collectionSong : notPlayedSongsList )
+                        {
+                            Song originalSong = collectionSong.getDelegatedSong();
+                            double[] calculationUsedFeatureValArr = originalSong.getCalculationUsedFeatureValArr();
+
+                            for( int featureNo = 0; featureNo < Constants.CALCULATION_USED_FEATURES.length; featureNo++ )
+                            {
+                                String calculationUsedFeatureName = Constants.CALCULATION_USED_FEATURES[featureNo];
+                                Feature collectionFeature = collectionSong.getFeatures().get( calculationUsedFeatureName );
+                                Feature originalFeature = originalSong.getFeatures().get( calculationUsedFeatureName );
+                                double adustedFeatureVal = Calculations.featureAdjustment( originalFeature.getVal(), featureMeans[featureNo], featureSDs[featureNo] );
+                                collectionFeature.setVal( adustedFeatureVal );
+                            }
+                        }
+                    }
+                }
+
+                // Update Listener models(avgs)
+                for( Map.Entry<String, Listener> connectedListenerEntry : connectedListeners.entrySet() )
+                {
+                    Listener connectedListener = connectedListenerEntry.getValue();
+                    // Update the model(averages of the songs of the listener)
+                    connectedListener.updateSongPreference();
+                }
+
+
                 // Update feature value minima and maxima
                 for( int i = 0; i < Constants.CALCULATION_USED_FEATURES.length; i++ )
                 {
                     featureMaxValues[i] = -Double.MAX_VALUE;
                     featureMinValues[i] = Double.MAX_VALUE;
                 }
-                // Round 1
                 for( Map.Entry<String, Listener> connectedListenerEntry : connectedListeners.entrySet() )
                 {
                     Listener connectedListener = connectedListenerEntry.getValue();
                     log( Constants.LOG_IMPORTANT, getName(), connectedListener.getLibraryName(), " MSL : ", String.valueOf( connectedListener.getMSL() ) );
 
-                    // Update the model(averages of the songs of the listener)
-                    connectedListener.updateSongPreference();
-
                     for( SongCollection collection : connectedListener.getEnabledMusicLibraryCollection() )
                     {
-                        for( Song song : collection.getNotPlayedSongsList() )
+                        List<CollectionSong> notPlayedSongsList = collection.getNotPlayedSongsList();   // Get not played and features extracted songs
+                        for( CollectionSong collectionSong : notPlayedSongsList )
                         {
-                            if( song.getFeatures().isEmpty() )        // Not extracted files
-                            {
-                                continue;
-                            }
-                            //                            double[] calculationUsedFeatureValArr = song.getCalculationUsedFeatureValArr();
                             for( int featureNo = 0; featureNo < Constants.CALCULATION_USED_FEATURES.length; featureNo++ )
                             {
                                 String featureName = Constants.CALCULATION_USED_FEATURES[featureNo];
-                                Feature feature = song.getFeatures().get( featureName );
+                                Feature feature = collectionSong.getFeatures().get( featureName );
                                 if( featureMaxValues[featureNo] < feature.getVal() )
                                 {
                                     featureMaxValues[featureNo] = feature.getVal();
@@ -161,19 +208,16 @@ public class DjAgent extends MusicUsAgent
                 Song selectedSong = null;
                 AID selectedSongsLibraryAgent = null;
 
-                // For each song find total distance to all the listeners
+                // For each collection, find the winner song  (OLD---For each song find total distance to all the listeners--)
                 for( Map.Entry<String, Listener> connectedListenerEntry : connectedListeners.entrySet() )
                 {
                     Listener connectedListener = connectedListenerEntry.getValue();
 
                     for( SongCollection collection : connectedListener.getEnabledMusicLibraryCollection() )
                     {
-                        for( Song song : collection.getNotPlayedSongsList() )
+                        for( CollectionSong collectionSong : collection.getNotPlayedSongsList() )       // Get not played and features extracted songs
                         {
-                            if( song.getFeatures().isEmpty() )        // Not extracted files
-                            {
-                                continue;
-                            }
+                            Song song = collectionSong;
                             double totMslDistances = 0.0D;
                             double[] mslDistances = new double[connectedListeners.size()];
                             int listenerNo = 0;
@@ -184,12 +228,10 @@ public class DjAgent extends MusicUsAgent
                                 double mslDistance = distanceFromSongToListener * listener.getMSL();
                                 mslDistances[listenerNo] = mslDistance;
                                 totMslDistances += mslDistance;
-//                                log( getName(), "For ", listener.getLibraryName(), " totMslDistances : ", String.valueOf( totMslDistances ) );
+                                //                                log( getName(), "For ", listener.getLibraryName(), " totMslDistances : ", String.valueOf( totMslDistances ) );
                                 listenerNo++;
                             }
-                            log( getName(), "Song ", song.getName(), " of ", connectedListener.getLibrary().getName(), " with features ", Arrays.toString( song.getCalculationUsedFeatureValArr() ),
-                                    " has total distance ", String.valueOf( totMslDistances ), " = ", Arrays.toString( mslDistances ), " for listners ",
-                                    Arrays.toString( connectedListeners.keySet().toArray() ) );
+                            log( getName(), "Song ", song.getName(), " of ", connectedListener.getLibrary().getName(), " with features ", Arrays.toString( song.getCalculationUsedFeatureValArr() ), " has total distance ", String.valueOf( totMslDistances ), " = ", Arrays.toString( mslDistances ), " for listners ", Arrays.toString( connectedListeners.keySet().toArray() ) );
                             //                    log( Constants.LOG_IMPORTANT, getLibraryName(), "Total Distances ", Arrays.toString( distances ), " = ", String.valueOf( totDistances ), " for : ", libraryEntry.getKey().substring( libraryEntry.getKey().lastIndexOf( "\\" ) ) );
 
 
@@ -261,9 +303,8 @@ public class DjAgent extends MusicUsAgent
                     for( Listener listener : connectedListeners.values() )
                     {
                         double listenerMSL = listener.getMSL();
-                        double distanceFromSongToListener = Calculations.calculateEuclideanDistance(
-                                listener.getSongPreferenceFeatureModel(), selectedSong.getCalculationUsedFeatureValArr(), featureMaxValues, featureMinValues );
-                        listener.setMSL( listenerMSL / distanceFromSongToListener );        // ( Math.pow( listenerMSL, 2 ) / distanceFromSongToListener )
+                        double distanceFromSongToListener = Calculations.calculateEuclideanDistance( listener.getSongPreferenceFeatureModel(), selectedSong.getCalculationUsedFeatureValArr(), featureMaxValues, featureMinValues );
+                        listener.setMSL( listenerMSL + ( 1 / 1 + distanceFromSongToListener ) );        // ( Math.pow( listenerMSL, 2 ) / distanceFromSongToListener )
                         if( listener.getMSL() > maxMSLVal )
                         {
                             maxMSLVal = listener.getMSL();
@@ -281,7 +322,7 @@ public class DjAgent extends MusicUsAgent
                 }
 
             }
-        });
+        } );
     }
 
     private void outputToFile( String dir, String fileName, String text )

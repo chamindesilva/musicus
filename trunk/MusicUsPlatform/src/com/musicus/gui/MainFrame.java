@@ -4,9 +4,9 @@
 */
 package com.musicus.gui;
 
-import com.musicus.agent.Constants;
 import com.musicus.agent.MusicLibraryAgent;
-import com.musicus.db.SongCollection;
+import com.musicus.model.CollectionSong;
+import com.musicus.model.SongCollection;
 import com.musicus.model.Song;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
@@ -771,13 +771,13 @@ public class MainFrame extends javax.swing.JFrame
                         File[] files = fc.getSelectedFiles();
                         List<File> fileList = new ArrayList<File>();
 
-                        List<Song> songList = new ArrayList<Song>();
+                        List<CollectionSong> songList = new ArrayList<CollectionSong>();
                         for( File file : files )
                         {
 
                             //This is where a real application would open the file.
                             System.out.println( "Addint: " + file.getName() + " : " + file.getAbsolutePath() + "\n" );
-                            Song song = (Song) Song.getInstance( file.getAbsolutePath(), file.getName(), null );
+                            CollectionSong song = (CollectionSong) CollectionSong.getInstance( file.getAbsolutePath(), file.getName(), null );
                             //                            song.setPath( file.getAbsolutePath() );
                             //                            song.setName( file.getLibraryName() );
                             songList.add( song );  //TODO: send  to feature extraction

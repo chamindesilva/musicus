@@ -1,13 +1,11 @@
 package com.musicus.agent;
 
-import com.musicus.Utils.Calculations;
-import com.musicus.Utils.LimitedQueue;
 import com.musicus.db.DbConnector;
 import com.musicus.db.FileDb;
-import com.musicus.db.SongCollection;
+import com.musicus.model.CollectionSong;
+import com.musicus.model.SongCollection;
 import com.musicus.gui.MainFrame;
 import com.musicus.model.Feature;
-import com.musicus.model.Listener;
 import com.musicus.model.Song;
 import jade.core.AID;
 import jade.core.Agent;
@@ -15,9 +13,7 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import jade.wrapper.AgentController;
 import jade.wrapper.ContainerController;
-import jade.wrapper.StaleProxyException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -25,10 +21,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -166,8 +160,9 @@ public class MusicLibraryAgent extends MusicUsAgent
                 {
                     //                    if( songCollection.getSongsList() != null )
                     //                    {
-                    for( Song song : songCollection.getSongsList() )
+                    for( CollectionSong collectionSong : songCollection.getSongsList() )
                     {
+                        Song song = collectionSong.getDelegatedSong();
                         if( ( song.getFeatures() == null || song.getFeatures().isEmpty() ) && !songsSentToExtraction.contains( song.getPath() ) )
                         {
                             // send to feature extractor

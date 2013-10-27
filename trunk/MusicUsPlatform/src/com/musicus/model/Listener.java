@@ -2,15 +2,12 @@ package com.musicus.model;
 
 import com.musicus.agent.Constants;
 import com.musicus.agent.MusicUsAgent;
-import com.musicus.db.SongCollection;
 import jade.core.AID;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * <DESCRIPTION>
@@ -176,15 +173,15 @@ public class Listener
     //    }
     public void updateSongPreference()
     {
-        double[] featureModel = new double[Constants.CALCULATION_USED_FEATURES.length];    // No of features considered
+        double[] featureModel = new double[Constants.CALCULATION_USED_FEATURES.length];     // No of features considered
         int calculatedSongCount = 0;
 
         for( SongCollection collection : getEnabledMusicLibraryCollection() )
         {
-            for( Song song : collection.getNotPlayedSongsList() )
+            for( CollectionSong collectionSong : collection.getNotPlayedSongsList() )       // Get not played and features extracted songs
             {
-                System.out.println( getLibraryName() + " : Going through features of : " + song.getPath() );
-                Map<String, Feature> featuresMap = song.getFeatures();
+                System.out.println( getLibraryName() + " : Going through features of : " + collectionSong.getPath() );
+                Map<String, Feature> featuresMap = collectionSong.getFeatures();
 
                 if( !featuresMap.isEmpty() )
                 {
@@ -208,14 +205,14 @@ public class Listener
                             }
                             else
                             {
-                                System.out.println( ">>>>> FEATURE " + calculationUsedFeatureName + "NOT FOUND FOR SONG " + song.getPath() );
+                                System.out.println( ">>>>> FEATURE " + calculationUsedFeatureName + "NOT FOUND FOR SONG " + collectionSong.getPath() );
                             }
                         }
 
                     }
                     else
                     {
-                        System.out.println( ">>>>> FEATURE " + missingFeature + "NOT FOUND FOR SONG " + song.getPath() );
+                        System.out.println( ">>>>> FEATURE " + missingFeature + "NOT FOUND FOR SONG " + collectionSong.getPath() );
                     }
                 }
             }

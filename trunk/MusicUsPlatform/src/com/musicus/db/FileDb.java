@@ -1,20 +1,15 @@
 package com.musicus.db;
 
+import com.musicus.model.CollectionSong;
 import com.musicus.model.Feature;
 import com.musicus.model.Song;
+import com.musicus.model.SongCollection;
+import com.musicus.model.SongCollectionEntry;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -59,17 +54,17 @@ public class FileDb
         Collection<Feature> featureSet = new HashSet<Feature>();
         for( SongCollection songCollection : collection )
         {
-            List<Song> songsList = songCollection.getSongsList();
-            for( Song song : songsList )
+            List<CollectionSong> songsList = songCollection.getSongsList();
+            for( CollectionSong song : songsList )
             {
                 SongCollectionEntry entry = new SongCollectionEntry();
                 entry.setSongCollectionName( songCollection.getName() );
                 entry.setSong( song.getPath() );
                 collectionEntrySet.add( entry );
 
-                songSet.add( song );
+                songSet.add( song.getDelegatedSong() );
 
-                Collection<Feature> features = song.getFeatures().values();
+                Collection<Feature> features = song.getDelegatedSong().getFeatures().values();
                 if( features != null )
                 {
                     featureSet.addAll( features );

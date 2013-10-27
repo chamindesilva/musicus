@@ -1,6 +1,6 @@
-package com.musicus.db;
+package com.musicus.model;
 
-import com.musicus.model.Song;
+import com.musicus.db.FileSavable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,9 @@ public class SongCollection extends FileSavable
     private String name;
     private boolean sequenced;  // true for playlists(have a sequencing of songs in playlist), false song directories
     private boolean enabled;
-    private List<Song> songsList;
+    private List<CollectionSong> songsList;
+
+    // Temporary variables
 
 
     //    @Override public FileSavable getInstance()
@@ -30,7 +32,7 @@ public class SongCollection extends FileSavable
     {
     }
 
-    public SongCollection( String name, boolean sequenced, boolean enabled, List<Song> songsList )
+    public SongCollection( String name, boolean sequenced, boolean enabled, List<CollectionSong> songsList )
     {
         this.name = name;
         this.sequenced = sequenced;
@@ -46,16 +48,16 @@ public class SongCollection extends FileSavable
             String name = dbValues[0];
             boolean sequenced = Boolean.parseBoolean( dbValues[1] );
             boolean enabled = Boolean.parseBoolean( dbValues[2] );
-            List<Song> filteredSongList = getfilteredSongs( name, fileDirPath );
+            List<CollectionSong> filteredSongList = getfilteredSongs( name, fileDirPath );
             loadedObj = new SongCollection( name, sequenced, enabled, filteredSongList );
         }
 
         return loadedObj;
     }
 
-    private List<Song> getfilteredSongs( String name, String fileDirPath )
+    private List<CollectionSong> getfilteredSongs( String name, String fileDirPath )
     {
-        List<Song> filteredSongList = new ArrayList<Song>();
+        List<CollectionSong> filteredSongList = new ArrayList<CollectionSong>();
         List<Song> fullSongsList = FileSavable.getFullSongsList( fileDirPath );
         List<FileSavable> fileSavables = FileSavable.loadData( new SongCollectionEntry( null, null ), fileDirPath );
         for( FileSavable fileSavable : fileSavables )
@@ -67,7 +69,7 @@ public class SongCollection extends FileSavable
                 {
                     if( collectionEntry.getSong().equals( song.getPath() ) )
                     {
-                        filteredSongList.add( song );
+                        filteredSongList.add( new CollectionSong( song ) );
                     }
                 }
             }
@@ -113,22 +115,26 @@ public class SongCollection extends FileSavable
         this.sequenced = sequenced;
     }
 
-    public List<Song> getSongsList()
+    public List<CollectionSong> getSongsList()
     {
         if( songsList == null )
         {
-            songsList = new ArrayList<Song>();
+            songsList = new ArrayList<CollectionSong>();
         }
         return songsList;
     }
 
-    public List<Song> getNotPlayedSongsList()
+    /**
+     * Get not played and features extracted songs
+     * @return
+     */
+    public List<CollectionSong> getNotPlayedSongsList()
     {
         // get not played songs
-        List<Song> filteredNotPlayedSongList = new ArrayList<Song>();
-        for( Song song : getSongsList() )
+        List<CollectionSong> filteredNotPlayedSongList = new ArrayList<CollectionSong>();
+        for( CollectionSong song : getSongsList() )
         {
-            if( 0 == song.getPlayedNumber() )       // not played. if played no is positive.
+            if( 0 == song.getPlayedNumber() && !song.getFeatures().isEmpty() )       // not played. if played no is positive.
             {
                 filteredNotPlayedSongList.add( song );
             }
@@ -136,7 +142,7 @@ public class SongCollection extends FileSavable
         return filteredNotPlayedSongList;
     }
 
-    public void setSongsList( List<Song> songsList )
+    public void setSongsList( List<CollectionSong> songsList )
     {
         this.songsList = songsList;
     }
