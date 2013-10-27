@@ -121,7 +121,7 @@ public class DjAgent extends MusicUsAgent
                 for( Map.Entry<String, Listener> connectedListenerEntry : connectedListeners.entrySet() )
                 {
                     Listener connectedListener = connectedListenerEntry.getValue();
-                    for( SongCollection collection : connectedListener.getEnabledMusicLibraryCollection() )
+                    for( SongCollection collection : connectedListener.getEnabledMusicLibraryCollection() )         // Get enabled and not played songs existing library collections(Playlists)
                     {
                         // UPDATE THE NOT PLAYED SONG LIST IN THE COLLECTION AND REUSE IN THIS CALCULATION TICK ROUND
                         List<CollectionSong> notPlayedSongsList = collection.getNotPlayedSongsList();       // Get not played and features extracted songs
@@ -181,7 +181,7 @@ public class DjAgent extends MusicUsAgent
                     Listener connectedListener = connectedListenerEntry.getValue();
                     log( Constants.LOG_IMPORTANT, getName(), connectedListener.getLibraryName(), " MSL : ", String.valueOf( connectedListener.getMSL() ) );
 
-                    for( SongCollection collection : connectedListener.getEnabledMusicLibraryCollection() )
+                    for( SongCollection collection : connectedListener.getEnabledMusicLibraryCollection() )         // Get enabled and not played songs existing library collections(Playlists)
                     {
                         List<CollectionSong> notPlayedSongsList = collection.getNotPlayedSongsList();   // Get not played and features extracted songs
                         for( CollectionSong collectionSong : notPlayedSongsList )
@@ -204,47 +204,81 @@ public class DjAgent extends MusicUsAgent
                     }
                 }
 
-                double selectedMslDistance = Long.MAX_VALUE;
-                Song selectedSong = null;
-                AID selectedSongsLibraryAgent = null;
-
-                // For each collection, find the winner song  (OLD---For each song find total distance to all the listeners--)
+                // For each collection, find the winner song
                 for( Map.Entry<String, Listener> connectedListenerEntry : connectedListeners.entrySet() )
                 {
                     Listener connectedListener = connectedListenerEntry.getValue();
 
-                    for( SongCollection collection : connectedListener.getEnabledMusicLibraryCollection() )
+                    for( SongCollection collection : connectedListener.getEnabledMusicLibraryCollection() )     // Get enabled and not played songs existing library collections(Playlists)
                     {
-                        for( CollectionSong collectionSong : collection.getNotPlayedSongsList() )       // Get not played and features extracted songs
+                        List<CollectionSong> notPlayedSongsList = collection.getNotPlayedSongsList();
+                        CollectionSong collectionSelectedSong = notPlayedSongsList.get( 0 );                    // if there is only one not played song in collection
+                        double selectedTotDistance = Double.MAX_VALUE;
+
+                        for( CollectionSong collectionSong : notPlayedSongsList )                               // Get not played and features extracted songs
                         {
-                            Song song = collectionSong;
-                            double totMslDistances = 0.0D;
-                            double[] mslDistances = new double[connectedListeners.size()];
-                            int listenerNo = 0;
-                            for( Listener listener : connectedListeners.values() )
+                            double totalDistance = 0.0D;                                                        // total distance from this song to other songs in the collection
+                            for( CollectionSong otherCollectionSong : notPlayedSongsList )
                             {
-                                double distanceFromSongToListener = Calculations.calculateEuclideanDistance(
-                                        /*Updated in round 1*/listener.getSongPreferenceFeatureModel(), song.getCalculationUsedFeatureValArr(), featureMaxValues, featureMinValues );
-                                double mslDistance = distanceFromSongToListener * listener.getMSL();
-                                mslDistances[listenerNo] = mslDistance;
-                                totMslDistances += mslDistance;
-                                //                                log( getName(), "For ", listener.getLibraryName(), " totMslDistances : ", String.valueOf( totMslDistances ) );
-                                listenerNo++;
-                            }
-                            log( getName(), "Song ", song.getName(), " of ", connectedListener.getLibrary().getName(), " with features ", Arrays.toString( song.getCalculationUsedFeatureValArr() ), " has total distance ", String.valueOf( totMslDistances ), " = ", Arrays.toString( mslDistances ), " for listners ", Arrays.toString( connectedListeners.keySet().toArray() ) );
-                            //                    log( Constants.LOG_IMPORTANT, getLibraryName(), "Total Distances ", Arrays.toString( distances ), " = ", String.valueOf( totDistances ), " for : ", libraryEntry.getKey().substring( libraryEntry.getKey().lastIndexOf( "\\" ) ) );
-
-
-                            // IGNORE PLAYEDSONGS IN CALCULATIONS AS WELL
-                            if( selectedMslDistance > totMslDistances )  // ALSO USE STANDARD DEVIATION(LESS MEANS EVERYONE LIKES IT MORE THAN JUST ONE LIKE IT A LOT)
-                            {
-                                selectedMslDistance = totMslDistances;
-                                selectedSong = song;
-                                selectedSongsLibraryAgent = connectedListenerEntry.getValue().getLibrary();
-                                log( Constants.LOG_IMPORTANT, getName(), /*"Total Distances ", Arrays.toString( distances ), " = ",*/
-                                        " Selected ", selectedSong.getPath(), " of ", selectedSongsLibraryAgent.getName(), "totMslDistances ", String.valueOf( totMslDistances ) );
+                                if( collectionSong != otherCollectionSong )
+                                {
+                                    double distanceBetweenSongs = Calculations.calculateEuclideanDistance(
+                                            /**/collectionSong.getCalculationUsedFeatureValArr(), otherCollectionSong.getCalculationUsedFeatureValArr(), featureMaxValues, featureMinValues );
+                                    double relativeDistance = distanceBetweenSongs * collectionSong.getRelativityToCollection() * otherCollectionSong.getRelativityToCollection();
+                                    totalDistance += relativeDistance;
+                                }
                             }
 
+                            if( selectedTotDistance > totalDistance )  // ALSO USE STANDARD DEVIATION(LESS MEANS EVERYONE LIKES IT MORE THAN JUST ONE LIKE IT A LOT)
+                            {
+                                selectedTotDistance = totalDistance;
+                                collectionSelectedSong = collectionSong;
+                                //                                log( Constants.LOG_IMPORTANT, getName(), /*"Total Distances ", Arrays.toString( distances ), " = ",*/
+                                //                                        " Selected ", selectedSong.getPath(), " of ", selectedSongsLibraryAgent.getName(), "totMslDistances ", String.valueOf( totMslDistances ) );
+                            }
+                        }
+
+                        collection.setCollectionSelectedSong( collectionSelectedSong );
+                    }
+                }
+
+                double selectedMslDistance = Double.MAX_VALUE;
+                Song selectedSong = null;
+                AID selectedSongsLibraryAgent = null;
+
+                // Find the winner  collection by least distance to listers from collection's winner song
+                for( Map.Entry<String, Listener> connectedListenerEntry : connectedListeners.entrySet() )
+                {
+                    Listener connectedListener = connectedListenerEntry.getValue();
+
+                    for( SongCollection collection : connectedListener.getEnabledMusicLibraryCollection() )         // Get enabled and not played songs existing library collections(Playlists)
+                    {
+                        CollectionSong collectionWinnerSong = collection.getCollectionSelectedSong();
+                        double totMslDistances = 0.0D;
+                        double[] mslDistances = new double[connectedListeners.size()];
+                        int listenerNo = 0;
+                        for( Listener listener : connectedListeners.values() )
+                        {
+                            double distanceFromSongToListener = Calculations.calculateEuclideanDistance(
+                                        /**/collectionWinnerSong.getCalculationUsedFeatureValArr(), listener.getSongPreferenceFeatureModel(), featureMaxValues, featureMinValues );
+                            double mslDistance = distanceFromSongToListener * connectedListener.getMSL() * collectionWinnerSong.getRelativityToCollection();
+                            mslDistances[listenerNo] = mslDistance;
+                            totMslDistances += mslDistance;
+                            //                                log( getName(), "For ", listener.getLibraryName(), " totMslDistances : ", String.valueOf( totMslDistances ) );
+                            listenerNo++;
+                        }
+                        log( getName(), "Song ", collectionWinnerSong.getName(), " of ", connectedListener.getLibrary().getName(), " with features ", Arrays.toString( collectionWinnerSong.getCalculationUsedFeatureValArr() ), " has total distance ", String.valueOf( totMslDistances ), " = ", Arrays.toString( mslDistances ), " for listners ", Arrays.toString( connectedListeners.keySet().toArray() ) );
+                        //                    log( Constants.LOG_IMPORTANT, getLibraryName(), "Total Distances ", Arrays.toString( distances ), " = ", String.valueOf( totDistances ), " for : ", libraryEntry.getKey().substring( libraryEntry.getKey().lastIndexOf( "\\" ) ) );
+
+
+                        // IGNORE PLAYEDSONGS IN CALCULATIONS AS WELL
+                        if( selectedMslDistance > totMslDistances )  // ALSO USE STANDARD DEVIATION(LESS MEANS EVERYONE LIKES IT MORE THAN JUST ONE LIKE IT A LOT)
+                        {
+                            selectedMslDistance = totMslDistances;
+                            selectedSong = collectionWinnerSong;
+                            selectedSongsLibraryAgent = connectedListenerEntry.getValue().getLibrary();
+                            log( Constants.LOG_IMPORTANT, getName(), /*"Total Distances ", Arrays.toString( distances ), " = ",*/
+                                    " Selected ", selectedSong.getPath(), " of ", selectedSongsLibraryAgent.getName(), "totMslDistances ", String.valueOf( totMslDistances ) );
                         }
                     }
                 }
@@ -298,25 +332,58 @@ public class DjAgent extends MusicUsAgent
                     }
 
 
-                    // Update satisfaction levels of listeners
-                    double maxMSLVal = Double.MIN_VALUE;
+                    double maxDistance = -Double.MAX_VALUE;
+                    double minDistance = Double.MAX_VALUE;
                     for( Listener listener : connectedListeners.values() )
                     {
                         double listenerMSL = listener.getMSL();
                         double distanceFromSongToListener = Calculations.calculateEuclideanDistance( listener.getSongPreferenceFeatureModel(), selectedSong.getCalculationUsedFeatureValArr(), featureMaxValues, featureMinValues );
-                        listener.setMSL( listenerMSL + ( 1 / 1 + distanceFromSongToListener ) );        // ( Math.pow( listenerMSL, 2 ) / distanceFromSongToListener )
+                        listener.setDistanceFromSelectedSong( distanceFromSongToListener );
+
+
+                        if( distanceFromSongToListener > maxDistance )
+                        {
+                            maxDistance = distanceFromSongToListener;
+                        }
+                        if( distanceFromSongToListener < minDistance )
+                        {
+                            minDistance = distanceFromSongToListener;
+                        }
+
+                    }
+                    // Update satisfaction levels of listeners
+                    double maxMSLVal = -Double.MAX_VALUE;
+                    double minMSLVal = Double.MAX_VALUE;
+                    for( Listener listener : connectedListeners.values() )
+                    {
+                        double listenerMSL = listener.getMSL();
+                        double distanceFromSongToListener = listener.getDistanceFromSelectedSong();
+                        double normalizedDistanceFromSongToListener = ( ( maxDistance - minDistance ) != 0.0D ) ?
+                                /**/( distanceFromSongToListener - minDistance ) / ( maxDistance - minDistance ) : 1.0D;        // 0 - 1
+
+                        // Weight more on last played song's distance and forget older played song's effect(distance) -> WRONG -> Should memorize old MSL,
+                        // if a collection not picked earlier, then its MSL should be remembered as low and carry forward as low also to next round till picked from it
+                        // Take Power to widen the distance gap and multiply by 10 to
+                        listener.setMSL( listenerMSL + Constants.FORGET_OLD_MSL_RATE + ( Math.pow( 10, ( 1 + Constants.DISTANCE_RANGE ) ) /
+                                /**/Math.pow( 10, ( /*Avoid 0*/1 + ( normalizedDistanceFromSongToListener * Constants.DISTANCE_RANGE ) ) ) ) );
+                        //                        listener.setMSL( listenerMSL - distanceFromSongToListener );    // Linear
                         if( listener.getMSL() > maxMSLVal )
                         {
                             maxMSLVal = listener.getMSL();
                         }
-                        log( Constants.LOG_IMPORTANT, getName(), "Updating MSL for ", listener.getLibraryName(), " MSL value: ", String.valueOf( listenerMSL ), " / ", String.valueOf( distanceFromSongToListener ), " = ", String.valueOf( listener.getMSL() ) );
+                        if( listener.getMSL() < minMSLVal )
+                        {
+                            minMSLVal = listener.getMSL();
+                        }
+                        log( Constants.LOG_IMPORTANT, getName(), "Updating MSL for ", listener.getLibraryName(), " MSL value: ", String.valueOf( listenerMSL ), " - ", String.valueOf( distanceFromSongToListener ), " = ", String.valueOf( listener.getMSL() ) );
 
                     }
                     // Rearrange MSL values to be 0 - 1 with max val as 1 (but don't change min val to 0)
                     for( Listener listener : connectedListeners.values() )
                     {
                         double listenerMSL = listener.getMSL();
-                        listener.setMSL( listenerMSL / maxMSLVal );
+                        listener.setMSL( ( listenerMSL ) / ( maxMSLVal ) );
+                        //                        listener.setMSL( ( listenerMSL - minMSLVal ) / ( maxMSLVal - minMSLVal ) );
                         log( Constants.LOG_IMPORTANT, getName(), "Normalized MSL for ", listener.getLibraryName(), " MSL value: ", String.valueOf( listener.getMSL() ) );
                     }
                 }

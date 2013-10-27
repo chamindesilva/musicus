@@ -17,6 +17,7 @@ public class CollectionSong extends Song
 {
     Song delegatedSong;
     private Map<String, Feature> collectionAdjustedFeatures;
+    private double relativityToCollection = 1.0D;       // Songs relativity to collection ( 0 - 1 )
 
 
     public CollectionSong( String path, String name )
@@ -140,5 +141,13 @@ public class CollectionSong extends Song
         return calculationUsedFeatureValArr;
     }
 
+    public double getRelativityToCollection()
+    {
+        return relativityToCollection;
+    }
 
+    public void setRelativityToCollection( double relativityToCollection )
+    {
+        this.relativityToCollection = relativityToCollection;
+    }
 }
