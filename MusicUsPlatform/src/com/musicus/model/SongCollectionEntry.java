@@ -1,7 +1,6 @@
-package com.musicus.db;
+package com.musicus.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.musicus.db.FileSavable;
 
 /**
  * Mapping between song collection and song

@@ -30,4 +30,83 @@ public class Calculations
 
         return Math.sqrt( tot / featureList1.length );
     }
+
+    /**
+     * get means for ALL FEATURES for all songs
+     *
+     * @param dataSets
+     * @return
+     */
+    public static double[] getMean( double[][] dataSets )
+    {
+        double[] means = new double[dataSets.length];   // no of features
+        for( int setNo = 0; setNo < dataSets.length; setNo++ )
+        {
+            means[setNo] = getMean( dataSets[setNo] );
+        }
+
+        return means;
+    }
+
+    /**
+     * Get mean for A FEATURE for all songs
+     *
+     * @param dataSet
+     * @return
+     */
+    public static double getMean( double[] dataSet )
+    {
+        double tot = 0.0D;
+        for( double data : dataSet )
+        {
+            tot += data;
+        }
+
+        return tot / dataSet.length;        // divide by no of songs
+    }
+
+    /**
+     * get Standard Deviation for ALL FEATURES for all songs
+     *
+     * @param dataSets
+     * @return
+     */
+    public static double[] getSD( double[][] dataSets )
+    {
+        double[] sd = new double[dataSets.length];   // no of features
+        for( int setNo = 0; setNo < dataSets.length; setNo++ )
+        {
+            sd[setNo] = getSD( dataSets[setNo] );
+        }
+
+        return sd;
+    }
+
+    /**
+     * Get Standard Deviation for A FEATURE for all songs
+     *
+     * @param dataSet
+     * @return
+     */
+    public static double getSD( double[] dataSet )
+    {
+        return Math.sqrt( getVariance( dataSet ) );
+    }
+
+    public static double getVariance( double[] dataSet )
+    {
+        double mean = getMean( dataSet );
+        double tot = 0.0D;
+        for( double data : dataSet )
+        {
+            tot += Math.pow( ( data - mean ), 2.0 );    // power of 2
+        }
+
+        return tot / dataSet.length;        // divide by no of songs
+    }
+
+    public static double featureAdjustment( double originalVal, double mean, double sd )
+    {
+        return originalVal - ( ( originalVal - mean ) / ( 1 + sd ) );
+    }
 }
