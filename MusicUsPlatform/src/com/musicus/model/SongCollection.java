@@ -20,6 +20,7 @@ public class SongCollection extends FileSavable
     private List<CollectionSong> songsList;
 
     // Temporary variables
+    private CollectionSong collectionSelectedSong;
 
 
     //    @Override public FileSavable getInstance()
@@ -155,6 +156,16 @@ public class SongCollection extends FileSavable
     public void setEnabled( boolean enabled )
     {
         this.enabled = enabled;
+    }
+
+    public CollectionSong getCollectionSelectedSong()
+    {
+        return collectionSelectedSong;
+    }
+
+    public void setCollectionSelectedSong( CollectionSong collectionSelectedSong )
+    {
+        this.collectionSelectedSong = collectionSelectedSong;
     }
 }
 

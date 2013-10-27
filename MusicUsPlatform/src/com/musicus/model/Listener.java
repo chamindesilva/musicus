@@ -27,6 +27,7 @@ public class Listener
     private List<SongCollection> musicLibraryCollection;
     private double[] songPreferenceFeatureModel;
     private double MSL = 0.5D;              // Music Satisfactory Level ( range : 0 - 1 )
+    private double distanceFromSelectedSong;
 
     public Listener( String libraryName )
     {
@@ -103,7 +104,7 @@ public class Listener
     }
 
     /**
-     * Get enabled library collections(Playlists)
+     * Get enabled and not played songs existing library collections(Playlists)
      *
      * @return
      */
@@ -112,7 +113,7 @@ public class Listener
         List<SongCollection> enabledMusicLibraryCollection = new ArrayList<SongCollection>();
         for( SongCollection collection : getMusicLibraryCollection() )
         {
-            if( collection.isEnabled() )
+            if( collection.isEnabled() && !collection.getNotPlayedSongsList().isEmpty() )
             {
                 enabledMusicLibraryCollection.add( collection );
             }
@@ -176,7 +177,7 @@ public class Listener
         double[] featureModel = new double[Constants.CALCULATION_USED_FEATURES.length];     // No of features considered
         int calculatedSongCount = 0;
 
-        for( SongCollection collection : getEnabledMusicLibraryCollection() )
+        for( SongCollection collection : getEnabledMusicLibraryCollection() )               // Get enabled and not played songs existing library collections(Playlists)
         {
             for( CollectionSong collectionSong : collection.getNotPlayedSongsList() )       // Get not played and features extracted songs
             {
@@ -245,5 +246,15 @@ public class Listener
         }
 
         return null;
+    }
+
+    public double getDistanceFromSelectedSong()
+    {
+        return distanceFromSelectedSong;
+    }
+
+    public void setDistanceFromSelectedSong( double distanceFromSelectedSong )
+    {
+        this.distanceFromSelectedSong = distanceFromSelectedSong;
     }
 }
