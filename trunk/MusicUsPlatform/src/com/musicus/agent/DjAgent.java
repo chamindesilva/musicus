@@ -364,25 +364,37 @@ public class DjAgent extends MusicUsAgent
                         // Weight more on last played song's distance and forget older played song's effect(distance) -> WRONG -> Should memorize old MSL,
                         // if a collection not picked earlier, then its MSL should be remembered as low and carry forward as low also to next round till picked from it
                         // Take Power to widen the distance gap and multiply by 10 to
-                        listener.setMSL( listenerMSL + Constants.FORGET_OLD_MSL_RATE + ( Math.pow( 10, ( 1 + Constants.DISTANCE_RANGE ) ) /
-                                /**/Math.pow( 10, ( /*Avoid 0*/1 + ( normalizedDistanceFromSongToListener * Constants.DISTANCE_RANGE ) ) ) ) );
+                        //                        listener.setMSL( listenerMSL + Constants.FORGET_OLD_MSL_RATE + ( Math.pow( 10, ( 1 + Constants.DISTANCE_RANGE ) ) /
+                        //                                /**/Math.pow( 10, ( /*Avoid 0*/1 + ( normalizedDistanceFromSongToListener * Constants.DISTANCE_RANGE ) ) ) ) );
                         //                        listener.setMSL( listenerMSL - distanceFromSongToListener );    // Linear
-                        if( listener.getMSL() > maxMSLVal )
+
+                        // Dont use normalizedDistanceFromSongToListener, use distanceFromSongToListener -> Normalized distance will remove info abt how far listeners set is from(min distance)
+                        // eg:
+                        // Round one listner distances 2,3,4
+                        // Round two listner distances 6,7,8
+                        // In both rounds normalized distances are equal, but min distance(SD) different
+                        listener.setCurrentSongsMSL( Math.pow( 10, ( 1 + Constants.DISTANCE_RANGE ) ) /
+                                                 /**/Math.pow( 10, ( /*Avoid 0*/1 + ( distanceFromSongToListener * Constants.DISTANCE_RANGE ) ) ) );  // Value between 0 - 1
+                        if( listener.getCurrentSongsMSL() > maxMSLVal )
                         {
-                            maxMSLVal = listener.getMSL();
+                            maxMSLVal = listener.getCurrentSongsMSL();
                         }
-                        if( listener.getMSL() < minMSLVal )
+                        if( listener.getCurrentSongsMSL() < minMSLVal )
                         {
-                            minMSLVal = listener.getMSL();
+                            minMSLVal = listener.getCurrentSongsMSL();
                         }
-                        log( Constants.LOG_IMPORTANT, getName(), "Updating MSL for ", listener.getLibraryName(), " MSL value: ", String.valueOf( listenerMSL ), " - ", String.valueOf( distanceFromSongToListener ), " = ", String.valueOf( listener.getMSL() ) );
+                        log( Constants.LOG_IMPORTANT, getName(), "Updating MSL for ", listener.getLibraryName(), " Current Songs MSL value: ",
+                                /**/"10^(1+", String.valueOf( Constants.DISTANCE_RANGE ), ") / 10^(1+(", String.valueOf( distanceFromSongToListener ), " * ", String.valueOf( Constants.DISTANCE_RANGE ), "))",
+                                /**/" = ", String.valueOf( listener.getCurrentSongsMSL() ) );
 
                     }
                     // Rearrange MSL values to be 0 - 1 with max val as 1 (but don't change min val to 0)
                     for( Listener listener : connectedListeners.values() )
                     {
-                        double listenerMSL = listener.getMSL();
-                        listener.setMSL( ( listenerMSL ) / ( maxMSLVal ) );
+                        double listenerOldMSL = listener.getMSL();
+                        double listenerCurrentSongMSL = listener.getCurrentSongsMSL();
+                        listener.setMSL( ( ( listenerOldMSL * Constants.OLD_MSL_WEIGHT ) + ( ( ( listenerCurrentSongMSL - minMSLVal ) / ( maxMSLVal - minMSLVal ) ) * Constants.NEW_MSL_WEIGHT ) ) /
+                                /**/( Constants.OLD_MSL_WEIGHT + Constants.NEW_MSL_WEIGHT ) );
                         //                        listener.setMSL( ( listenerMSL - minMSLVal ) / ( maxMSLVal - minMSLVal ) );
                         log( Constants.LOG_IMPORTANT, getName(), "Normalized MSL for ", listener.getLibraryName(), " MSL value: ", String.valueOf( listener.getMSL() ) );
                     }

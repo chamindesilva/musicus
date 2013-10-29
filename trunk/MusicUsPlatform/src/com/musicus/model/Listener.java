@@ -27,6 +27,7 @@ public class Listener
     private List<SongCollection> musicLibraryCollection;
     private double[] songPreferenceFeatureModel;
     private double MSL = 0.5D;              // Music Satisfactory Level ( range : 0 - 1 )
+    private double currentSongsMSL = 0.5D;              // Music Satisfactory Level ( range : 0 - 1 )
     private double distanceFromSelectedSong;
 
     public Listener( String libraryName )
@@ -150,6 +151,16 @@ public class Listener
     public void setMSL( double MSL )
     {
         this.MSL = MSL;
+    }
+
+    public double getCurrentSongsMSL()
+    {
+        return currentSongsMSL;
+    }
+
+    public void setCurrentSongsMSL( double currentSongsMSL )
+    {
+        this.currentSongsMSL = currentSongsMSL;
     }
 
     /**
