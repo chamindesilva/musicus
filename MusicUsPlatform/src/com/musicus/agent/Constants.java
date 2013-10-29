@@ -60,6 +60,9 @@ public class Constants
             "Zero Crossings Overall Standard Deviation0"
     };
     public static final int FORGET_OLD_MSL_RATE = 0;
+    public static final int DISTANCE_RANGE = 1;
+    public static final double OLD_MSL_WEIGHT = 1.0D;
+    public static final double NEW_MSL_WEIGHT = 1.0D;
 
     //************ LOG LEVELS ******
     public static final boolean LOG_WRITE_TO_FILE = true;
@@ -74,5 +77,4 @@ public class Constants
     // Cross-fade controls
     public static final int CROSSFADE_BLOCKS_COUNT = 80;
     public static final float CROSSFADE_REDUCTION_STEP_SIZE = -5.0f;
-    public static final int DISTANCE_RANGE = 1;
 }
