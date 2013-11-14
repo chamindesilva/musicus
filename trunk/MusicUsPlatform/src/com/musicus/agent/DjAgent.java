@@ -92,6 +92,11 @@ public class DjAgent extends MusicUsAgent
                         listener.setLibrary( sender );
                         connectedListeners.put( senderName, listener );
                     }
+                    else
+                    {
+                        // Todo: Update library's existing data with new received data
+                    }
+
                     Listener connectedListner = connectedListeners.get( senderName );
                     connectedListner.incrementReceivedFiles();
                     if( connectedListner.getReceivedFiles() == FileDb.TOTAL_FILE_COUNT_FOR_DB )
